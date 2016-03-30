@@ -121,11 +121,11 @@ for index in range(len(linesWithLabel)):
         linesWithLabel[index] = []
     else:
         for innerIndex in range(len(linesWithLabel[index])-1):
-            cv2.line(image, (linesWithLabel[index][innerIndex][0], linesWithLabel[index][innerIndex][1]),
-                            (linesWithLabel[index][innerIndex+1][0], linesWithLabel[index][innerIndex+1][1]),
-                             linesWithLabelColor[index][0],
-                            2
-                     )
+            # cv2.line(image, (linesWithLabel[index][innerIndex][0], linesWithLabel[index][innerIndex][1]),
+            #                 (linesWithLabel[index][innerIndex+1][0], linesWithLabel[index][innerIndex+1][1]),
+            #                  linesWithLabelColor[index][0],
+            #                 2
+            #          )
             print 'draw: ' + str(linesWithLabelColor[index][0]) +'--' + str((linesWithLabel[index][innerIndex][0], linesWithLabel[index][innerIndex][1])) + ' -- ' + str((linesWithLabel[index][innerIndex+1][0], linesWithLabel[index][innerIndex+1][1]))
 
 

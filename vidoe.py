@@ -2,6 +2,7 @@
 import numpy as np
 import cv2
 import math
+import os
 
 from matplotlib import pyplot as plt
 
@@ -32,8 +33,7 @@ def getColorByAngle(angle):
     #default
     return (255, 255, 255)
 
-cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw/encoded/1459324699.h264.mp4")
-
+cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw/encoded/1459324456.h264.mp4")
 while True:
     if cap.grab():
         flag, frame = cap.retrieve()
@@ -41,6 +41,8 @@ while True:
         frame = cv2.flip(frame, -1)
         frame = cv2.flip(frame, 1)
         edges = cv2.Canny(frame, 100, 200)
+
+        font = cv2.FONT_HERSHEY_SIMPLEX
 
         sigma = 0.33
         v = np.median(frame)
@@ -62,11 +64,19 @@ while True:
             dx = line[0][2] - line[0][0];
             angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
 
-            if (((angle < -31 and angle > -34) or (angle > 31 and angle < 35)) == False):
+            # if (((angle < -31 and angle > -34) or (angle > 31 and angle < 35)) == False):
+            #     continue
+
+            if ((angle>-10 and angle <10) or (angle>-30 and angle <0) or (angle<30 and angle >0)):
                 continue
 
-            # if (angle>-10 and angle <10):
-            #     continue
+            if (angle > 60 and angle <= 90):
+                cv2.putText(frame, 'right swing', (500, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
+                os.system('mpg321 /Users/saoron/cardiganCam/beep.mp3 &')
+            if (angle < -60 and angle >= -90):
+                cv2.putText(frame, 'left swing', (100, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
+                os.system('mpg321 /Users/saoron/cardiganCam/beep.mp3 &')
+
 
             pt1 = (line[0][0], line[0][1])
             pt2 = (line[0][2], line[0][3])
@@ -74,9 +84,7 @@ while True:
 
 
 
-
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            # cv2.putText(frame, str(angle), (line[0][0], line[0][1]), font, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
+            cv2.putText(frame, str(angle), (line[0][0], line[0][1]), font, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
 
         cv2.imshow('video', edges)
         cv2.imshow('video1', frame)
