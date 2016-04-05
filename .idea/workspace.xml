@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="039e1401-649d-472b-bef4-2600191ac62f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/7.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/8.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/data/9.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cars.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/k.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/piVideo.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vidoe.py" afterPath="$PROJECT_DIR$/vidoe.py" />
     </list>
     <ignored path="cardiganCam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -34,8 +27,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1470">
-              <caret line="106" column="2" selection-start-line="106" selection-start-column="2" selection-end-line="107" selection-end-column="26" />
+            <state relative-caret-position="90">
+              <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
               <folding>
                 <element signature="e#32#50#0" expanded="true" />
               </folding>
@@ -78,8 +71,8 @@
       <file leaf-file-name="vidoe.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vidoe.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="67" column="3" selection-start-line="67" selection-start-column="3" selection-end-line="67" selection-end-column="3" />
+            <state relative-caret-position="1380">
+              <caret line="92" column="31" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="31" />
               <folding>
                 <element signature="e#32#50#0" expanded="true" />
               </folding>
@@ -138,13 +131,14 @@
         <option value="$PROJECT_DIR$/cars.xml" />
         <option value="$PROJECT_DIR$/carDetection.py" />
         <option value="$PROJECT_DIR$/k.py" />
-        <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/vidoe.py" />
         <option value="$PROJECT_DIR$/piVideo.py" />
+        <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="2" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1053" />
@@ -193,7 +187,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -228,13 +221,14 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/Detection_of_cars_and_lines-master" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -245,7 +239,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.piVideo">
+  <component name="RunManager" selected="Python.vidoe">
     <configuration default="false" name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -477,9 +471,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.piVideo" />
-        <item index="1" class="java.lang.String" itemvalue="Python.vidoe" />
-        <item index="2" class="java.lang.String" itemvalue="Python.main" />
+        <item index="0" class="java.lang.String" itemvalue="Python.vidoe" />
+        <item index="1" class="java.lang.String" itemvalue="Python.main" />
+        <item index="2" class="java.lang.String" itemvalue="Python.piVideo" />
         <item index="3" class="java.lang.String" itemvalue="Python.k" />
         <item index="4" class="java.lang.String" itemvalue="Python.carDetection" />
       </list>
@@ -502,8 +496,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1053" extended-state="0" />
-    <editor active="false" />
+    <frame x="2" y="23" width="1920" height="1053" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16927083" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -744,16 +738,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="106" column="2" selection-start-line="106" selection-start-column="2" selection-end-line="107" selection-end-column="26" />
-          <folding>
-            <element signature="e#32#50#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/carDetection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -790,16 +774,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2685">
           <caret line="179" column="13" selection-start-line="179" selection-start-column="13" selection-end-line="179" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding>
-            <element signature="e#32#69#0" expanded="true" />
+            <element signature="e#32#50#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vidoe.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="67" column="3" selection-start-line="67" selection-start-column="3" selection-end-line="67" selection-end-column="3" />
+        <state relative-caret-position="1380">
+          <caret line="92" column="31" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="31" />
           <folding>
             <element signature="e#32#50#0" expanded="true" />
           </folding>

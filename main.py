@@ -2,6 +2,7 @@
 import numpy as np
 import cv2
 import math
+import os
 from linear import Point
 from matplotlib import pyplot as plt
 
@@ -74,11 +75,15 @@ def getGroupIdByAngle(angle):
 
 
 # load the image
-image = cv2.imread('/Users/saoron/cardiganCam/data/9.png')
-
+image = cv2.imread('/Users/saoron/Desktop/cardiganRaw/road/frame640.jpg')
+# image = image[100:250, 0:500]
 # image = cv2.flip(image, -1)
 # image = cv2.flip(image, 1)
-sigma=0.33
+edges = cv2.Canny(image, 100, 200)
+
+font = cv2.FONT_HERSHEY_SIMPLEX
+
+sigma = 0.33
 v = np.median(image)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (3, 3), 0)
@@ -87,68 +92,49 @@ blurred = cv2.GaussianBlur(gray, (3, 3), 0)
 lower = int(max(0, (1.0 - sigma) * v))
 upper = int(min(255, (1.0 + sigma) * v))
 edged = cv2.Canny(blurred, lower, upper)
-# edges = cv2.Canny(image,100,200)
 
+
+lines = cv2.HoughLinesP(edged, 1, math.pi / 180, 80, 60, 20);
+print lines
 linesWithLabel = [[], [], [], [], [], [], [], [], [], [], []]
 linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], []]
-lines = cv2.HoughLinesP(edged, 1, math.pi/180, 80, 60, 20);
 
-for line in lines:
+if (lines is not None) :
+    for line in lines:
 
-            dy = line[0][3] - line[0][1];
-            dx = line[0][2] - line[0][0];
+        dy = line[0][3] - line[0][1];
+        dx = line[0][2] - line[0][0];
+        angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
+        print angle
+        #
+        # if (((angle < -30 and angle >= -45) or (angle > 30 and angle <= 45)) == False):
+        #     continue
+        #
+        #
+        if (angle>-10 and angle <10):
+            continue
 
-            angle = round((math.atan2(dy, dx) * 180.0 / math.pi), 2);
-            if (angle==0):
-                continue
-            # if (((angle < -31 and angle > -34) or (angle > 31 and angle < 35)) == False):
-            #     continue
-            #
-            # if (angle>-10 and angle <10):
-            #     continue
+        if (angle > 60 and angle <= 90):
+            cv2.putText(image, 'right swing', (500, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
 
-            pt1 = (line[0][0], line[0][1])
-            pt2 = (line[0][2], line[0][3])
-
-            avgX = (line[0][0] + line[0][2]) / 2
-            avgY = (line[0][1] + line[0][3]) / 2
-            #cv2.line(image, pt1, pt2, getColorByAngle(angle), 2)
-            # print ('line (' + str(line[0][0]) + ' ,' + str(line[0][1]) + ') (' + str(line[0][2]) + ' ,' + str(line[0][3]) + ') => ' + str(avgX) + ' ,' + str(avgY))
-            cv2.circle(image, (avgX, avgY), 3, getColorByAngle(angle), -1)
-            linesWithLabel[int(getGroupIdByAngle(angle))].append( [avgX, avgY] )
-            linesWithLabelColor[int(getGroupIdByAngle(angle))].append( getColorByAngle(angle) )
+        if (angle < -60 and angle >= -90):
+            cv2.putText(image, 'left swing', (100, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
 
 
-            font = cv2.FONT_HERSHEY_SIMPLEX
-            cv2.putText(image, str(angle), (line[0][0], line[0][1]), font, 0.4, (0, 0, 0), 1, cv2.LINE_AA)
+        avgX = (line[0][0] + line[0][2]) / 2
+        avgY = (line[0][1] + line[0][3]) / 2
 
+        # if (avgX <=150):
+        #     print 'DETECT IF THE COLOR IS ~WHITE' + frame[avgX][avgY]
 
-for index in range(len(linesWithLabel)):
-    if (len(linesWithLabel[index])<2):
-        linesWithLabel[index] = []
-    else:
-        Z = np.float32(linesWithLabel[index])
+        cv2.circle(image, (avgX, avgY), 5, getColorByAngle(angle), -1)
 
-        # define criteria and apply kmeans()
-        criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-        ret, label, center = cv2.kmeans(Z, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
+        linesWithLabel[int(getGroupIdByAngle(angle))].append([avgX, avgY])
+        linesWithLabelColor[int(getGroupIdByAngle(angle))].append(getColorByAngle(angle))
 
-        # Now separate the data, Note the flatten()
-        A = Z[label.ravel() == 0]
-        B = Z[label.ravel() == 1]
-
-        for i in range(len(center)):
-            cv2.circle(image, (center[i][0], center[i][1]), 6, (255, 0, 255), -1)
-        # for i in range(len(A)):
-        #     cv2.circle(image, (A[i][0], A[i][1]), 3, (255,255,255), -1)
-        # for i in range(len(B)):
-        #     cv2.circle(image, (B[i][0], B[i][1]), 3, (0, 0, 0), -1)
-        # Plot the data
-        plt.scatter(A[:, 0], A[:, 1])
-        plt.scatter(B[:, 0], B[:, 1], c='r')
-        plt.scatter(center[:, 0], center[:, 1], s=80, c='y', marker='s')
-        plt.xlabel('Height'), plt.ylabel('Weight')
-        # plt.show()
+        pt1 = (line[0][0], line[0][1])
+        pt2 = (line[0][2], line[0][3])
+        cv2.line(image, pt1, pt2, getColorByAngle(angle), 2)
 
 
 
@@ -156,5 +142,6 @@ for index in range(len(linesWithLabel)):
 print linesWithLabel
 
 # show the images
-cv2.imshow("images", np.hstack([image]))
+cv2.imshow("images",edged)
+cv2.imshow("images2", np.hstack([image]))
 cv2.waitKey(0)
