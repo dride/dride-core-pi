@@ -89,8 +89,7 @@ while True:
         upper = int(min(255, (1.0 + sigma) * v))
         edged = cv2.Canny(frame, lower, upper)
 
-
-        lines = cv2.HoughLinesP(edged, 1, math.pi / 180, 80, 60, 20);
+        lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 10, 30, 10);
         linesWithLabel = [[], [], [], [], [], [], [], [], [], [], []]
         linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], []]
         if (lines is not None) :
@@ -99,20 +98,22 @@ while True:
                 dy = line[0][3] - line[0][1];
                 dx = line[0][2] - line[0][0];
                 angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
-                #
-                # if (((angle < -30 and angle >= -45) or (angle > 30 and angle <= 45)) == False):
-                #     continue
-                #
-                #
-                if (angle>-10 and angle <10):
-                    continue
 
                 if (angle > 60 and angle <= 90):
                     cv2.putText(frame, 'right swing', (500, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
-                    os.system('mpg321 /Users/saoron/cardiganCam/beep.mp3 &')
+                    os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
                 if (angle < -60 and angle >= -90):
                     cv2.putText(frame, 'left swing', (100, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
-                    os.system('mpg321 /Users/saoron/cardiganCam/beep.mp3 &')
+                    os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+
+                if (((angle < -30 and angle >= -45) or (angle > 30 and angle <= 45)) == False):
+                    continue
+
+
+                if (angle>-10 and angle <10):
+                    continue
+
+
 
                 avgX = (line[0][0] + line[0][2]) / 2
                 avgY = (line[0][1] + line[0][3]) / 2
@@ -133,27 +134,6 @@ while True:
 
                 # cv2.putText(frame, str(angle), (line[0][0], line[0][1]), font, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
 
-        # for index in range(len(linesWithLabel)):
-        #     if (len(linesWithLabel[index]) < 2):
-        #         linesWithLabel[index] = []
-        #     else:
-        #         Z = np.float32(linesWithLabel[index])
-        #
-        #         # define criteria and apply kmeans()
-        #         criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-        #         ret, label, center = cv2.kmeans(Z, 2, None, criteria, 10, cv2.KMEANS_RANDOM_CENTERS)
-        #
-        #         # Now separate the data, Note the flatten()
-        #         A = Z[label.ravel() == 0]
-        #         B = Z[label.ravel() == 1]
-        #
-        #         for i in range(len(center)):
-        #             cv2.circle(frame, (center[0][0], center[0][1]), 6, (255, 0, 255), -1)
-        #             # cv2.line(frame, (center[i][0], center[i][1]),
-        #             #          (center[i][0], center[i][0]),
-        #             #          (255,255,255),
-        #             #          2
-        #             #          )
 
 
         cv2.imshow('video', edges)
