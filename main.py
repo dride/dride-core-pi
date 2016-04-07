@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 
 
 # load the image
-image = cv2.imread('/Users/saoron/cardiganCam/training/set1/frame3220.jpg')
+image = cv2.imread('/Users/saoron/cardiganCam/training/set5/frame1730.jpg')
 
 frameAnalyzer.analyze_frame(image, False)
 

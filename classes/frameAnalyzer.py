@@ -56,17 +56,17 @@ def get_group_id_by_angle(angle):
 	if 45 < angle <= 55:
 		return 5
 
-	if -15 < angle >= -10:
+	if -15 > angle >= -10:
 		return 6
-	if -10 < angle >= -15:
+	if -10 > angle >= -15:
 		return 7
-	if -15 < angle >= -25:
+	if -15 > angle >= -25:
 		return 8
-	if -25 < angle >= -35:
+	if -25 > angle >= -35:
 		return 9
-	if -35 < angle >= -45:
+	if -35 > angle >= -45:
 		return 10
-	if -45 < angle >= -55:
+	if -45 > angle >= -55:
 		return 11
 
 	# default group
@@ -91,6 +91,7 @@ def find_lanes(frame, flip):
 	linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
 
 	# frame = frame[100:300, 0:500]
+	frame = frame[0:250, 200:500]
 
 	if flip:
 		frame = cv2.flip(frame, -1)
@@ -108,7 +109,7 @@ def find_lanes(frame, flip):
 	upper = int(min(255, (1.0 + sigma) * v))
 	edged = cv2.Canny(gray, lower, upper)
 
-	lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 10, 30, 10);
+	lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 10, 30, 9);
 	linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 	linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
 	if (lines is not None) :
@@ -122,7 +123,7 @@ def find_lanes(frame, flip):
 			#     continue
 			#
 			#
-			if (angle>-10 and angle <10):
+			if -10 < angle < 10 or angle == 90 or angle == -90:
 				continue
 
 			if (angle > 60 and angle <= 90):
