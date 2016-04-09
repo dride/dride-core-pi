@@ -73,27 +73,29 @@ def get_group_id_by_angle(angle):
 	return 0
 
 
-def show_frame(frame1, frame2):
+def show_frame(frame1, frame2, video):
 
 	cv2.imshow('img1', frame1)
 	cv2.imshow('img2', frame2)
 
-	cv2.waitKey(0)
+	if video:
+		cv2.waitKey(27)
+	else:
+		cv2.waitKey(0)
 
 
-def analyze_frame(frame, flip):
-	find_lanes(frame, flip)
+def analyze_frame(frame, flip, video):
+	find_lanes(frame, flip, video)
 
 
 # Find lanes using angle
-def find_lanes(frame, flip):
+def find_lanes(frame, flip, video):
 	linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 	linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
 
-	# frame = frame[100:300, 0:500]
-	frame = frame[0:250, 200:500]
-
 	if flip:
+		frame = frame[100:240, 0:500]
+		# frame = frame[0:250, 200:500]
 		frame = cv2.flip(frame, -1)
 		frame = cv2.flip(frame, 1)
 
@@ -112,26 +114,35 @@ def find_lanes(frame, flip):
 	lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 10, 30, 9);
 	linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 	linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
+	right = 0
+	left = 0
+	goodLines = 0
 	if (lines is not None) :
 		for line in lines:
 
 			dy = line[0][3] - line[0][1];
 			dx = line[0][2] - line[0][0];
 			angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
-			#
-			# if (((angle < -30 and angle >= -45) or (angle > 30 and angle <= 45)) == False):
-			#     continue
-			#
-			#
-			if -10 < angle < 10 or angle == 90 or angle == -90:
+
+			if (angle == 90 or angle == -90 or angle == 0):
 				continue
 
 			if (angle > 60 and angle <= 90):
-				cv2.putText(frame, 'right swing', (500, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
-				os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+				right += 1
 			if (angle < -60 and angle >= -90):
-				cv2.putText(frame, 'left swing', (100, 100), font, 1, (51, 51, 51), 1, cv2.LINE_AA)
-				os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+				left += 1
+
+			if (((angle < -30 and angle >= -45) or (angle > 30 and angle <= 45)) == False):
+				continue
+
+			if (angle > -10 and angle < 10):
+				continue
+
+			# # experimenal - if too many line > 50 we can stop looking
+			# # Migt be problamatic in case of departure
+			# goodLines += 1
+			# if (goodLines > 50):
+			#     break
 
 			avgX = (line[0][0] + line[0][2]) / 2
 			avgY = (line[0][1] + line[0][3]) / 2
@@ -149,7 +160,18 @@ def find_lanes(frame, flip):
 			cv2.line(frame, pt1, pt2, get_color_by_angle(angle), 2)
 			cv2.putText(frame, str(angle), (line[0][0], line[0][1]), font, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
 
-	show_frame(edged, frame)
+	# print str(left) + '--' + str(right)
+	if (right > 3):
+		print 'right' + str(right)
+		cv2.putText(frame, 'right swing', (500, 100), font, 2, (0, 0, 0), 1, cv2.LINE_AA)
+		os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+	if (left > 3):
+		print 'left' + str(left)
+		cv2.putText(frame, 'left swing', (100, 100), font, 2, (0, 0, 0), 1, cv2.LINE_AA)
+		os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+
+
+	show_frame(edged, frame, video)
 
 
 
