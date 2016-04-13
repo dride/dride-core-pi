@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 
 cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw2/encoded/1459329880.h264.mp4")
-cascade_src = 'cars.xml'
+cascade_src = 'assets/haar/cars.xml'
 car_cascade = cv2.CascadeClassifier(cascade_src)
 font = cv2.FONT_HERSHEY_SIMPLEX
 while True:
