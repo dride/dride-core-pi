@@ -2,8 +2,10 @@ import numpy as np
 import cv2
 import math
 import os
-
+from classes.forwardCollisionWarning import forwardCollisionWarning
 from classes.parallel import parralel
+from threading import Thread
+
 from classes.lines import closestDistanceBetweenLines
 
 
@@ -87,7 +89,13 @@ def show_frame(frame1, frame2, video):
 
 
 def analyze_frame(frame, flip, video):
+	forwardCollisionWarning(frame, 230, 210, 280, 320)
 	find_lanes(frame, flip, video)
+
+	# thread = Thread(target=find_lanes, args=(frame, flip, video))
+	# thread.start()
+	# thread.join()
+
 
 
 # Find lanes using angle
@@ -193,34 +201,10 @@ def find_lanes(frame, flip, video):
 
 			pt1 = (line[0][0], line[0][1])
 			pt2 = (line[0][2], line[0][3])
-			# cv2.line(frame, pt1, pt2, get_color_by_angle(angle), 2)
+			cv2.line(frame, pt1, pt2, get_color_by_angle(angle), 2)
 			# cv2.putText(frame, str(angle), (line[0][0]*2, line[0][1]), font, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
 
 
-	# group lines and clean noise
-	c = 0
-	for lines in groupedLines:
-		if len(lines) <2: continue
-		for i in range(0, len(lines)-1):
-			c+=1
-			a1 = np.array([lines[i][0][0], lines[i][0][1], 0])
-			a0 = np.array([lines[i][1][0], lines[i][0][1], 0])
-			b0 = np.array([lines[i+1][0][0], lines[i+1][0][1], 0])
-			b1 = np.array([lines[i+1][1][0], lines[i+1][0][1], 0])
-
-			res =  closestDistanceBetweenLines(a0, a1, b0, b1, False)
-			print res[2]
-			if (res[2] > 7):
-				cv2.line(frame, lines[i][0], lines[i][1], (255, 255, 255, 0.5), 2)
-				cv2.putText(frame, str(c), (lines[i][0]), font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
-
-				cv2.line(frame, lines[i+1][0], lines[i+1][1], get_color_by_angle(0), 2)
-				cv2.putText(frame, str(c), (lines[i+1][0]), font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
-
-
-
-
-		print
 
 
 	# print str(left) + '--' + str(right)
