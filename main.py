@@ -11,13 +11,13 @@ from matplotlib import pyplot as plt
 
 
 
-cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw3/encoded/1459721366.h264.mp4")
+cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw4/encoded/1459725663.h264.mp4")
 c = 0
 while True:
     # if c >0:
     #     cv2.waitKey(0)
     # c +=1
-
+    # print c
     if cap.grab():
         flag, frame = cap.retrieve()
 

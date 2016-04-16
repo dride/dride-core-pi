@@ -2,26 +2,33 @@ import cv2
 import numpy as np
 import os
 import math
-
+from classes.linearEquation import linearEquation
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+from pylab import *
 class laneDepartureWarning:
 
 	font = cv2.FONT_HERSHEY_SIMPLEX
-	width = 500
-	height = 300
+	height, width = 175,500
 
-	numberOfChuncks = 9
+
+	numberOfChuncks = 25
+	lineJump = 5
+	lifePeriod = 60
+	flag = 0
+
+	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
 	def __init__(self, frame, flip, video):
 		self.frame = frame
 		self.find_lanes(flip, video)
 
-
 	# Find lanes using angle
 	def find_lanes(self, flip, video):
 		linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 		linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
-		self.linesInGroups_left = [[], [], [], [], [], [], [], [], [], []]
-		self.linesInGroups_right = [[], [], [], [], [], [], [], [], [], []]
+		self.linesInGroups_left = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+		self.linesInGroups_right = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
 		if flip:
 			self.frame = self.frame[100:275, 0:500]
@@ -42,7 +49,7 @@ class laneDepartureWarning:
 		# super sensitive
 		# lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 6, 30, 6);
 
-		lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 9, 30, 9);
+		lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 6, 30, 6);
 		filteredLines = []
 		linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 		groupedLines = [[], [], [], [], [], [], [], [], [], [], [], []]
@@ -52,8 +59,8 @@ class laneDepartureWarning:
 
 		# split road to chuncks
 		for chunk in range(0, self.numberOfChuncks):
-			fromPt = 0, chunk*25
-			toPt = 500, chunk*25
+			fromPt = 0, chunk*self.lineJump
+			toPt = 500, chunk*self.lineJump
 			# cv2.line(self.frame, fromPt, toPt, (255, 255, 255, 0.5), 1)
 
 
@@ -108,6 +115,8 @@ class laneDepartureWarning:
 				# append line to its horizontal group
 				self.assign_group_to_line(line)
 
+		# draw virtual lanes
+		# self.add_virtual_lines()
 
 		# detect lane side
 		self.predict_lane(filteredLines)
@@ -125,10 +134,12 @@ class laneDepartureWarning:
 			print 'right ' + str(right)
 			cv2.putText(self.frame, 'right swing', (500, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
 			os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+			self.clear_center_point()
 		if (left > 3):
 			print 'left ' + str(left)
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
 			os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+			self.clear_center_point()
 
 
 		self.show_frame(edged, self.frame, video)
@@ -248,7 +259,7 @@ class laneDepartureWarning:
 		return left > right
 
 	def get_avg_of_secotors(self):
-		finalCenterPoints  = []
+
 		for chunk in range(0, self.numberOfChuncks):
 			#setup minimum value for right lane
 			min = self.width
@@ -273,6 +284,9 @@ class laneDepartureWarning:
 						min = line[0][0]
 						right_lane_candidtae = line
 
+			self.remove_aged_centers(chunk)
+
+			# if we found parallel lines on chunk
 			if len(right_lane_candidtae) > 0 and len(left_lane_candidtae) > 0:
 
 				ptR1 = (right_lane_candidtae[0][0], right_lane_candidtae[0][1])
@@ -280,11 +294,29 @@ class laneDepartureWarning:
 				ptL1 = (left_lane_candidtae[0][0], left_lane_candidtae[0][1])
 				ptL2 = (left_lane_candidtae[0][2], left_lane_candidtae[0][3])
 
-				avgX_R = (right_lane_candidtae[0][0] + right_lane_candidtae[0][2]) / 2
-				avgY_R = (right_lane_candidtae[0][1] + right_lane_candidtae[0][3]) / 2
 
-				avgX_L = (left_lane_candidtae[0][0] + left_lane_candidtae[0][2]) / 2
-				avgY_L = (left_lane_candidtae[0][1] + left_lane_candidtae[0][3]) / 2
+				# cv2.line(self.frame, (ptR1), (ptR2), self.get_color_by_angle(-26), 2)
+				# cv2.line(self.frame, (ptL1), (ptL2), self.get_color_by_angle(26), 2)
+				#
+				# cv2.circle(self.frame, (ptR1), 2, self.get_color_by_angle(-15), -1)
+				# cv2.circle(self.frame, (ptR2), 2, self.get_color_by_angle(-35), -1)
+				#
+				# cv2.circle(self.frame, (ptL1), 2, self.get_color_by_angle(15), -1)
+				# cv2.circle(self.frame, (ptL2), 2, self.get_color_by_angle(35), -1)
+
+				equation = linearEquation(ptR1, ptR2)
+				estimatedPointR =  equation.getX(chunk * self.lineJump), chunk * self.lineJump
+				# cv2.circle(self.frame, (estimatedPointR), 5, self.get_color_by_angle(15), -1)
+
+				equation = linearEquation(ptL1, ptL2)
+				estimatedPointL =  equation.getX(chunk * self.lineJump), chunk * self.lineJump
+				# cv2.circle(self.frame, (estimatedPointL), 5, self.get_color_by_angle(45), -1)
+
+				avgX_R = estimatedPointR[0]
+				avgY_R = estimatedPointR[1]
+
+				avgX_L = estimatedPointL[0]
+				avgY_L = estimatedPointL[1]
 
 				dy = avgY_L - avgY_R;
 				dx = avgX_L - avgX_R;
@@ -293,36 +325,47 @@ class laneDepartureWarning:
 				centerChunkX = (avgX_R + avgX_L) / 2
 				centerChunkY = (avgY_R + avgY_L) / 2
 
-				finalCenterPoints.append((centerChunkX, centerChunkY))
-
-				cv2.circle(self.frame, (avgX_R, avgY_R), 5, self.get_color_by_angle(-40), -1)
-				cv2.circle(self.frame, (avgX_L, avgY_L), 5, self.get_color_by_angle(-40), -1)
-				cv2.line(self.frame, (avgX_R, avgY_R), (avgX_L, avgY_L), self.get_color_by_angle(-26), 1)
-
-				cv2.circle(self.frame, (centerChunkX, centerChunkY), 5, self.get_color_by_angle(-15), -1)
-				cv2.putText(self.frame, str(angle), (centerChunkX+10, centerChunkY), self.font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
+				# check if the length of the line to big
+				crossLine = linearEquation(estimatedPointR, estimatedPointL)
 
 
-				cv2.line(self.frame, ptR1, ptR2, self.get_color_by_angle(0), 2)
-				cv2.line(self.frame, ptL1, ptL2, self.get_color_by_angle(10), 2)
+				# if (0 <= chunk <= 5 and crossLine.calculateDistance() > 180) or (5 < chunk <= 8 and crossLine.calculateDistance() > 250):
+				# 	continue
 
-		# draw center of lane
-		count = 0
-		sum = 0
+				############################
+				# This part works great on streight lines
+				# it should be dynamic in case of turns
+				# curnetly we set a trash hold of 90 % from the middle avg
+				# TODO: inspect the range in curves
+				############################
 
-		for pt in finalCenterPoints:
-			sum += pt[0]
-			count+=1
-		# mark center
-		if count > 0:
-			cv2.line(self.frame, (sum/count, 0), (sum/count, self.height), (0, 0, 255), 2)
+				if (100 * centerChunkX) / self.get_lane_avg_x() > 80:
+					self.finalCenterPoints[chunk] = [(centerChunkX, centerChunkY), self.lifePeriod] # point , age
 
+
+				# cv2.circle(self.frame, (avgX_R, avgY_R), 5, self.get_color_by_angle(-40), -1)
+				# cv2.circle(self.frame, (avgX_L, avgY_L), 5, self.get_color_by_angle(-40), -1)
+				# cv2.line(self.frame, (avgX_R, avgY_R), (avgX_L, avgY_L), self.get_color_by_angle(-26), 1)
+				#
+				# cv2.circle(self.frame, (centerChunkX, centerChunkY), 5, self.get_color_by_angle(-15), -1)
+				# # cv2.putText(self.frame, str((100 * centerChunkX) / self.get_lane_avg_x()), (centerChunkX+10, centerChunkY), self.font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
+				#
+				#
+				# cv2.line(self.frame, ptR1, ptR2, self.get_color_by_angle(0), 2)
+				# cv2.line(self.frame, ptL1, ptL2, self.get_color_by_angle(10), 2)
+
+
+		# self.draw_center_polyfit_line()
+
+		self.draw_center_circles()
+
+		self.draw_center_avg_line()
 
 	def assign_group_to_line(self, line):
 
 		for chunk in range(0, self.numberOfChuncks):
-			fromY = chunk*25
-			toY   = (chunk+1)*25
+			fromY = chunk*self.lineJump
+			toY   = (chunk+1)*self.lineJump
 
 			if self.intersect( (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, fromY), (self.width, toY)) or (line[0][1] >= fromY and line[0][3] <= toY):
 				if self.get_lane_direction_by_point(line):
@@ -347,3 +390,73 @@ class laneDepartureWarning:
 						pt1 = (line[0][0], line[0][1])
 						pt2 = (line[0][2], line[0][3])
 						cv2.line(self.frame, pt1, pt2, self.get_color_by_angle(chunk*15), 2)
+
+	# Return X avg of in-memory center
+	def get_lane_avg_x(self):
+		sum = 0
+		count = 0
+		for pt in self.finalCenterPoints:
+			if len(pt) > 0:
+				sum += pt[0][0]
+				count += 1
+		return sum / count if count > 0 else 250
+
+	def remove_aged_centers(self, chunk):
+		if len(self.finalCenterPoints[chunk]) > 0:
+			self.finalCenterPoints[chunk][1] -= 1
+
+		if len(self.finalCenterPoints[chunk]) > 0 and self.finalCenterPoints[chunk][1] <= 0:
+			self.finalCenterPoints[chunk] = []
+
+	def draw_center_avg_line(self):
+		# draw center of lane
+		count = 0
+		sum = 0
+
+		for pt in self.finalCenterPoints:
+			if len(pt) > 0:
+				sum += pt[0][0]
+				count += 1
+		# mark center
+		if count > 0:
+			cv2.line(self.frame, (sum / count, self.height / 2), (sum / count, self.height), (0, 255, 255), 2)
+
+
+	def draw_center_polyfit_line(self):
+		# fit line algo
+		pts = []
+		# generate two arrays for X and Y for polyfit
+		for pt in self.finalCenterPoints:
+			if len(pt) > 0:
+				pts.append((pt[0][0], pt[0][1]))
+
+		if len(pts) > 0:
+			print pts
+			rows = self.height
+			cols = self.width
+			[vx, vy, x, y] = cv2.fitLine(np.array(pts), cv2.DIST_L2, 0, 0.01, 0.01)
+			lefty = int((-x * vy / vx) + y)
+			righty = int(((cols - x) * vy / vx) + y)
+			cv2.line(self.frame, (cols - 1, righty), (0, lefty), (0, 0, 255), 2)
+
+
+	def draw_center_circles(self):
+		# print cicrles in ceter with memory
+		for pt in self.finalCenterPoints:
+			if len(pt) > 0:
+				cv2.circle(self.frame, (pt[0][0], pt[0][1]), 2, self.get_color_by_angle(55), -1)
+
+	def add_virtual_lines(self):
+		print '---'
+		print len(self.linesInGroups_right[2])
+
+		# equation = linearEquation(ptR1, ptR2)
+		# estimatedPointR = equation.getX(chunk * self.lineJump), chunk * self.lineJump
+
+	# clear all centered points
+	def clear_center_point(self):
+		for chunk in range(0, self.numberOfChuncks):
+			if len(self.finalCenterPoints[chunk]) > 0:
+				self.finalCenterPoints[chunk][1] = 0
+
+
