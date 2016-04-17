@@ -10,14 +10,31 @@ from classes.laneDepartureWarning import laneDepartureWarning
 
 
 
-
 def analyze_frame(frame, flip, video):
-	# forwardCollisionWarning(frame, 230, 210, 280, 320)
-	laneDepartureWarning(frame, flip, video)
 
-	# thread = Thread(target=find_lanes, args=(frame, flip, video))
-	# thread.start()
-	# thread.join()
+	laneCenter = 250
+	ldw = laneDepartureWarning(frame, flip, video, laneCenter)
+	laneCenter = ldw.find_lanes(flip, video)
+
+	# width = 50
+	# leftCornerX = laneCenter - (width / 2)
+	# leftCornerY = 50
+	#
+	# x1 = int(laneCenter - (width / 2))
+	# y1 = 200
+	# x2 = laneCenter + (width / 2)
+	# y2 = 280
+	#
+	# # x1 = int(laneCenter - (width / 2))
+	# # y1 = 190
+	# # x2 = laneCenter + (width / 2)
+	# # y2 = 280
+	#
+	#
+	# laneCenter = forwardCollisionWarning(frame, x1, y1, x2, y2)
+	#
+
+
 
 
 

@@ -11,7 +11,7 @@ from matplotlib import pyplot as plt
 
 
 
-cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw4/encoded/1459725663.h264.mp4")
+cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw4/encoded/1459726084.h264.mp4")
 c = 0
 while True:
     # if c >0:
