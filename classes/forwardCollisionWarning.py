@@ -70,12 +70,18 @@ class forwardCollisionWarning:
 			for i in corners:
 				x, y = i.ravel()
 
+				# dismiss by color
+				color = self.frame[(x, y)]
+				print color
+				if int(color[0]) > 190:
+					continue
+
 				# make sure the corner is not on the border
 				if 0 <= x <= 1 or 0 <= y <= 1 or self.x1-1 <= x <= self.x1+1 or self.y1+1 <= y <= self.y1+1:
 					continue
 				else:
 					cornerCount += 1
-					# cv2.circle(self.frame, (x, y), 3, 255, -1)
+					cv2.circle(self.frame, (x, y), 3, ((int(color[0]), int(color[1]), int(color[2]))), -1)
 
 			cv2.imshow('video23', frame2)
 			print cornerCount
@@ -84,7 +90,7 @@ class forwardCollisionWarning:
 				cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
 				cv2.putText(self.frame, "WARNING", (0, 0), self.font, 0.6, (51, 51, 51), 1,
 				            cv2.LINE_AA)
-				self.sound.play_sound('carAhead', False)
+				# self.sound.play_sound('carAhead', False)
 
 
 				return 1

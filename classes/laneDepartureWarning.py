@@ -60,7 +60,7 @@ class laneDepartureWarning:
 		# lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 6, 30, 6);
 
 
-		lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 6, 30, 6);
+		lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 4, 30, 4);
 		filteredLines = []
 		linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 		groupedLines = [[], [], [], [], [], [], [], [], [], [], [], []]
@@ -131,8 +131,8 @@ class laneDepartureWarning:
 		self.get_avg_of_secotors()
 
 
-		self.draw_lines_by_arr(self.linesInGroups_right)
-		self.draw_lines_by_arr(self.linesInGroups_left)
+		# self.draw_lines_by_arr(self.linesInGroups_right)
+		# self.draw_lines_by_arr(self.linesInGroups_left)
 
 
 		# print str(left) + '--' + str(right)
