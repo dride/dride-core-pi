@@ -3,6 +3,7 @@ import numpy as np
 import os
 import math
 from classes.linearEquation import linearEquation
+from classes.sound import sound
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from pylab import *
@@ -18,6 +19,8 @@ class laneDepartureWarning:
 	lifePeriod = 60
 	flag = 0
 	frameClean = None
+
+	sound = sound()
 
 	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
@@ -59,8 +62,11 @@ class laneDepartureWarning:
 		# super sensitive
 		# lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 6, 30, 6);
 
+		# good for highway streight
+		# lines = cv2.HoughLinesP(edged, 1, math.pi / 180, 50, 10, 10);
 
-		lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 4, 30, 4);
+		lines = cv2.HoughLinesP(edged, 1, math.pi / 360,  6, 30, 6);
+
 		filteredLines = []
 		linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
 		groupedLines = [[], [], [], [], [], [], [], [], [], [], [], []]
@@ -79,11 +85,13 @@ class laneDepartureWarning:
 		if (lines is not None) :
 			for line in lines:
 
+
+
 				dy = line[0][3] - line[0][1];
 				dx = line[0][2] - line[0][0];
 				angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
 
-				if (angle == 90 or angle == -90 or angle == 0 or angle > -20 and angle < 20):
+				if (angle == 90 or angle == -90 or angle == 0):
 					continue
 
 				# insert to filtered lines array
@@ -94,9 +102,8 @@ class laneDepartureWarning:
 				if (angle < -60 and angle >= -90):
 					left += 1
 
-				if (((angle < -30 and angle >= -45) or (angle > 30 and angle <= 45)) == False):
-					continue
-
+				# if ( (-45 <= angle < -30 or 30 < angle <= 45) == False):
+				# 	continue
 
 				pt1 = (line[0][0], line[0][1])
 				pt2 = (line[0][2], line[0][3])
@@ -139,12 +146,12 @@ class laneDepartureWarning:
 		if (right > 3):
 			print 'right ' + str(right)
 			cv2.putText(self.frame, 'right swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
-			os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+			self.sound.play_sound('rightLaneDep', False)
 			self.clear_center_point()
 		if (left > 3):
 			print 'left ' + str(left)
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
-			os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/beep.mp3 &')
+			self.sound.play_sound('leftLaneDep', False)
 			self.clear_center_point()
 
 
@@ -152,63 +159,6 @@ class laneDepartureWarning:
 
 		return self.get_avg_center_X()
 
-	def get_color_by_angle(self, angle):
-
-		if 10 < angle <= 15:
-			return 245, 12, 12
-		if 15 < angle <= 28:
-			return 245, 12, 184
-		if 28 < angle <= 40:
-			return 134, 12, 245
-		if 40 < angle <= 45:
-			return 12, 83, 245
-		if 45 < angle <= 55:
-			return 12, 245, 159
-
-		if -15 < angle >= -10:
-			return 47, 245, 12
-		if -10 < angle >= -15:
-			return 187, 245, 12
-		if -15 < angle >= -28:
-			return 245, 173, 12
-		if -28 < angle >= -40:
-			return 245, 4, 12
-		if -40 < angle >= -45:
-			return 0, 0, 250
-		if -45 < angle >= -55:
-			return 12, 65, 19
-
-		# default color
-		return 0, 255, 255
-
-	def get_group_id_by_angle(self, angle):
-
-		if 10 < angle <= 15:
-			return 1
-		if 15 < angle <= 28:
-			return 2
-		if 25 < angle <= 35:
-			return 3
-		if 28 < angle <= 40:
-			return 4
-		if 45 < angle <= 55:
-			return 5
-
-		if -15 > angle >= -10:
-			return 6
-		if -10 > angle >= -15:
-			return 7
-		if -15 > angle >= -25:
-			return 8
-		if -25 > angle >= -35:
-			return 9
-		if -35 > angle >= -45:
-			return 10
-		if -45 > angle >= -55:
-			return 11
-
-		# default group
-		return 0
 
 	def show_frame(self, frame1, frame2, video):
 
@@ -348,16 +298,17 @@ class laneDepartureWarning:
 				############################
 
 				# get color samples near our object to detect doubled lines
-				roadColorRight =  self.frameClean[avgY_R, avgX_R-20]
-				rightColor =  self.frameClean[avgY_R, avgX_R-3]
 
-				roadColorLeft =  self.frameClean[avgY_L, avgX_L+40]
-				leftColor =  self.frameClean[avgY_L, avgX_L+3]
+				roadColorRight =  self.frameClean[self.get_probe_safe(avgY_R, avgX_R-20)]
+				rightColor =  self.frameClean[self.get_probe_safe(avgY_R, avgX_R-3)]
+
+				roadColorLeft =  self.frameClean[self.get_probe_safe(avgY_L, avgX_L+40)]
+				leftColor =  self.frameClean[self.get_probe_safe(avgY_L, avgX_L+3)]
 
 
 				if  90 < (100 * centerChunkX) / self.get_lane_avg_x() < 110 and self.if_color_in_range(roadColorRight, rightColor, 70) and self.if_color_in_range(roadColorLeft, leftColor, 70):
 					self.finalCenterPoints[chunk] = [(centerChunkX, centerChunkY), self.lifePeriod] # point , age
-					# add more point down and up stream
+					# # add more point down and up stream
 					# equation = linearEquation(ptL1, ptL2)
 					# for i in range(0, self.numberOfChuncks):
 					# 	estimatedPointL =  equation.getX((i) * self.lineJump), (i) * self.lineJump
@@ -369,21 +320,21 @@ class laneDepartureWarning:
 					# 	cv2.circle(self.frame, (estimatedPointR), 5, self.get_color_by_angle(45), -1)
 
 
-					# cv2.circle(self.frame, (avgX_R, avgY_R), 5, (int(rightColor[0]), int(rightColor[1]), int(rightColor[2])), -1)
-					# cv2.circle(self.frame, (avgX_L, avgY_L), 5, (int(leftColor[0]), int(leftColor[1]), int(leftColor[2])), -1)
-					#
-					# cv2.line(self.frame, (avgX_R, avgY_R), (avgX_L, avgY_L), self.get_color_by_angle(-26), 1)
-					#
-					# cv2.circle(self.frame, (centerChunkX, centerChunkY), 5, self.get_color_by_angle(-15), -1)
-					# cv2.putText(self.frame, str((100 * centerChunkX) / self.get_lane_avg_x()), (centerChunkX+10, centerChunkY), self.font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
-					#
-					#
-					# cv2.line(self.frame, ptR1, ptR2, self.get_color_by_angle(0), 2)
-					# cv2.line(self.frame, ptL1, ptL2, self.get_color_by_angle(10), 2)
+					cv2.circle(self.frame, (avgX_R, avgY_R), 5, (int(rightColor[0]), int(rightColor[1]), int(rightColor[2])), -1)
+					cv2.circle(self.frame, (avgX_L, avgY_L), 5, (int(leftColor[0]), int(leftColor[1]), int(leftColor[2])), -1)
+
+					cv2.line(self.frame, (avgX_R, avgY_R), (avgX_L, avgY_L), self.get_color_by_angle(-26), 1)
+
+					cv2.circle(self.frame, (centerChunkX, centerChunkY), 5, self.get_color_by_angle(-15), -1)
+					cv2.putText(self.frame, str((100 * centerChunkX) / self.get_lane_avg_x()), (centerChunkX+10, centerChunkY), self.font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
+
+
+					cv2.line(self.frame, ptR1, ptR2, self.get_color_by_angle(0), 2)
+					cv2.line(self.frame, ptL1, ptL2, self.get_color_by_angle(10), 2)
 
 		# self.clear_line_if_all_points_are_old()
 
-		# self.draw_center_polyfit_line()
+		self.draw_center_polyfit_line()
 
 		self.draw_center_circles()
 
@@ -502,6 +453,20 @@ class laneDepartureWarning:
 		print "clear"
 		self.clear_center_point()
 
+	# will return the x,y with respect to borders
+	def get_probe_safe(self, avgY, avgX):
+
+		if avgX  >= self.width:
+			avgX =  self.width - 1
+		if avgX < 0:
+			avgX = 0
+
+		if avgY >= self.height:
+			avgY = self.height - 1
+		if avgY < 0:
+			avgY = 0
+
+		return (avgY, avgX)
 
 	def if_color_in_range(self, baseColor, cmpColor, trashold):
 
@@ -517,3 +482,61 @@ class laneDepartureWarning:
 
 	def inInt(self, num):
 		return -5000000 < num < 5000000
+
+
+	def get_color_by_angle(self, angle):
+		if 10 < angle <= 15:
+			return 245, 12, 12
+		if 15 < angle <= 28:
+			return 245, 12, 184
+		if 28 < angle <= 40:
+			return 134, 12, 245
+		if 40 < angle <= 45:
+			return 12, 83, 245
+		if 45 < angle <= 55:
+			return 12, 245, 159
+
+		if -15 < angle >= -10:
+			return 47, 245, 12
+		if -10 < angle >= -15:
+			return 187, 245, 12
+		if -15 < angle >= -28:
+			return 245, 173, 12
+		if -28 < angle >= -40:
+			return 245, 4, 12
+		if -40 < angle >= -45:
+			return 0, 0, 250
+		if -45 < angle >= -55:
+			return 12, 65, 19
+
+		# default color
+		return 0, 255, 255
+
+
+	def get_group_id_by_angle(self, angle):
+		if 10 < angle <= 15:
+			return 1
+		if 15 < angle <= 28:
+			return 2
+		if 25 < angle <= 35:
+			return 3
+		if 28 < angle <= 40:
+			return 4
+		if 45 < angle <= 55:
+			return 5
+
+		if -15 > angle >= -10:
+			return 6
+		if -10 > angle >= -15:
+			return 7
+		if -15 > angle >= -25:
+			return 8
+		if -25 > angle >= -35:
+			return 9
+		if -35 > angle >= -45:
+			return 10
+		if -45 > angle >= -55:
+			return 11
+
+		# default group
+		return 0

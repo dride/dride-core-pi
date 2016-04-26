@@ -12,7 +12,7 @@ from classes.laneDepartureWarning import laneDepartureWarning
 
 def analyze_frame(frame, flip, video):
 
-	laneCenter = 300
+	laneCenter = 250
 	ldw = laneDepartureWarning(frame, flip, video, laneCenter)
 	laneCenter = ldw.find_lanes(flip, video)
 

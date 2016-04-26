@@ -5,7 +5,7 @@ import math
 
 class forwardCollisionWarning:
 
-	sound = None
+	sound = sound()
 	font = cv2.FONT_HERSHEY_SIMPLEX
 
 	def __init__(self, frame, x1, y1, x2, y2):
@@ -14,7 +14,6 @@ class forwardCollisionWarning:
 		self.y1 = y1
 		self.x2 = x2
 		self.y2 = y2
-		self.sound = sound()
 
 		self.watch_for_forward_collision_corners()
 
@@ -72,9 +71,9 @@ class forwardCollisionWarning:
 
 				# dismiss by color
 				color = self.frame[(x, y)]
-				print color
-				if int(color[0]) > 190:
-					continue
+
+				# if int(color[0]) + int(color[1]) + int(color[2]) < 400:
+				# 	continue
 
 				# make sure the corner is not on the border
 				if 0 <= x <= 1 or 0 <= y <= 1 or self.x1-1 <= x <= self.x1+1 or self.y1+1 <= y <= self.y1+1:
@@ -87,10 +86,11 @@ class forwardCollisionWarning:
 			print cornerCount
 			if cornerCount > 8:
 				print "found"
+
 				cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
-				cv2.putText(self.frame, "WARNING", (0, 0), self.font, 0.6, (51, 51, 51), 1,
+				cv2.putText(self.frame, "WARNING", (100, 100), self.font, 0.6, (51, 51, 51), 1,
 				            cv2.LINE_AA)
-				# self.sound.play_sound('carAhead', False)
+				self.sound.play_sound('carAhead', False)
 
 
 				return 1
