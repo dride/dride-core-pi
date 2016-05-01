@@ -15,12 +15,13 @@ class forwardCollisionWarning:
 		self.x2 = x2
 		self.y2 = y2
 
-		self.watch_for_forward_collision_corners()
+		self.watch_for_forward_collision_perpendicular_lines()
 
 	def watch_for_forward_collision(self):
 
-		self.frame = cv2.flip(self.frame, -1)
-		self.frame = cv2.flip(self.frame, 1)
+		# self.frame = cv2.flip(self.frame, -1)
+		# self.frame = cv2.flip(self.frame, 1)
+
 		self.frame = self.frame[self.y1:self.y2, self.x1:self.x2]
 
 		cascade_src = '/Users/saoron/cardiganCam/assets/haar/cars.xml'
@@ -41,12 +42,12 @@ class forwardCollisionWarning:
 
 		cv2.imshow('video4', self.frame)
 
-	def watch_for_forward_collision_corners(self):
+	def watch_for_forward_collision_perpendicular_lines(self):
 
-		self.frame = cv2.flip(self.frame, -1)
-		self.frame = cv2.flip(self.frame, 1)
+		# self.frame = cv2.flip(self.frame, -1)
+		# self.frame = cv2.flip(self.frame, 1)
 
-		cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (255, 0, 0), 2)
+		cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (255, 0, 0), 1)
 
 		frame2 = self.frame
 
@@ -61,40 +62,42 @@ class forwardCollisionWarning:
 		upper = int(min(255, (1.0 + sigma) * v))
 		edged = cv2.Canny(gray, lower, upper)
 
-		corners = cv2.goodFeaturesToTrack(edged, 500, 0.4, 10)
-		if corners is not None:
-			corners = np.int0(corners)
 
-			cornerCount = 0
-			for i in corners:
-				x, y = i.ravel()
+		lines = cv2.HoughLinesP(edged, 1, math.pi / 360,  6, 10, 10);
+		if (lines is not None):
+			for line in lines:
 
-				# dismiss by color
-				color = self.frame[(x, y)]
+				dy = line[0][3] - line[0][1];
+				dx = line[0][2] - line[0][0];
+				angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
 
-				# if int(color[0]) + int(color[1]) + int(color[2]) < 400:
-				# 	continue
-
-				# make sure the corner is not on the border
-				if 0 <= x <= 1 or 0 <= y <= 1 or self.x1-1 <= x <= self.x1+1 or self.y1+1 <= y <= self.y1+1:
+				if (angle != 0):
 					continue
-				else:
-					cornerCount += 1
-					cv2.circle(self.frame, (x, y), 3, ((int(color[0]), int(color[1]), int(color[2]))), -1)
 
+				pt1 = (line[0][0], line[0][1])
+				pt2 = (line[0][2], line[0][3])
+				if  line[0][1] == 0 or line[0][1] == 1:
+					continue
+
+				cv2.line(self.frame, pt1, pt2, (255, 0, 255), 2)
+				cv2.putText(self.frame,  str(line[0][1]), (int(line[0][0] / 2), line[0][1]), self.font, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+
+
+
+				# print 'corner ' + str(cornerCount)
+				if lines is not None:
+					print 'lines ' + str(len(lines))
+				if line[0][1] > 25:
+					print "found"
+
+					cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
+					cv2.putText(self.frame, "WARNING", (100, 100), self.font, 1, (255, 255, 255), 1,
+					            cv2.LINE_AA)
+					self.sound.play_sound('carAhead', False)
+
+
+					return 1
 			cv2.imshow('video23', frame2)
-			print cornerCount
-			if cornerCount > 8:
-				print "found"
-
-				cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
-				cv2.putText(self.frame, "WARNING", (100, 100), self.font, 0.6, (51, 51, 51), 1,
-				            cv2.LINE_AA)
-				self.sound.play_sound('carAhead', False)
-
-
-				return 1
-
 
 
 		return 0

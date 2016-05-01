@@ -10,13 +10,13 @@ from pylab import *
 class laneDepartureWarning:
 
 	font = cv2.FONT_HERSHEY_SIMPLEX
-	height, width = 175,500
+	height, width = 150,300
 
 	defaultCenter = 250
-
+	laneDir = 0 # -1 left # 1 right
 	numberOfChuncks = 30
 	lineJump = 5
-	lifePeriod = 60
+	lifePeriod = 60 # determine by speed
 	flag = 0
 	frameClean = None
 
@@ -28,7 +28,6 @@ class laneDepartureWarning:
 		self.frame = frame
 		self.frameClean = self.frame
 		self.defaultCenter = laneCenter
-		# self.find_lanes(flip, video)
 
 	# Find lanes using angle
 	def find_lanes(self, flip, video):
@@ -38,13 +37,13 @@ class laneDepartureWarning:
 		self.linesInGroups_right = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
 		if flip:
-			self.frame = self.frame[100:275, 0:500]
-			self.frame = cv2.flip(self.frame, -1)
-			self.frame = cv2.flip(self.frame, 1)
+			self.frame = self.frame[350:450, 200:500]
+			# self.frame = cv2.flip(self.frame, -1)
+			# self.frame = cv2.flip(self.frame, 1)
 
-			self.frameClean = self.frameClean[100:275, 0:500]
-			self.frameClean = cv2.flip(self.frameClean, -1)
-			self.frameClean = cv2.flip(self.frameClean, 1)
+			self.frameClean = self.frameClean[350:450, 200:500]
+			# self.frameClean = cv2.flip(self.frameClean, -1)
+			# self.frameClean = cv2.flip(self.frameClean, 1)
 
 
 
@@ -146,12 +145,12 @@ class laneDepartureWarning:
 		if (right > 3):
 			print 'right ' + str(right)
 			cv2.putText(self.frame, 'right swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
-			self.sound.play_sound('rightLaneDep', False)
+			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
 		if (left > 3):
 			print 'left ' + str(left)
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
-			self.sound.play_sound('leftLaneDep', False)
+			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
 
 
@@ -191,14 +190,12 @@ class laneDepartureWarning:
 			else:
 				right +=1
 		if debug:
-			cv2.rectangle(self.frame, (0, 0), (100 , 30), (255, 255, 255), -1);
-
 			if left > right:
-				lane = "Left Lane"
+				laneDir = -1
 			else:
-				lane = "Right Lane"
+				laneDir = 1
 
-			cv2.putText(self.frame, lane, (10, 20), self.font, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+			cv2.putText(self.frameClean, lane, (10, 20), self.font, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
 		return left > right
 
@@ -334,7 +331,7 @@ class laneDepartureWarning:
 
 		# self.clear_line_if_all_points_are_old()
 
-		self.draw_center_polyfit_line()
+		# self.draw_center_polyfit_line()
 
 		self.draw_center_circles()
 
@@ -443,6 +440,14 @@ class laneDepartureWarning:
 		for chunk in range(0, self.numberOfChuncks):
 			if len(self.finalCenterPoints[chunk]) > 0:
 				self.finalCenterPoints[chunk][1] = 0
+
+	# return which lane
+	def get_lane(self):
+		if self.laneDir == -1:
+			return 'Left Lane'
+		else:
+			return  'Right Lane'
+
 
 
 	# clear all centered points
