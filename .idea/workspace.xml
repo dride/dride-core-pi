@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="039e1401-649d-472b-bef4-2600191ac62f" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/forwardCollisionWarning.py" afterPath="$PROJECT_DIR$/classes/forwardCollisionWarning.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/frameAnalyzer.py" afterPath="$PROJECT_DIR$/classes/frameAnalyzer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/laneDepartureWarning.py" afterPath="$PROJECT_DIR$/classes/laneDepartureWarning.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/sound.py" afterPath="$PROJECT_DIR$/classes/sound.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainPi.py" afterPath="$PROJECT_DIR$/mainPi.py" />
     </list>
     <ignored path="cardiganCam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -73,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="laneDepartureWarning.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="laneDepartureWarning.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-931">
-              <caret line="157" column="53" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
+            <state relative-caret-position="284">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="21" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -107,11 +104,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="forwardCollisionWarning.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="forwardCollisionWarning.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/forwardCollisionWarning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="507">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="270">
+              <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -181,8 +178,8 @@
         <option value="$PROJECT_DIR$/mainPi.py" />
         <option value="$PROJECT_DIR$/classes/sound.py" />
         <option value="$PROJECT_DIR$/classes/frameAnalyzer.py" />
-        <option value="$PROJECT_DIR$/classes/forwardCollisionWarning.py" />
         <option value="$PROJECT_DIR$/classes/laneDepartureWarning.py" />
+        <option value="$PROJECT_DIR$/classes/forwardCollisionWarning.py" />
       </list>
     </option>
   </component>
@@ -794,16 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="36" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mainPi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -832,10 +819,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/forwardCollisionWarning.py">
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state relative-caret-position="330">
+          <caret line="22" column="36" selection-start-line="0" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -844,8 +831,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-931">
-          <caret line="157" column="53" selection-start-line="157" selection-start-column="53" selection-end-line="157" selection-end-column="53" />
+        <state relative-caret-position="284">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/forwardCollisionWarning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

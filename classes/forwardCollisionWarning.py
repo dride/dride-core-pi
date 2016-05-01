@@ -7,6 +7,7 @@ class forwardCollisionWarning:
 
 	sound = sound()
 	font = cv2.FONT_HERSHEY_SIMPLEX
+	raspberry = False
 
 	def __init__(self, frame, x1, y1, x2, y2, raspberry):
 		self.frame = frame
@@ -15,6 +16,7 @@ class forwardCollisionWarning:
 		self.x2 = x2
 		self.y2 = y2
 
+		self.raspberry = raspberry
 		self.sound.raspberry = raspberry
 		self.watch_for_forward_collision_perpendicular_lines()
 

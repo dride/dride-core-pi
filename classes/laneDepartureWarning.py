@@ -19,7 +19,7 @@ class laneDepartureWarning:
 	lifePeriod = 60 # determine by speed
 	flag = 0
 	frameClean = None
-
+	raspberry = False
 	sound = sound()
 
 	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
@@ -28,6 +28,7 @@ class laneDepartureWarning:
 		self.frame = frame
 		self.frameClean = self.frame
 		self.defaultCenter = laneCenter
+		self.raspberry = raspberry
 		self.sound.raspberry = raspberry
 
 	# Find lanes using angle
