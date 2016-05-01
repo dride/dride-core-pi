@@ -23,5 +23,5 @@ for framePi in camera.capture_continuous(rawCapture, format="bgr", use_video_por
     if True:
         frame = framePi.array
 
-        frameAnalyzer.analyze_frame(frame, True, True)
+        frameAnalyzer.analyze_frame(frame, True, True, True)
     rawCapture.truncate(0)

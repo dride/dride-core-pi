@@ -8,13 +8,14 @@ class forwardCollisionWarning:
 	sound = sound()
 	font = cv2.FONT_HERSHEY_SIMPLEX
 
-	def __init__(self, frame, x1, y1, x2, y2):
+	def __init__(self, frame, x1, y1, x2, y2, raspberry):
 		self.frame = frame
 		self.x1 = x1
 		self.y1 = y1
 		self.x2 = x2
 		self.y2 = y2
 
+		self.sound.raspberry = raspberry
 		self.watch_for_forward_collision_perpendicular_lines()
 
 	def watch_for_forward_collision(self):
@@ -40,7 +41,8 @@ class forwardCollisionWarning:
 
 			cv2.rectangle(self.frame, (x, y), (x + w, y + h), (51, 51, 51), 2)
 
-		cv2.imshow('video4', self.frame)
+		if self.raspberry == False:
+			cv2.imshow('video4', self.frame)
 
 	def watch_for_forward_collision_perpendicular_lines(self):
 
@@ -97,7 +99,8 @@ class forwardCollisionWarning:
 
 
 					return 1
-			cv2.imshow('video23', frame2)
+			if self.raspberry == False:
+				cv2.imshow('video23', frame2)
 
 
 		return 0

@@ -5,6 +5,7 @@ class sound:
 
 	isPlaying = False
 	lastPlayed = int(round(time.time() * 1000))
+	raspberry = False
 
 	def __init__(self):
 		self.isPlaying = False
@@ -17,7 +18,10 @@ class sound:
 
 		if self.isPlaying == False:
 			self.isPlaying = True
-			os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/'+str(type)+'.mp3 &')
+			if self.raspberry == False:
+				os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/'+str(type)+'.mp3 &')
+			else:
+				os.system('omxplayer /var/cardigan/cardiganCamVision/assets/sound/' + str(type) + '.mp3 &')
 			self.isPlaying = False
 
 	def updateIsPlaying(self):

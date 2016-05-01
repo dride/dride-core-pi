@@ -10,13 +10,13 @@ from classes.laneDepartureWarning import laneDepartureWarning
 
 
 
-def analyze_frame(frame, flip, video):
+def analyze_frame(frame, flip, video, raspberry = False):
 
 
 	cleanFrame = frame.copy()
 
 	laneCenter = 100
-	ldw = laneDepartureWarning(frame, flip, video, laneCenter)
+	ldw = laneDepartureWarning(frame, flip, video, laneCenter, raspberry)
 	laneCenter = ldw.find_lanes(flip, video)
 
 	# draw which lane rect
@@ -44,7 +44,7 @@ def analyze_frame(frame, flip, video):
 	# y2 = 280
 
 
-	laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2)
+	laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry)
 
 
 

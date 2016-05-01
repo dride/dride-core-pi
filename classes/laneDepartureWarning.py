@@ -24,10 +24,11 @@ class laneDepartureWarning:
 
 	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
-	def __init__(self, frame, flip, video, laneCenter):
+	def __init__(self, frame, flip, video, laneCenter, raspberry):
 		self.frame = frame
 		self.frameClean = self.frame
 		self.defaultCenter = laneCenter
+		self.sound.raspberry = raspberry
 
 	# Find lanes using angle
 	def find_lanes(self, flip, video):
@@ -153,8 +154,8 @@ class laneDepartureWarning:
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
 
-
-		self.show_frame(edged, self.frame, video)
+		if self.raspberry == False:
+			self.show_frame(edged, self.frame, video)
 
 		return self.get_avg_center_X()
 
