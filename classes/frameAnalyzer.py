@@ -3,6 +3,7 @@ import cv2
 import math
 import os
 from classes.forwardCollisionWarning import forwardCollisionWarning
+from classes.capture import capture
 
 
 from classes.laneDepartureWarning import laneDepartureWarning
@@ -12,7 +13,8 @@ from classes.laneDepartureWarning import laneDepartureWarning
 
 def analyze_frame(frame, flip, video, raspberry = False):
 
-
+	if raspberry:
+		cap = capture()
 	cleanFrame = frame.copy()
 
 	laneCenter = 150
