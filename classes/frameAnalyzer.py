@@ -15,7 +15,7 @@ def analyze_frame(frame, flip, video, raspberry = False):
 
 	cleanFrame = frame.copy()
 
-	laneCenter = 100
+	laneCenter = 150
 	ldw = laneDepartureWarning(frame, flip, video, laneCenter, raspberry)
 	laneCenter = ldw.find_lanes(flip, video)
 
