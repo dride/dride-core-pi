@@ -19,7 +19,7 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	cleanFrame = frame.copy()
 
 	laneCenter = 100
-	y1 = 350 # 4.5.16 ->200
+	y1 = 240 # 4.5.16 ->200
 	x1 = 200
 	roadFrame = frame.copy()
 	# uncomment if needed to flip
@@ -38,7 +38,7 @@ def analyze_frame(frame, flip, video, raspberry = False):
 
 
 	deltaX = 200
-	deltaY = 50
+	deltaY = 0
 
 	laneCenter += deltaX
 
@@ -47,9 +47,9 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	leftCornerY = 50
 
 	x1 = int(laneCenter - (width / 2))
-	y1 = 310 + deltaY
+	y1 = 260 + deltaY
 	x2 = laneCenter + (width / 2)
-	y2 = 350 + deltaY
+	y2 = 300 + deltaY
 
 	# x1 = int(laneCenter - (width / 2))
 	# y1 = 190

@@ -12,7 +12,7 @@ from matplotlib import pyplot as plt
 #
 
 # cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw5/encoded/1460633529.h264.mp4")
-cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw6/1461659475.mp4")
+cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw7/1461675485.mp4")
 c = 0
 while True:
     # if c >0:

@@ -4,6 +4,10 @@ from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 from classes.capture import capture
+from imutils.video.pivideostream import PiVideoStream
+from imutils.video import FPS
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 # load the image
 # image = cv2.imread('/Users/saoron/cardiganCam/training/set6/3.png')
@@ -11,21 +15,19 @@ from classes.capture import capture
 #
 
 # initialize the camera and grab a reference to the raw camera capture
-camera = PiCamera()
-camera.resolution = (640, 480)
-camera.framerate = 32
-rawCapture = PiRGBArray(camera, size=(640, 480))
+camera = PiVideoStream().start()
+# allow the camera to warmup
+time.sleep(2.0)
+
 
 # start record
 cap = capture(camera)
 cap.captureClips()
 
-# allow the camera to warmup
-time.sleep(0.1)
+# run cardigan proccesses
+while True:
+	frame = camera.read()
+	frameAnalyzer.analyze_frame(frame, True, True, True)
 
-for framePi in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    if True:
-        frame = framePi.array
 
-        frameAnalyzer.analyze_frame(frame, True, True, True)
-    rawCapture.truncate(0)
+camera.stop();
