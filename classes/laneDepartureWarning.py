@@ -38,14 +38,14 @@ class laneDepartureWarning:
 		self.linesInGroups_left = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 		self.linesInGroups_right = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
-		if flip:
-			self.frame = self.frame[200:320, 200:500]
-			# self.frame = cv2.flip(self.frame, -1)
-			# self.frame = cv2.flip(self.frame, 1)
-
-			self.frameClean = self.frameClean[200:320, 200:500]
-			# self.frameClean = cv2.flip(self.frameClean, -1)
-			# self.frameClean = cv2.flip(self.frameClean, 1)
+		# if flip:
+		# 	self.frame = self.frame[200:320, 200:500]
+		# 	# self.frame = cv2.flip(self.frame, -1)
+		# 	# self.frame = cv2.flip(self.frame, 1)
+		#
+		# 	self.frameClean = self.frameClean[200:320, 200:500]
+		# 	# self.frameClean = cv2.flip(self.frameClean, -1)
+		# 	# self.frameClean = cv2.flip(self.frameClean, 1)
 
 
 

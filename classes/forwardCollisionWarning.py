@@ -91,7 +91,7 @@ class forwardCollisionWarning:
 				# print 'corner ' + str(cornerCount)
 				if lines is not None:
 					print 'lines ' + str(len(lines))
-				if line[0][1] > 25:
+				if line[0][1] > 25 and len(lines) > 4:
 					print "found"
 
 					cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
