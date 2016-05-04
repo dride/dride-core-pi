@@ -15,7 +15,7 @@ def analyze_frame(frame, flip, video, raspberry = False):
 
 	# get GPS data
 	heading = open('./modules/gps/gps.json', 'r').read()
-
+	print '-------' + str(heading)
 	cleanFrame = frame.copy()
 
 	laneCenter = 100
