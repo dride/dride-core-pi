@@ -4,9 +4,8 @@ import os
 import math
 from classes.linearEquation import linearEquation
 from classes.sound import sound
-import matplotlib.pyplot as plt
-from scipy.optimize import curve_fit
-from pylab import *
+import time
+
 class laneDepartureWarning:
 
 	font = cv2.FONT_HERSHEY_SIMPLEX
@@ -47,7 +46,11 @@ class laneDepartureWarning:
 		# 	# self.frameClean = cv2.flip(self.frameClean, -1)
 		# 	# self.frameClean = cv2.flip(self.frameClean, 1)
 
-
+		# save frames in debug mode
+		millis = int(round(time.time() * 1000))
+		if millis % 5 == 0:
+			print millis
+			cv2.imwrite("/Users/saoron/cardiganCam/training/timed/" + str(millis) + ".jpg", self.frame)
 
 		sigma = 0.33
 		v = np.median(self.frame)
@@ -157,6 +160,13 @@ class laneDepartureWarning:
 
 		if self.raspberry == False:
 			self.show_frame(edged, self.frame, video)
+
+
+		# save frames in debug mode
+		millis = int(round(time.time() * 1000))
+		if millis % 5 == 0:
+			print millis
+			cv2.imwrite("/Users/saoron/cardiganCam/training/road/" + str(millis) + ".jpg", self.frame)
 
 		return self.get_avg_center_X()
 
