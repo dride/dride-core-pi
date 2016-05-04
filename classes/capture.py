@@ -3,6 +3,7 @@ import numpy as np
 from time import gmtime, strftime
 import time
 import picamera
+import sys
 from time import sleep
 import os
 
@@ -10,24 +11,30 @@ class capture:
 
 	rolloverMinutes = 1
 	rollover = rolloverMinutes * 60
-
+	camera  = None
 	shutdownRequest = False
+	parent = '/home/cardiganCamVision/modules/video/'
 
-	def __init__(self):
-		camera = picamera.PiCamera()
-		camera.hflip = True
+	def __init__(self, camera):
+
+		self.camera = camera
+		self.camera.hflip = True
+
+
+	def captureClips(self):
+
 		while True:
 			timestamp = int(round(time.time()))
 			lastRollover = timestamp
 			filename = str(timestamp)
 
 			#save thumbnail
-			camera.capture("modules/video/thumb/" + filename + ".jpg", resize=(70, 70))
-			camera.start_recording("modules/video/clip/" + filename + ".h264")
+			self.camera.capture(self.parent + "thumb/" + filename + ".jpg", resize=(70, 70))
+			self.camera.start_recording(self.parent + "clip/" + filename + ".h264")
 			sleep(60)
-			camera.stop_recording()
+			self.camera.stop_recording()
 			# decode to mp4
-			os.system ("MP4Box -add modules/video/clip/"+filename+".h264 modules/video/clip/"+filename+".mp4; rm modules/video/clip/"+filename+".h264 &")
+			os.system ("MP4Box -add "+self.parent+"clip/"+filename+".h264 "+self.parent+"clip/"+filename+".mp4; rm "+self.parent+"clip/"+filename+".h264 &")
 
 
 
@@ -36,7 +43,5 @@ class capture:
 				break
 			timestamp = int(round(time.time()))
 
-		camera.release()
-
-
+		self.camera.release()
 

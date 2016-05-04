@@ -3,7 +3,7 @@ import cv2
 import math
 import os
 from classes.forwardCollisionWarning import forwardCollisionWarning
-from classes.capture import capture
+
 
 
 from classes.laneDepartureWarning import laneDepartureWarning
@@ -13,8 +13,9 @@ from classes.laneDepartureWarning import laneDepartureWarning
 
 def analyze_frame(frame, flip, video, raspberry = False):
 
-	if raspberry:
-		cap = capture()
+	# get GPS data
+	heading = open('./modules/gps/gps.json', 'r').read()
+
 	cleanFrame = frame.copy()
 
 	laneCenter = 150
@@ -22,8 +23,9 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	laneCenter = ldw.find_lanes(flip, video)
 
 	# draw which lane rect
-	cv2.rectangle(cleanFrame, (0, 0), (100, 30), (255, 255, 255), -1);
+	cv2.rectangle(cleanFrame, (0, 0), (100, 60), (255, 255, 255), -1);
 	cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+	cv2.putText(cleanFrame, str(heading), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
 
 	deltaX = 200

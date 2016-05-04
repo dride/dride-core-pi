@@ -3,7 +3,7 @@ from classes import frameAnalyzer
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
-
+from classes.capture import capture
 
 # load the image
 # image = cv2.imread('/Users/saoron/cardiganCam/training/set6/3.png')
@@ -15,7 +15,11 @@ camera = PiCamera()
 camera.resolution = (640, 480)
 camera.framerate = 32
 rawCapture = PiRGBArray(camera, size=(640, 480))
- 
+
+# start record
+cap = capture(camera)
+cap.captureClips()
+
 # allow the camera to warmup
 time.sleep(0.1)
 
