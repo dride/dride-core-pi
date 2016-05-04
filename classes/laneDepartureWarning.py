@@ -19,6 +19,8 @@ class laneDepartureWarning:
 	flag = 0
 	frameClean = None
 	raspberry = False
+	# debug picture interval in ms
+	captureInterval = 10
 	sound = sound()
 
 	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
@@ -48,9 +50,9 @@ class laneDepartureWarning:
 
 		# save frames in debug mode
 		millis = int(round(time.time() * 1000))
-		if millis % 5 == 0:
+		if millis % self.captureInterval == 0:
 			print millis
-			cv2.imwrite("/Users/saoron/cardiganCam/training/timed/" + str(millis) + ".jpg", self.frame)
+			cv2.imwrite("/home/cardiganCamVision/training/timed/" + str(millis) + ".jpg", self.frame)
 
 		sigma = 0.33
 		v = np.median(self.frame)
@@ -164,9 +166,9 @@ class laneDepartureWarning:
 
 		# save frames in debug mode
 		millis = int(round(time.time() * 1000))
-		if millis % 5 == 0:
+		if millis % self.captureInterval == 0:
 			print millis
-			cv2.imwrite("/Users/saoron/cardiganCam/training/road/" + str(millis) + ".jpg", self.frame)
+			cv2.imwrite("/home/cardiganCamVision/training/road/" + str(millis) + ".jpg", self.frame)
 
 		return self.get_avg_center_X()
 
