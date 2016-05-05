@@ -150,23 +150,28 @@ class laneDepartureWarning:
 		# print str(left) + '--' + str(right)
 		if (right > 3):
 			print 'right ' + str(right)
+
 			cv2.putText(self.frame, 'right swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
+			if self.raspberry == True:
+				millis = int(round(time.time() * 1000))
+				cv2.imwrite("/home/cardiganCamVision/training/road/" + str(millis) + "_right.jpg", self.frameClean)
+
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
 		if (left > 3):
 			print 'left ' + str(left)
+
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
+			if self.raspberry == True:
+				millis = int(round(time.time() * 1000))
+				cv2.imwrite("/home/cardiganCamVision/training/road/" + str(millis) + "_left.jpg", self.frameClean)
+
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
 
 		if self.raspberry == False:
 			self.show_frame(edged, self.frame, video)
 
-
-		# save frames in debug mode
-		millis = int(round(time.time() * 1000))
-		if millis % self.captureInterval == 0:
-			cv2.imwrite("/home/cardiganCamVision/training/road/" + str(millis) + ".jpg", self.frame)
 
 		return self.get_avg_center_X()
 

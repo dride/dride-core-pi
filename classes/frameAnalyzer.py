@@ -22,13 +22,14 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	y1 = 240 # 4.5.16 ->200
 	x1 = 200
 	roadFrame = frame.copy()
+	cleanFrame = frame.copy()
 	# uncomment if needed to flip
 	# roadFrame = cv2.flip(roadFrame, -1)
 	# roadFrame = cv2.flip(roadFrame, 1)
 
 	roadFrame = roadFrame[y1:y1 + 120, x1:x1 + 300]
 
-	ldw = laneDepartureWarning(roadFrame, flip, video, laneCenter, raspberry)
+	ldw = laneDepartureWarning(roadFrame, flip, video, laneCenter, raspberry, cleanFrame)
 	laneCenter = ldw.find_lanes(flip, video)
 
 	# draw which lane rect
@@ -57,7 +58,7 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	# y2 = 280
 
 
-	laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry)
+	laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
 
 
 

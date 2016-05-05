@@ -9,43 +9,19 @@ class forwardCollisionWarning:
 	sound = sound()
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	raspberry = False
+	frameClean = None
 
-	def __init__(self, frame, x1, y1, x2, y2, raspberry):
+	def __init__(self, frame, x1, y1, x2, y2, raspberry, cleanFrame):
 		self.frame = frame
 		self.x1 = x1
 		self.y1 = y1
 		self.x2 = x2
 		self.y2 = y2
 
+		self.frameClean = cleanFrame
 		self.raspberry = raspberry
 		self.sound.raspberry = raspberry
 		self.watch_for_forward_collision_perpendicular_lines()
-
-	def watch_for_forward_collision(self):
-
-		# self.frame = cv2.flip(self.frame, -1)
-		# self.frame = cv2.flip(self.frame, 1)
-
-		self.frame = self.frame[self.y1:self.y2, self.x1:self.x2]
-
-		cascade_src = '/Users/saoron/cardiganCam/assets/haar/cars.xml'
-		car_cascade = cv2.CascadeClassifier(cascade_src)
-
-		gray = cv2.cvtColor(self.frame, cv2.COLOR_BGR2GRAY)
-		cars = car_cascade.detectMultiScale(self.frame, 1.1, 1)
-
-		for (x, y, w, h) in cars:
-			avgX = int(x + w / 2)
-			avgY = int(y + h / 2)
-
-			dy = avgX - 0
-			dx = avgY - 0
-			angle = int(math.atan2(dy, dx) * 180.0 / math.pi);
-
-			cv2.rectangle(self.frame, (x, y), (x + w, y + h), (51, 51, 51), 2)
-
-		if self.raspberry == False:
-			cv2.imshow('video4', self.frame)
 
 	def watch_for_forward_collision_perpendicular_lines(self):
 
@@ -89,11 +65,14 @@ class forwardCollisionWarning:
 
 
 
-				# print 'corner ' + str(cornerCount)
-				if lines is not None:
-					print 'lines ' + str(len(lines))
+				# # print 'corner ' + str(cornerCount)
+				# if lines is not None:
+				# 	print 'lines ' + str(len(lines))
 				if line[0][1] > 25 and len(lines) > 4:
-					print "found"
+					# print "found"
+					if self.raspberry == True:
+						millis = int(round(time.time() * 1000))
+						cv2.imwrite("/home/cardiganCamVision/training/cars/" + str(millis) + ".jpg", self.frameClean)
 
 					cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
 					cv2.putText(self.frame, "WARNING", (100, 100), self.font, 1, (255, 255, 255), 1,
@@ -102,8 +81,8 @@ class forwardCollisionWarning:
 
 
 					return 1
-			if self.raspberry == False:
-				cv2.imshow('video23', frame2)
+			# if self.raspberry == False:
+			# 	cv2.imshow('video23', frame2)
 
 
 		return 0
