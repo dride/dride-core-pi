@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import math
 import os
+from config import *
 from classes.forwardCollisionWarning import forwardCollisionWarning
 
 
@@ -16,20 +17,19 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	# get GPS data
 	heading = open('./modules/gps/gps.json', 'r').read()
 	print '-------' + str(heading)
+
 	cleanFrame = frame.copy()
 
-	laneCenter = 100
-	y1 = 240 # 4.5.16 ->200
-	x1 = 200
+
 	roadFrame = frame.copy()
 	cleanFrame = frame.copy()
 	# uncomment if needed to flip
 	# roadFrame = cv2.flip(roadFrame, -1)
 	# roadFrame = cv2.flip(roadFrame, 1)
 
-	roadFrame = roadFrame[y1:y1 + 120, x1:x1 + 300]
+	roadFrame = roadFrame[Y1:Y1 + ROAD_HEIGHT, X1:X1 + ROAD_WIDTH]
 
-	ldw = laneDepartureWarning(roadFrame, flip, video, laneCenter, raspberry, cleanFrame)
+	ldw = laneDepartureWarning(roadFrame, flip, video, LANE_CENTER, raspberry, cleanFrame)
 	laneCenter = ldw.find_lanes(flip, video)
 
 	# draw which lane rect

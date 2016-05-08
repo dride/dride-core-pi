@@ -3,6 +3,7 @@ import numpy as np
 from classes.sound import sound
 import math
 import time
+from config import *
 
 class forwardCollisionWarning:
 
@@ -68,11 +69,11 @@ class forwardCollisionWarning:
 				# # print 'corner ' + str(cornerCount)
 				# if lines is not None:
 				# 	print 'lines ' + str(len(lines))
-				if line[0][1] > 25 and len(lines) > 4:
+				if line[0][1] > 15 and len(lines) > 4:
 					# print "found"
 					if self.raspberry == True:
 						millis = int(round(time.time() * 1000))
-						cv2.imwrite("/home/cardiganCamVision/training/cars/" + str(millis) + ".jpg", self.frameClean)
+						cv2.imwrite(PARENT_DIR + "training/cars/" + str(millis) + ".jpg", self.frameClean)
 
 					cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
 					cv2.putText(self.frame, "WARNING", (100, 100), self.font, 1, (255, 255, 255), 1,
@@ -81,8 +82,9 @@ class forwardCollisionWarning:
 
 
 					return 1
-			# if self.raspberry == False:
-			# 	cv2.imshow('video23', frame2)
+
+			if self.raspberry == False:
+				cv2.imshow('video23', frame2)
 
 
 		return 0

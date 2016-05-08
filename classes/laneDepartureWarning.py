@@ -5,6 +5,7 @@ import math
 from classes.linearEquation import linearEquation
 from classes.sound import sound
 import time
+from config import *
 
 class laneDepartureWarning:
 
@@ -25,9 +26,9 @@ class laneDepartureWarning:
 
 	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
-	def __init__(self, frame, flip, video, laneCenter, raspberry):
+	def __init__(self, frame, flip, video, laneCenter, raspberry, frameClean):
 		self.frame = frame
-		self.frameClean = self.frame
+		self.frameClean = frameClean
 		self.defaultCenter = laneCenter
 		self.raspberry = raspberry
 		self.sound.raspberry = raspberry
@@ -51,7 +52,7 @@ class laneDepartureWarning:
 		# save frames in debug mode
 		millis = int(round(time.time() * 1000))
 		if millis % self.captureInterval == 0:
-			cv2.imwrite("/home/cardiganCamVision/training/timed/" + str(millis) + ".jpg", self.frame)
+			cv2.imwrite(PARENT_DIR + "training/timed/" + str(millis) + ".jpg", self.frame)
 
 		sigma = 0.33
 		v = np.median(self.frame)
@@ -154,7 +155,7 @@ class laneDepartureWarning:
 			cv2.putText(self.frame, 'right swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
 			if self.raspberry == True:
 				millis = int(round(time.time() * 1000))
-				cv2.imwrite("/home/cardiganCamVision/training/road/" + str(millis) + "_right.jpg", self.frameClean)
+				cv2.imwrite(PARENT_DIR + "training/road/" + str(millis) + "_right.jpg", self.frameClean)
 
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
@@ -164,7 +165,7 @@ class laneDepartureWarning:
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
 			if self.raspberry == True:
 				millis = int(round(time.time() * 1000))
-				cv2.imwrite("/home/cardiganCamVision/training/road/" + str(millis) + "_left.jpg", self.frameClean)
+				cv2.imwrite(PARENT_DIR + "training/road/" + str(millis) + "_left.jpg", self.frameClean)
 
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()

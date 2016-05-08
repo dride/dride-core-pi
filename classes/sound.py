@@ -1,5 +1,6 @@
 import os
 import time
+from config import *
 
 class sound:
 
@@ -19,9 +20,9 @@ class sound:
 		if self.isPlaying == False:
 			self.isPlaying = True
 			if self.raspberry == False:
-				os.system('mpg321 /Users/saoron/cardiganCam/assets/sound/'+str(type)+'.mp3 &')
+				os.system('mpg321 ' + PARENT_DIR + 'assets/sound/'+str(type)+'.mp3 &')
 			else:
-				os.system('omxplayer /var/cardigan/cardiganCamVision/assets/sound/' + str(type) + '.mp3 &')
+				os.system('omxplayer ' + PARENT_DIR + 'assets/sound/' + str(type) + '.mp3 &')
 			self.isPlaying = False
 
 	def updateIsPlaying(self):

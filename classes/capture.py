@@ -6,6 +6,8 @@ import picamera
 import sys
 from time import sleep
 import os
+from config import *
+
 
 class capture:
 
@@ -13,7 +15,7 @@ class capture:
 	rollover = rolloverMinutes * 60
 	camera  = None
 	shutdownRequest = False
-	parent = '/home/cardiganCamVision/modules/video/'
+	parent = PARENT_DIR + 'modules/video/'
 
 	def __init__(self, camera):
 
