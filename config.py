@@ -12,6 +12,8 @@ PARENT_DIR = '/Users/saoron/cardiganCam/' if INPUT_TYPE == 0 else  '/home/cardig
 
 # picture calibration
 
+# FPS
+FPS = 8
 # X value of avg center of lane
 LANE_CENTER = 100
 
