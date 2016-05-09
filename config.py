@@ -18,8 +18,12 @@ FPS = 8
 LANE_CENTER = 100
 
 # Left upper point of road window
-Y1 = 240  # 4.5.16 ->200
-X1 = 200
+Y1 = 170  # 4.5.16 ->200
+X1 = 150
 
-ROAD_HEIGHT = 120
+ROAD_HEIGHT = 250
 ROAD_WIDTH = 300
+# delta for where to find cars square
+deltaX = 160
+deltaY = -70
+SQUARE_WIDTH = 160

@@ -37,19 +37,14 @@ def analyze_frame(frame, flip, video, raspberry = False):
 	cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 	cv2.putText(cleanFrame, str(heading), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
-
-	deltaX = 200
-	deltaY = 0
-
 	laneCenter += deltaX
 
-	width = 40
-	leftCornerX = laneCenter - (width / 2)
+	leftCornerX = laneCenter - (SQUARE_WIDTH / 2)
 	leftCornerY = 50
 
-	x1 = int(laneCenter - (width / 2))
+	x1 = int(laneCenter - (SQUARE_WIDTH / 2))
 	y1 = 260 + deltaY
-	x2 = laneCenter + (width / 2)
+	x2 = laneCenter + (SQUARE_WIDTH / 2)
 	y2 = 300 + deltaY
 
 	# x1 = int(laneCenter - (width / 2))
