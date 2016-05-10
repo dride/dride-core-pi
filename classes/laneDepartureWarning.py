@@ -24,6 +24,9 @@ class laneDepartureWarning:
 	captureInterval = 10
 	sound = sound()
 
+	# load config
+	config = Config().getConfig()
+
 	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
 
 	def __init__(self, frame, flip, video, laneCenter, raspberry, frameClean):
@@ -146,7 +149,7 @@ class laneDepartureWarning:
 
 		# self.draw_lines_by_arr(self.linesInGroups_right)
 		# self.draw_lines_by_arr(self.linesInGroups_left)
-
+		#
 
 		# print str(left) + '--' + str(right)
 		if (right > 3):

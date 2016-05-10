@@ -2,11 +2,10 @@ import cv2
 from classes import frameAnalyzer
 import time
 
-from matplotlib import pyplot as plt
 
 
 # load the image
-image = cv2.imread('/Users/saoron/cardiganCam/training/set6/t5.png')
+image = cv2.imread('/Users/saoron/cardiganCam/training/set6/12.png')
 frameAnalyzer.analyze_frame(image, True, False)
 
 

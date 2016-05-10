@@ -11,6 +11,8 @@ class forwardCollisionWarning:
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	raspberry = False
 	frameClean = None
+	# load config
+	config = Config().getConfig()
 
 	def __init__(self, frame, x1, y1, x2, y2, raspberry, cleanFrame):
 		self.frame = frame
