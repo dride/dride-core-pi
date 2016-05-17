@@ -15,6 +15,8 @@ To start using Cardigna you'll need the following development dependencies:
 4. mp4box  
 <code>sudo apt-get install gpac</code>
 
+## Calibration
+After the initial installation the software must be calibrated, We currently support only [manual calibration](https://github.com/CardiganCam/Cardigan/wiki/Calibration)
 ## Platform support
 Cardigan currently supports Debian Wheezy & Jessie as well as Ubuntu 14.04
 
