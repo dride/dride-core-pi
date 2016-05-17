@@ -25,6 +25,10 @@ Cardigan currently supports Debian Wheezy & Jessie as well as Ubuntu 14.04
 " target="_blank"><img src="http://img.youtube.com/vi/Cdc1ZCvoe2A/0.jpg" 
 alt="Cardigan Demo"  border="10" /></a>
 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=6sp2wUMysc0
+" target="_blank"><img src="http://img.youtube.com/vi/6sp2wUMysc0/0.jpg" 
+alt="Cardigan Demo"  border="10" /></a>
+
 ## Contributing to Cardigan
 Your contribution will be appricated. Please contact us saoron@gmail.com
 
