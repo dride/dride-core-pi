@@ -23,12 +23,12 @@ class Config:
 			# Create initial config file
 			self.setInitialConfig()
 
-		self.res =  self.prepConfigObj()
+		self.res = self.prepConfigObj()
 
 
 	def getConfig(self):
 
-		return  self.res
+		return self.res
 
 	def setInitialConfig(self):
 
@@ -37,26 +37,31 @@ class Config:
 			# debug mode
 			self.config.set('mode', 'debug', 'True')
 
+			self.config.add_section('video')
+			# debug mode
+			self.config.set('video', 'flip', 'True')
+
+
 			self.config.add_section('calibration')
 
+			# calibration needed
+			self.config.set('calibration', 'need_to_calibrate', 'True')
+
 			# FPS
-			self.config.set('calibration', 'FPS', '8')
+			self.config.set('calibration', 'fps', '8')
 
 			# X value of avg center of lane
-			self.config.set('calibration', 'lane_center', '100')
+			self.config.set('calibration', 'lane_center', '170')
 
 			# Left upper point of road window
-			self.config.set('calibration', 'x1', '150')
-			self.config.set('calibration', 'y1', '170')
-			self.config.set('calibration', 'road_height', '250')
-			self.config.set('calibration', 'road_width', '300')
-
-			# delta for where to find cars square
-			self.config.set('calibration', 'deltaX', '160')
-			self.config.set('calibration', 'deltaY', '-70')
+			self.config.set('calibration', 'x1', '50')
+			self.config.set('calibration', 'y1', '350')
+			self.config.set('calibration', 'road_height', '100')
+			self.config.set('calibration', 'road_width', '400')
 
 			# area of interest in fcw width
-			self.config.set('calibration', 'SQUARE_WIDTH', '160')
+			self.config.set('calibration', 'square_width', '80')
+			self.config.set('calibration', 'square_height', '50')
 
 			# Writing our configuration file to 'example.cfg'
 			with open('defaults.cfg', 'wb') as configfile:
@@ -77,11 +82,9 @@ class Config:
 				try:
 					res[key] = int(val)
 				except:
-					res[key] = bool(val)
+					res[key] = self.str2bool(val)
 
 		return res
 
-
-
-
-
+	def str2bool(self, v):
+		return v.lower() in ("true")

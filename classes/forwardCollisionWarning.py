@@ -72,7 +72,7 @@ class forwardCollisionWarning:
 				# if lines is not None:
 				# 	print 'lines ' + str(len(lines))
 				if line[0][1] > 15 and len(lines) > 4:
-					# print "found"
+					print "found" + str(len(lines))
 					if self.raspberry == True:
 						millis = int(round(time.time() * 1000))
 						cv2.imwrite(PARENT_DIR + "training/cars/" + str(millis) + ".jpg", self.frameClean)

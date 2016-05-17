@@ -20,9 +20,9 @@ class sound:
 		if self.isPlaying == False:
 			self.isPlaying = True
 			if self.raspberry == False:
-				os.system('mpg321 ' + PARENT_DIR + 'assets/sound/'+str(type)+'.mp3 &')
+				os.system('mpg321 ' + PARENT_DIR + '/assets/sound/'+str(type)+'.mp3 &')
 			else:
-				os.system('omxplayer ' + PARENT_DIR + 'assets/sound/' + str(type) + '.mp3 &')
+				os.system('omxplayer ' + PARENT_DIR + '/assets/sound/' + str(type) + '.mp3 &')
 			self.isPlaying = False
 
 	def updateIsPlaying(self):

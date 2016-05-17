@@ -27,9 +27,10 @@ class laneDepartureWarning:
 	# load config
 	config = Config().getConfig()
 
-	finalCenterPoints = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+	finalCenterPoints = [[] for i in range(32)]
+	finalCenterPointsCount = 0
 
-	def __init__(self, frame, flip, video, laneCenter, raspberry, frameClean):
+	def __init__(self, frame, laneCenter, raspberry, frameClean):
 		self.frame = frame
 		self.frameClean = frameClean
 		self.defaultCenter = laneCenter
@@ -37,11 +38,12 @@ class laneDepartureWarning:
 		self.sound.raspberry = raspberry
 
 	# Find lanes using angle
-	def find_lanes(self, flip, video):
-		linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
-		linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
-		self.linesInGroups_left = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
-		self.linesInGroups_right = [[], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], [], []]
+	def find_lanes(self, video):
+		linesWithLabel = [[] for i in range(12)]
+		linesWithLabelColor = [[] for i in range(12)]
+		self.linesInGroups_left = [[] for i in range(64)]
+		self.linesInGroups_right = [[] for i in range(64)]
+
 
 		# if flip:
 		# 	self.frame = self.frame[200:320, 200:500]
@@ -53,9 +55,10 @@ class laneDepartureWarning:
 		# 	# self.frameClean = cv2.flip(self.frameClean, 1)
 
 		# save frames in debug mode
-		millis = int(round(time.time() * 1000))
-		if millis % self.captureInterval == 0:
-			cv2.imwrite(PARENT_DIR + "training/timed/" + str(millis) + ".jpg", self.frame)
+		if self.config['debug']:
+			millis = int(round(time.time() * 1000))
+			if millis % self.captureInterval == 0:
+				cv2.imwrite(PARENT_DIR + "/training/timed/" + str(millis) + ".jpg", self.frame)
 
 		sigma = 0.33
 		v = np.median(self.frame)
@@ -77,9 +80,9 @@ class laneDepartureWarning:
 		lines = cv2.HoughLinesP(edged, 1, math.pi / 360,  6, 30, 6);
 
 		filteredLines = []
-		linesWithLabel = [[], [], [], [], [], [], [], [], [], [], [], []]
-		groupedLines = [[], [], [], [], [], [], [], [], [], [], [], []]
-		linesWithLabelColor = [[], [], [], [], [], [], [], [], [], [], [], []]
+		linesWithLabel = [[] for i in range(12)]
+		groupedLines = [[] for i in range(12)]
+		linesWithLabelColor = [[] for i in range(12)]
 		right = 0
 		left = 0
 
@@ -149,14 +152,12 @@ class laneDepartureWarning:
 
 		# self.draw_lines_by_arr(self.linesInGroups_right)
 		# self.draw_lines_by_arr(self.linesInGroups_left)
-		#
 
-		# print str(left) + '--' + str(right)
 		if (right > 3):
 			print 'right ' + str(right)
 
 			cv2.putText(self.frame, 'right swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
-			if self.raspberry == True:
+			if self.config['debug'] == True:
 				millis = int(round(time.time() * 1000))
 				cv2.imwrite(PARENT_DIR + "training/road/" + str(millis) + "_right.jpg", self.frameClean)
 
@@ -166,7 +167,7 @@ class laneDepartureWarning:
 			print 'left ' + str(left)
 
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
-			if self.raspberry == True:
+			if self.config['debug'] == True:
 				millis = int(round(time.time() * 1000))
 				cv2.imwrite(PARENT_DIR + "training/road/" + str(millis) + "_left.jpg", self.frameClean)
 
@@ -177,7 +178,35 @@ class laneDepartureWarning:
 			self.show_frame(edged, self.frame, video)
 
 
+
+		# # save frames in debug mode
+		# if self.config['debug'] and self.finalCenterPointsCount >= 2 and self.notTooFarAwaPoints(self.finalCenterPoints, 10):
+		# 	millis = int(round(time.time() * 1000))
+		# 	cv2.imwrite(PARENT_DIR + "/training/timed/" + str(millis) + ".jpg", self.frame)
+
 		return self.get_avg_center_X()
+
+
+	# return if the point are close to each other by -distance (Pixles)
+	def notTooFarAwaPoints(self, finalCenterPoints, distance):
+		maxX = maxY = 0
+		minX = minY = 1000
+		for i in range(len(finalCenterPoints)):
+
+			if finalCenterPoints[i] and finalCenterPoints[i][0][0] < minX:
+				minX = finalCenterPoints[i][0][0]
+
+			if finalCenterPoints[i] and finalCenterPoints[i][0][0] > maxX:
+				maxX = finalCenterPoints[i][0][0]
+
+			if finalCenterPoints[i] and finalCenterPoints[i][0][1] < minY:
+				minY = finalCenterPoints[i][0][1]
+
+			if finalCenterPoints[i] and finalCenterPoints[i][0][1] > maxY:
+				maxY = finalCenterPoints[i][0][1]
+
+		return abs(minY - maxY) < distance and abs(minX - maxX) < distance
+
 
 
 	def show_frame(self, frame1, frame2, video):
@@ -281,11 +310,11 @@ class laneDepartureWarning:
 				# cv2.circle(self.frame, (ptL2), 2, self.get_color_by_angle(35), -1)
 
 				equation = linearEquation(ptR1, ptR2)
-				estimatedPointR =  equation.getX(chunk * self.lineJump), chunk * self.lineJump
+				estimatedPointR = equation.getX(chunk * self.lineJump), chunk * self.lineJump
 				# cv2.circle(self.frame, (estimatedPointR), 5, self.get_color_by_angle(15), -1)
 
 				equation = linearEquation(ptL1, ptL2)
-				estimatedPointL =  equation.getX(chunk * self.lineJump), chunk * self.lineJump
+				estimatedPointL = equation.getX(chunk * self.lineJump), chunk * self.lineJump
 				# cv2.circle(self.frame, (estimatedPointL), 5, self.get_color_by_angle(45), -1)
 
 				avgX_R = estimatedPointR[0]
@@ -301,31 +330,36 @@ class laneDepartureWarning:
 				centerChunkX = (avgX_R + avgX_L) / 2
 				centerChunkY = (avgY_R + avgY_L) / 2
 
-				# check if the length of the line to big
+				############################
+				# This part check if the length of the line to big
+				# should be a linear formula
+				# curnetly we remove too long lines on top of the road
+				# TODO: imporve this part
+				############################
 				crossLine = linearEquation(estimatedPointR, estimatedPointL)
-
-
 				if (0 <= chunk <= 5 and crossLine.calculateDistance() > 180) or (5 < chunk <= 8 and crossLine.calculateDistance() > 250):
 					continue
 
 				############################
-				# This part works great on streight lines
+				# This part works great on straight lines
 				# it should be dynamic in case of turns
 				# curnetly we set a trash hold of 90 % from the middle avg
 				# TODO: inspect the range in curves
 				############################
 
 				# get color samples near our object to detect doubled lines
-
-				roadColorRight =  self.frameClean[self.get_probe_safe(avgY_R, avgX_R-20)]
-				rightColor =  self.frameClean[self.get_probe_safe(avgY_R, avgX_R-3)]
-
-				roadColorLeft =  self.frameClean[self.get_probe_safe(avgY_L, avgX_L+40)]
-				leftColor =  self.frameClean[self.get_probe_safe(avgY_L, avgX_L+3)]
+				roadColorRight =  self.frame[self.get_probe_safe(avgY_R , avgX_R-20)]
+				rightColor =  self.frame[self.get_probe_safe(avgY_R, avgX_R-3)]
 
 
-				if  90 < (100 * centerChunkX) / self.get_lane_avg_x() < 110 and self.if_color_in_range(roadColorRight, rightColor, 70) and self.if_color_in_range(roadColorLeft, leftColor, 70):
-					self.finalCenterPoints[chunk] = [(centerChunkX, centerChunkY), self.lifePeriod] # point , age
+				roadColorLeft =  self.frame[self.get_probe_safe(avgY_L, avgX_L+40)]
+				leftColor =  self.frame[self.get_probe_safe(avgY_L, avgX_L+3)]
+
+
+				if  95 < (100 * centerChunkX) / self.get_lane_avg_x() < 105 and self.if_color_in_range(roadColorRight, rightColor, 70) and self.if_color_in_range(roadColorLeft, leftColor, 70):
+					self.finalCenterPoints[chunk] = [(centerChunkX, centerChunkY), self.lifePeriod]  # point , age
+					self.finalCenterPointsCount += 1
+
 					# # add more point down and up stream
 					# equation = linearEquation(ptL1, ptL2)
 					# for i in range(0, self.numberOfChuncks):
@@ -337,9 +371,8 @@ class laneDepartureWarning:
 					# 	estimatedPointR = equation.getX((i) * self.lineJump), (i) * self.lineJump
 					# 	cv2.circle(self.frame, (estimatedPointR), 5, self.get_color_by_angle(45), -1)
 
-
-					cv2.circle(self.frame, (avgX_R, avgY_R), 5, (int(rightColor[0]), int(rightColor[1]), int(rightColor[2])), -1)
-					cv2.circle(self.frame, (avgX_L, avgY_L), 5, (int(leftColor[0]), int(leftColor[1]), int(leftColor[2])), -1)
+					cv2.circle(self.frame, (avgX_R, avgY_R), 5, (255, 255, 255), -1)
+					cv2.circle(self.frame, (avgX_L, avgY_L), 5, (255, 255, 255), -1)
 
 					cv2.line(self.frame, (avgX_R, avgY_R), (avgX_L, avgY_L), self.get_color_by_angle(-26), 1)
 
@@ -364,6 +397,7 @@ class laneDepartureWarning:
 			fromY = chunk*self.lineJump
 			toY   = (chunk+1)*self.lineJump
 
+			# if we intersect with one of the horizontal delimiters or we are on a delimiter
 			if self.intersect( (line[0][0], line[0][1]), (line[0][2], line[0][3]), (0, fromY), (self.width, toY)) or (line[0][1] >= fromY and line[0][3] <= toY):
 
 				if self.get_lane_direction_by_point(line):
