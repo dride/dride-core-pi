@@ -7,7 +7,7 @@ Cardigan is the open source framework for building amazing car apps using feture
 Make sure to check out our [wiki](https://github.com/yapQ/cardiganCamVision/wiki)
 
 ## Quick start
-To start using Cardigna you'll need the following development dependencies:
+To start using Cardigan you'll need the following dependencies:
 
 1. OpenCV 3.0+
 2. Python 2.7
