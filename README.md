@@ -13,7 +13,8 @@ To start using Cardigan you'll need the following dependencies:
 2. Python 2.7
 3. NumPy
 4. mp4box  
-<code>sudo apt-get install gpac</code>
+
+Please follow our [installation guide](https://github.com/CardiganCam/Cardigan/wiki/Installation)
 
 ## Calibration
 After the initial installation the software must be calibrated, We currently support only [manual calibration](https://github.com/CardiganCam/Cardigan/wiki/Calibration)
