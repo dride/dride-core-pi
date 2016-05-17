@@ -65,9 +65,9 @@ class analyze_frame:
 		# x2 = laneCenter + (width / 2)
 		# y2 = 280
 
-		#
-		# laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
-		#
+
+		laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
+
 
 
 

@@ -1,5 +1,6 @@
 import cv2
 from classes import frameAnalyzer
+from config import *
 import time
 
 # # load image
@@ -9,8 +10,7 @@ import time
 
 # load video file
 
-cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw4/encoded/1459726324.h264.mp4")
-# cap = cv2.VideoCapture("/Users/saoron/Desktop/Driving master class on Dubai road.avi.mp4")
+cap = cv2.VideoCapture(PARENT_DIR + "/training/video/1459726324.h264.mp4")
 c = 0
 while True:
     # if c >0:
