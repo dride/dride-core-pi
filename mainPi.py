@@ -6,8 +6,9 @@ from classes.PiVideoStream import PiVideoStream
 import thread
 
 def capture(camera):
+	print camera
 	# start record
-	cap = capture(camera)
+	cap = capture(camera.camera)
 	cap.captureClips()
 
 
