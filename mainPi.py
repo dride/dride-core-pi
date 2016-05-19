@@ -3,7 +3,7 @@ from classes import frameAnalyzer
 import time
 from classes.capture import capture
 from classes.PiVideoStream import PiVideoStream
-from threading import Thread
+import thread
 
 def capture(camera):
 	# start record
@@ -28,9 +28,11 @@ def run_program():
 	# run cardigan proccesses
 	try:
 		while True:
-			Thread(target=capture(camera), args=()).start()
-
-
+			try:
+				thread.start_new_thread(capture, (camera,))
+			except:
+				print "Error: unable to start thread"
+				
 			# Start safty proccess
 			frame = camera.read()
 			frameAnalyzer.analyze_frame(frame, True, True, True)
