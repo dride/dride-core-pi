@@ -33,6 +33,10 @@ class capture:
 			#save thumbnail
 			self.camera.capture(self.parent + "thumb/" + filename + ".jpg", resize=(70, 70))
 			self.camera.start_recording(self.parent + "clip/" + filename + ".h264")
+			# save GPS data for frame
+			file = open(self.parent + "gps/" + filename + ".json", 'w')
+
+
 			sleep(60)
 			self.camera.stop_recording()
 			# decode to mp4
