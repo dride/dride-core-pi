@@ -28,7 +28,7 @@ def run_program():
 	# run cardigan proccesses
 	try:
 		while True:
-			Thread(target=capture(), args=(camera)).start()
+			Thread(target=capture(camera), args=()).start()
 
 
 			# Start safty proccess
