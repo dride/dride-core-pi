@@ -7,7 +7,7 @@ import thread
 
 def capture(camera):
 	# start record
-	cap = capture(camera.camera)
+	cap = capture(camera)
 	cap.captureClips()
 
 
@@ -32,7 +32,7 @@ def run_program():
 				thread.start_new_thread(capture, (camera,))
 			except:
 				print "Error: unable to start thread"
-				
+
 			# Start safty proccess
 			frame = camera.read()
 			frameAnalyzer.analyze_frame(frame, True, True, True)
