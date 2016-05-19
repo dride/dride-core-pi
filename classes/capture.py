@@ -37,8 +37,8 @@ class capture:
 			file = open(self.parent + "gps/" + filename + ".json", 'w')
 			file.write('Hello, world!\n')
 
-
-			sleep(60)
+			print '11'
+			self.camera.wait_recording(60)
 			self.camera.stop_recording()
 			# decode to mp4
 			os.system ("MP4Box -add " + self.parent + "clip/"+filename+".h264 " + self.parent+"clip/" + filename+".mp4; rm "+self.parent + "clip/" + filename+".h264 &")
