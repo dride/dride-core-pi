@@ -24,9 +24,9 @@ def run_program():
 			cap = capture(camera.camera)
 			cap.captureClips()
 
-			# # Start safty proccess
-			# frame = camera.read()
-			# frameAnalyzer.analyze_frame(frame, True, True, True)
+			# Start safty proccess
+			frame = camera.read()
+			frameAnalyzer.analyze_frame(frame, True, True, True)
 
 	except KeyboardInterrupt:
 		print "\nattempting to close."
