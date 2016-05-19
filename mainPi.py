@@ -28,6 +28,8 @@ def run_program():
 			frame = camera.read()
 			frameAnalyzer.analyze_frame(frame, True, True, True)
 
+			print int(round(time.time()))
+
 	except KeyboardInterrupt:
 		print "\nattempting to close."
 		camera.stop()
