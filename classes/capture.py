@@ -35,6 +35,7 @@ class capture:
 			self.camera.start_recording(self.parent + "clip/" + filename + ".h264")
 			# save GPS data for frame
 			file = open(self.parent + "gps/" + filename + ".json", 'w')
+			file.write('Hello, world!\n')
 
 
 			sleep(60)
