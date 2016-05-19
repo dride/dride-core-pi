@@ -15,20 +15,20 @@ def run_program():
 	# allow the camera to warmup
 	time.sleep(2.0)
 
-	# # start record
-	# cap = capture(camera.camera)
-	# cap.captureClips()
+	# start record
+	cap = capture(camera.camera)
+	cap.captureClips()
 
-	# run cardigan proccesses
-	try:
-		while True:
-			frame = camera.read()
-			frameAnalyzer.analyze_frame(frame, True, True, True)
-
-	except KeyboardInterrupt:
-		print "\nattempting to close."
-		camera.stop()
-		print "\nBye Bye ;-)"
+	# # run cardigan proccesses
+	# try:
+	# 	while True:
+	# 		frame = camera.read()
+	# 		frameAnalyzer.analyze_frame(frame, True, True, True)
+	#
+	# except KeyboardInterrupt:
+	# 	print "\nattempting to close."
+	# 	camera.stop()
+	# 	print "\nBye Bye ;-)"
 
 
 

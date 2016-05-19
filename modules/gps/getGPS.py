@@ -8,11 +8,11 @@ class index:
 
 	def GET(self):
 		data = web.input()
-		if data.heading != 'NaN':
+		if data.data != 'NaN':
 			with open('gps.json', 'w') as file_:
-				file_.write(data.heading)
+				file_.write(data.data)
 
-		return data.heading
+		return data.data
 
 if __name__ == "__main__":
 
