@@ -15,7 +15,7 @@ class capture:
 	rollover = rolloverMinutes * 60
 	camera  = None
 	shutdownRequest = False
-	parent = PARENT_DIR + 'modules/video/'
+	parent = PARENT_DIR + '/modules/video/'
 
 	def __init__(self, camera):
 
@@ -36,7 +36,7 @@ class capture:
 			sleep(60)
 			self.camera.stop_recording()
 			# decode to mp4
-			os.system ("MP4Box -add "+self.parent+"clip/"+filename+".h264 "+self.parent+"clip/"+filename+".mp4; rm "+self.parent+"clip/"+filename+".h264 &")
+			os.system ("MP4Box -add " + self.parent + "clip/"+filename+".h264 " + self.parent+"clip/" + filename+".mp4; rm "+self.parent + "clip/" + filename+".h264 &")
 
 
 

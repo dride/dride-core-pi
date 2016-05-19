@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="039e1401-649d-472b-bef4-2600191ac62f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/classes/capture.py" afterPath="$PROJECT_DIR$/classes/capture.py" />
     </list>
     <ignored path="cardiganCam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="capture.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="capture.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/capture.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="450">
+              <caret line="38" column="149" selection-start-line="38" selection-start-column="149" selection-end-line="38" selection-end-column="149" />
               <folding />
             </state>
           </provider>
@@ -58,7 +58,7 @@
       <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
+            <state relative-caret-position="45">
               <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
               <folding />
             </state>
@@ -75,7 +75,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PiVideoStream.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PiVideoStream.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/PiVideoStream.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -172,7 +172,6 @@
         <option value="$PROJECT_DIR$/modules/video/index.py" />
         <option value="$PROJECT_DIR$/modules/gps/gps.json" />
         <option value="$PROJECT_DIR$/classes/picamera_fps.py" />
-        <option value="$PROJECT_DIR$/classes/capture.py" />
         <option value="$PROJECT_DIR$/classes/aaa.py" />
         <option value="$PROJECT_DIR$/classes/sound.py" />
         <option value="$PROJECT_DIR$/classes/forwardCollisionWarning.py" />
@@ -185,6 +184,7 @@
         <option value="$PROJECT_DIR$/classes/PiVideoStream.py" />
         <option value="$PROJECT_DIR$/defaults.cfg" />
         <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/classes/capture.py" />
       </list>
     </option>
   </component>
@@ -831,14 +831,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/capture.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/gps/getGPS.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -865,14 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/PiVideoStream.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -880,6 +864,22 @@
           <folding>
             <element signature="e#32#69#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="10" column="7" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/capture.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="38" column="149" selection-start-line="38" selection-start-column="149" selection-end-line="38" selection-end-column="149" />
+          <folding />
         </state>
       </provider>
     </entry>
