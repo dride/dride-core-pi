@@ -3,6 +3,14 @@ from classes import frameAnalyzer
 import time
 from classes.capture import capture
 from classes.PiVideoStream import PiVideoStream
+from threading import Thread
+
+def capture(camera):
+	# start record
+	cap = capture(camera.camera)
+	cap.captureClips()
+
+
 
 def run_program():
 	# load the image
@@ -20,15 +28,13 @@ def run_program():
 	# run cardigan proccesses
 	try:
 		while True:
-			# start record
-			cap = capture(camera.camera)
-			cap.captureClips()
+			Thread(target=capture(), args=(camera)).start()
+
 
 			# Start safty proccess
 			frame = camera.read()
 			frameAnalyzer.analyze_frame(frame, True, True, True)
 
-			print int(round(time.time()))
 
 	except KeyboardInterrupt:
 		print "\nattempting to close."
