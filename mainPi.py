@@ -15,14 +15,14 @@ def run_program():
 	# allow the camera to warmup
 	time.sleep(2.0)
 
-
+	cap = capture(640, 480)
 
 	# run cardigan proccesses
 	try:
 		while True:
-			# # start record
-			# cap = capture(camera.camera)
-			# cap.captureClips()
+
+			# start record
+			capture.captureFrame(frame)
 
 			# Start safty proccess
 			frame = camera.read()

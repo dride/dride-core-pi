@@ -42,32 +42,32 @@ class analyze_frame:
 
 		roadFrame = roadFrame[self.config['y1']:self.config['y1'] + self.config['road_height'], self.config['x1']:self.config['x1'] + self.config['road_width']]
 
-		# ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
-		# laneCenter = ldw.find_lanes(video)
-		#
-		# # draw which lane rect
-		# cv2.rectangle(cleanFrame, (0, 0), (100, 60), (255, 255, 255), -1);
-		# cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
-		# cv2.putText(cleanFrame, str(heading), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
-		#
-		# laneCenter += self.config['x1']
-		#
-		# leftCornerX = laneCenter - (self.config['square_width'] / 2)
-		# leftCornerY = 50
-		#
-		# x1 = int(laneCenter - (self.config['square_width'] / 2))
-		# y1 = (self.config['road_height']/2) + self.config['y1'] - self.config['square_height']
-		# x2 = laneCenter + (self.config['square_width'] / 2)
-		# y2 = (self.config['road_height']/2) + self.config['y1']
-		#
-		# # x1 = int(laneCenter - (width / 2))
-		# # y1 = 190
-		# # x2 = laneCenter + (width / 2)
-		# # y2 = 280
-		#
-		#
-		# laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
-		#
+		ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
+		laneCenter = ldw.find_lanes(video)
+
+		# draw which lane rect
+		cv2.rectangle(cleanFrame, (0, 0), (100, 60), (255, 255, 255), -1);
+		cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+		cv2.putText(cleanFrame, str(heading), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+
+		laneCenter += self.config['x1']
+
+		leftCornerX = laneCenter - (self.config['square_width'] / 2)
+		leftCornerY = 50
+
+		x1 = int(laneCenter - (self.config['square_width'] / 2))
+		y1 = (self.config['road_height']/2) + self.config['y1'] - self.config['square_height']
+		x2 = laneCenter + (self.config['square_width'] / 2)
+		y2 = (self.config['road_height']/2) + self.config['y1']
+
+		# x1 = int(laneCenter - (width / 2))
+		# y1 = 190
+		# x2 = laneCenter + (width / 2)
+		# y2 = 280
+
+
+		laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
+
 
 
 
