@@ -24,7 +24,7 @@ def run_program():
 			frame = camera.read()
 
 			# start record
-			capture.captureFrame(frame)
+			cap.captureFrame(frame)
 
 			# Start safty proccess
 			frameAnalyzer.analyze_frame(frame, True, True, True)
