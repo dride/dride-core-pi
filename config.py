@@ -8,7 +8,7 @@ import ConfigParser, os
 
 # project dir
 PARENT_DIR = os.path.dirname(os.path.realpath(__file__))
-
+FPS = 8
 class Config:
 
 
@@ -41,6 +41,9 @@ class Config:
 			# debug mode
 			self.config.set('video', 'flip', 'True')
 
+			# gps
+			self.config.add_section('gps')
+			self.config.set('gps', 'gps', 'True')
 
 			self.config.add_section('calibration')
 

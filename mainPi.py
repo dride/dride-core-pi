@@ -15,15 +15,20 @@ def run_program():
 	# allow the camera to warmup
 	time.sleep(2.0)
 
-	# # start record
-	# cap = capture(camera.camera)
-	# cap.captureClips()
+	cap = capture(640, 480)
 
 	# run cardigan proccesses
 	try:
 		while True:
+			# load frame from camera
 			frame = camera.read()
+
+			# start record
+			cap.captureFrame(frame)
+
+			# Start safty proccess
 			frameAnalyzer.analyze_frame(frame, True, True, True)
+
 
 	except KeyboardInterrupt:
 		print "\nattempting to close."
