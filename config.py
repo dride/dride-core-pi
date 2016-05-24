@@ -41,6 +41,9 @@ class Config:
 			# debug mode
 			self.config.set('video', 'flip', 'True')
 
+			# gps
+			self.config.add_section('gps')
+			self.config.set('gps', 'gps', 'True')
 
 			self.config.add_section('calibration')
 
