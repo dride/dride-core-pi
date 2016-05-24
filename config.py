@@ -8,7 +8,7 @@ import ConfigParser, os
 
 # project dir
 PARENT_DIR = os.path.dirname(os.path.realpath(__file__))
-FPS = 8
+FPS = 4
 class Config:
 
 
