@@ -14,9 +14,12 @@ jsonRaw = ''
 path = "clip/"
 files = [f for f in listdir(path) if isfile(join(path, f))]
 c = 0
-for file in files:
-    files[c] = file.replace('.mp4', '')
-    c+=1
+res = []
 
-print json.dumps(files, default=lambda o: o.__dict__)
+for file in files:
+    if file != '.gitignore' and file !='.DS_Store':
+        res.append(file.replace('.avi', ''))
+
+
+print json.dumps(res, default=lambda o: o.__dict__)
 
