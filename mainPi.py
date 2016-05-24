@@ -20,12 +20,13 @@ def run_program():
 	# run cardigan proccesses
 	try:
 		while True:
+			# load frame from camera
+			frame = camera.read()
 
 			# start record
 			capture.captureFrame(frame)
 
 			# Start safty proccess
-			frame = camera.read()
 			frameAnalyzer.analyze_frame(frame, True, True, True)
 
 
