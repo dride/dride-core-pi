@@ -12,7 +12,6 @@ To start using Cardigan you'll need the following dependencies:
 1. OpenCV 3.0+
 2. Python 2.7
 3. NumPy
-4. mp4box  
 
 Please follow our [installation guide](https://github.com/CardiganCam/Cardigan/wiki/Installation)
 
