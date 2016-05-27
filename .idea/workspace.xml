@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="039e1401-649d-472b-bef4-2600191ac62f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cardiganTest.py" afterPath="$PROJECT_DIR$/cardiganTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defaults.cfg" afterPath="$PROJECT_DIR$/defaults.cfg" />
     </list>
     <ignored path="cardiganCam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,18 +23,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="capture.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/classes/capture.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="gps.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/gps.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -99,11 +87,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cardiganTest.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="calibration.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classes/calibration.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="311">
+              <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cardiganTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cardiganTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="360">
+              <caret line="24" column="39" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="39" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -123,12 +123,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="laneDepartureWarning.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="laneDepartureWarning.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="426" column="22" selection-start-line="426" selection-start-column="8" selection-end-line="426" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="199">
+              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -185,10 +187,10 @@
         <option value="$PROJECT_DIR$/modules/gps/setGPS.py" />
         <option value="$PROJECT_DIR$/modules/video/index.py" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/defaults.cfg" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/classes/frameAnalyzer.py" />
         <option value="$PROJECT_DIR$/cardiganTest.py" />
+        <option value="$PROJECT_DIR$/defaults.cfg" />
       </list>
     </option>
   </component>
@@ -676,18 +678,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 42m 48s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 43m 15s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 43m 41s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 45m 25s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 47m 15s.xml">
       <configuration name="Unittests in cardiganTest" configurationId="tests" />
     </history-entry>
@@ -706,6 +696,18 @@
     <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 05m 07s.xml">
       <configuration name="Unittests in cardiganTest" configurationId="tests" />
     </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 12m 03s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 13m 37s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 13m 40s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 14m 30s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1053" extended-state="6" />
@@ -716,7 +718,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3194589" sideWeight="0.5229068" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3194589" sideWeight="0.47709322" order="2" side_tool="false" content_ui="tabs" x="0" y="388" width="1920" height="322" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3194589" sideWeight="0.47709322" order="2" side_tool="false" content_ui="tabs" x="0" y="388" width="1920" height="322" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298647" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -857,13 +859,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classes/aaa.py" />
-    <entry file="file://$PROJECT_DIR$/classes/calibration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="11" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/classes/sound.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -970,22 +965,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="426" column="22" selection-start-line="426" selection-start-column="8" selection-end-line="426" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/defaults.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -1008,10 +987,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cardiganTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="360">
+          <caret line="24" column="39" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="39" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/defaults.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/calibration.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
