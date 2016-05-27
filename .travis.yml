@@ -15,6 +15,8 @@ before_script:
   - make -j4
   - sudo make -j4 install
   - cd ../..
+  - PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
+  - export PKG_CONFIG_PATH
 
 python:
   - "2.7"
