@@ -12,7 +12,7 @@ class analyze_frame:
 
 	# load config
 	config = Config().getConfig()
-
+	laneAvg = -1
 	# load calibration object
 	calibration = calibration()
 
@@ -24,7 +24,7 @@ class analyze_frame:
 			frame = cv2.flip(frame, 1)
 
 		# get GPS data
-		heading = open('./modules/gps/gps.json', 'r').read()
+		heading = open(PARENT_DIR + '/modules/gps/gps.json', 'r').read()
 		# print '-------' + str(heading)
 
 		# calibrate if needed
@@ -51,6 +51,7 @@ class analyze_frame:
 		cv2.putText(cleanFrame, str(heading), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
 		laneCenter += self.config['x1']
+		self.laneAvg = ldw.get_lane_avg_x()
 
 		leftCornerX = laneCenter - (self.config['square_width'] / 2)
 		leftCornerY = 50

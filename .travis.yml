@@ -2,12 +2,27 @@ language: python
 
 before_install:
  - sudo apt-get update
- - sudo apt-get install python-opencv
- - sudo dpkg -L python-opencv
+
 install:
-  - "pip install --pre -r requirements.txt"
+ - sudo apt-get install python-dev python-numpy
+
+before_script:
+  - git clone https://github.com/Itseez/opencv.git
+  - cd opencv
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make -j4
+  - sudo make -j4 install
+  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
 
 python:
   - "2.7"
+
 script:
-  - python cardiganTest.py
+
+  - python /home/travis/build/CardiganCam/Cardigan/cardiganTest.py
+
+notifications:
+  email:
+    - saoron@gmail.com
