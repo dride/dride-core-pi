@@ -22,6 +22,8 @@ install:
 
   # install build tools (CMake)
   - sudo apt-get install -y cmake pkg-config
+  - if [ "$CMAKE_GEN" = "Ninja" ]; then sudo apt-get install -y ninja-build ; fi
+  
   # install some dependencies for OpenCV
   - sudo apt-get install -y zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libopenexr-dev libgdal-dev
   - sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
