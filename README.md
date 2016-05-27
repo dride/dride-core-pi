@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/CardiganCam/Cardigan.svg?branch=master)](https://travis-ci.org/CardiganCam/Cardigan)
 # Cardigan computer vision driver assistent.
 
 ## Welcome to Cardigan
