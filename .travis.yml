@@ -20,10 +20,6 @@ python:
   - "2.7"
 
 script:
-  # We don't have Matlab on the Travis machines, so we're setting a dummy path
-  # and ignoring the tests tagged for Matlab.
-  - export MATLAB_LIBRARY_ROOT=/tmp
-  - sbt "testOnly * -- -l MatlabTest"
 
   - python /home/travis/build/CardiganCam/Cardigan/cardiganTest.py
 
