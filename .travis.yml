@@ -1,4 +1,16 @@
 language: python
+# global environment variables
+env:
+  global:
+    # Extra make arguments
+    # (avoid using too many parallel jobs, as it could starve memory!)
+    - MAKE_EXTRA=-j2
+    # path where OpenCV is installed
+    - INSTALL_PREFIX=/usr/local
+    # CMake generator, one of:
+    # - Unix Makefiles: GNU Make
+    # - Ninja: usually faster than make
+    - CMAKE_GEN=Ninja
 
 before_install:
  - sudo apt-get update
@@ -7,7 +19,7 @@ install:
   - "pip install --pre -r requirements.txt"
   # install numpy
   - pip install numpy
-  
+
   # install build tools (CMake)
   - sudo apt-get install -y cmake pkg-config
   # install some dependencies for OpenCV
