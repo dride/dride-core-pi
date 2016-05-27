@@ -2,11 +2,15 @@ language: python
 
 before_install:
  - sudo apt-get update
- - sudo apt-get install python-opencv
- - sudo dpkg -L python-opencv
+
 install:
   - "pip install --pre -r requirements.txt"
-# install some dependencies for OpenCV
+  # install numpy
+  - pip install numpy
+  
+  # install build tools (CMake)
+  - sudo apt-get install -y cmake pkg-config
+  # install some dependencies for OpenCV
   - sudo apt-get install -y zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libopenexr-dev libgdal-dev
   - sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
   - sudo apt-get install -y libxine-dev libv4l-dev libdc1394-22-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
