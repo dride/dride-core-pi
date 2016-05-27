@@ -8,7 +8,6 @@ import cv2
 import numpy as np
 from classes import frameAnalyzer
 from config import *
-from classes.capture import capture
 
 """Simple test harness"""
 class TestImages(unittest.TestCase):
@@ -21,7 +20,7 @@ class TestImages(unittest.TestCase):
     def test_lane_detection(self):
         # load config for test
         # TODO: create a way to load different config files in testing.
-        
+
         image = cv2.imread('training/set6/1.png')
         f = frameAnalyzer.analyze_frame(image, True, False, True)
         self.assertTrue(f.laneAvg == 170)
