@@ -22,6 +22,7 @@ class TestImages(unittest.TestCase):
 
 
     def test_lane_detection(self):
+        print cv2.__version__
         image = cv2.imread("training/set6/1.png")
         f = frameAnalyzer.analyze_frame(image, True, False, True)
 
