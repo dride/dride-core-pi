@@ -14,9 +14,7 @@ before_script:
   - cmake ..
   - make -j4
   - sudo make -j4 install
-  - cd ../..
-  - PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig
-  - export PKG_CONFIG_PATH
+  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
 
 python:
   - "2.7"
