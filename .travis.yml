@@ -25,4 +25,8 @@ script:
   - export MATLAB_LIBRARY_ROOT=/tmp
   - sbt "testOnly * -- -l MatlabTest"
 
-  - python cardiganTest.py
+  - python /home/travis/build/CardiganCam/Cardigan/cardiganTest.py
+
+notifications:
+  email:
+    - saoron@gmail.com
