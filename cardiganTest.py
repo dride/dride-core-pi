@@ -8,7 +8,6 @@ import cv2
 import numpy as np
 from classes import frameAnalyzer
 from config import *
-from classes.capture import capture
 
 """Simple test harness"""
 class TestImages(unittest.TestCase):
