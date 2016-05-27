@@ -6,6 +6,66 @@ before_install:
  - sudo dpkg -L python-opencv
 install:
   - "pip install --pre -r requirements.txt"
+# install some dependencies for OpenCV
+  - sudo apt-get install -y zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libopenexr-dev libgdal-dev
+  - sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
+  - sudo apt-get install -y libxine-dev libv4l-dev libdc1394-22-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+  - sudo apt-get install -y libgtk2.0-dev libtbb-dev libeigen3-dev
+
+  # build OpenCV 3.1.0 from source (opencv + opencv_contrib)
+  - mkdir $HOME/cv && pushd $HOME/cv
+  - wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
+  - wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip
+  - unzip opencv.zip > /dev/null
+  - unzip opencv_contrib.zip > /dev/null
+  - mkdir build && cd build
+  - cmake -G "$CMAKE_GEN" -Wno-dev
+      -DWITH_CUDA:BOOL=OFF
+      -DWITH_CUFFT:BOOL=OFF
+      -DWITH_OPENCL:BOOL=OFF
+      -DWITH_VTK:BOOL=OFF
+      -DINSTALL_C_EXAMPLES:BOOL=OFF
+      -DINSTALL_PYTHON_EXAMPLES:BOOL=OFF
+      -DBUILD_DOCS:BOOL=OFF
+      -DBUILD_EXAMPLES:BOOL=OFF
+      -DBUILD_PACKAGE:BOOL=OFF
+      -DBUILD_PERF_TESTS:BOOL=OFF
+      -DBUILD_TESTS:BOOL=OFF
+      -DBUILD_opencv_apps:BOOL=OFF
+      -DBUILD_opencv_cuda:BOOL=OFF
+      -DBUILD_opencv_java:BOOL=OFF
+      -DBUILD_opencv_python2:BOOL=OFF
+      -DBUILD_opencv_python3:BOOL=OFF
+      -DBUILD_opencv_ts:BOOL=OFF
+      -DBUILD_opencv_world:BOOL=OFF
+      -DBUILD_opencv_contrib_world:BOOL=OFF
+      -DBUILD_opencv_aruco:BOOL=OFF
+      -DBUILD_opencv_ccalib:BOOL=OFF
+      -DBUILD_opencv_cvv:BOOL=OFF
+      -DBUILD_opencv_datasets:BOOL=OFF
+      -DBUILD_opencv_dnn:BOOL=OFF
+      -DBUILD_opencv_hdf:BOOL=OFF
+      -DBUILD_opencv_matlab:BOOL=OFF
+      -DBUILD_opencv_sfm:BOOL=OFF
+      -DBUILD_opencv_structured_light:BOOL=OFF
+      -DBUILD_opencv_surface_matching:BOOL=OFF
+      -DBUILD_opencv_tracking:BOOL=OFF
+      -DCMAKE_BUILD_TYPE:STRING=RELEASE
+      -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX
+      -DOPENCV_EXTRA_MODULES_PATH:PATH=$HOME/cv/opencv_contrib-3.1.0/modules $HOME/cv/opencv-3.1.0
+  - cmake --build .
+  - sudo cmake --build . --target install
+  - popd
+
+  #
+  - export PATH=$PATH:$INSTALL_PREFIX/bin
+  - export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$INSTALL_PREFIX/lib/pkgconfig
+  - sudo sh -c 'echo "$INSTALL_PREFIX/lib" > /etc/ld.so.conf.d/opencv.conf'
+  - sudo ldconfig
+
+  # show cv pkg info
+  - pkg-config --modversion opencv
+  - pkg-config --cflags --libs opencv
 
 python:
   - "2.7"

@@ -13,8 +13,8 @@ from config import *
 class TestImages(unittest.TestCase):
 
 
-    # def test_open_cv_version(self):
-    #     self.assertTrue(cv2.__version__ == '3.1.0')
+    def test_open_cv_version(self):
+        self.assertTrue(cv2.__version__ == '3.1.0')
 
 
     def test_image_load(self):
@@ -22,7 +22,6 @@ class TestImages(unittest.TestCase):
 
 
     def test_lane_detection(self):
-        print cv2.__version__
         image = cv2.imread("training/set6/1.png")
         f = frameAnalyzer.analyze_frame(image, True, False, True)
 
