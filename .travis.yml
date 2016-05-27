@@ -45,6 +45,7 @@ install:
       -DOPENCV_EXTRA_MODULES_PATH:PATH=$HOME/cv/opencv_contrib-3.1.0/modules $HOME/cv/opencv-3.1.0
   - cmake --build .
   - sudo cmake --build . --target install
+  - make -j2 install
   - popd
 
   #
