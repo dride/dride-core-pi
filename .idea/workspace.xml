@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="039e1401-649d-472b-bef4-2600191ac62f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/defaults.cfg" afterPath="$PROJECT_DIR$/defaults.cfg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cardiganTest.py" afterPath="$PROJECT_DIR$/cardiganTest.py" />
     </list>
     <ignored path="cardiganCam.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,11 +99,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cardiganTest.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cardiganTest.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cardiganTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="39" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="39" />
+            <state relative-caret-position="270">
+              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -123,11 +123,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="laneDepartureWarning.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="laneDepartureWarning.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+            <state relative-caret-position="135">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -189,8 +189,8 @@
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/classes/frameAnalyzer.py" />
-        <option value="$PROJECT_DIR$/cardiganTest.py" />
         <option value="$PROJECT_DIR$/defaults.cfg" />
+        <option value="$PROJECT_DIR$/cardiganTest.py" />
       </list>
     </option>
   </component>
@@ -678,18 +678,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 47m 15s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 50m 06s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 50m 16s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
-    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 58m 58s.xml">
-      <configuration name="Unittests in cardiganTest" configurationId="tests" />
-    </history-entry>
     <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 15h 59m 20s.xml">
       <configuration name="Unittests in cardiganTest" configurationId="tests" />
     </history-entry>
@@ -706,6 +694,18 @@
       <configuration name="Unittests in cardiganTest" configurationId="tests" />
     </history-entry>
     <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 14m 30s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 20m 03s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 20m 09s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 20m 47s.xml">
+      <configuration name="Unittests in cardiganTest" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Unittests_in_cardiganTest - 2016.05.27 at 16h 20m 56s.xml">
       <configuration name="Unittests in cardiganTest" configurationId="tests" />
     </history-entry>
   </component>
@@ -975,6 +975,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/classes/frameAnalyzer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
@@ -982,24 +992,6 @@
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cardiganTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="39" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/defaults.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1013,12 +1005,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classes/laneDepartureWarning.py">
+    <entry file="file://$PROJECT_DIR$/defaults.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="40" column="8" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+        <state relative-caret-position="300">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cardiganTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
