@@ -1,64 +1,29 @@
 language: python
-# global environment variables
-env:
-  global:
-    # Extra make arguments
-    # (avoid using too many parallel jobs, as it could starve memory!)
-    - MAKE_EXTRA=-j2
-    # path where OpenCV is installed
-    - INSTALL_PREFIX=/usr/local
-    # CMake generator, one of:
-    # - Unix Makefiles: GNU Make
-    # - Ninja: usually faster than make
-    - CMAKE_GEN=Ninja
 
 before_install:
  - sudo apt-get update
 
 install:
-  - "pip install --pre -r requirements.txt"
-  # install numpy
-  - pip install numpy
+ - sudo apt-get install python-dev python-numpy
 
-  # install build tools (CMake)
-  - sudo apt-get install -y cmake pkg-config
-
-  # install some dependencies for OpenCV
-  - sudo apt-get install -y zlib1g-dev libjpeg8-dev libpng12-dev libtiff4-dev libjasper-dev libopenexr-dev libgdal-dev
-  - sudo apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
-  - sudo apt-get install -y libxine-dev libv4l-dev libdc1394-22-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
-  - sudo apt-get install -y libgtk2.0-dev libtbb-dev libeigen3-dev
-
-  # build OpenCV 3.1.0 from source (opencv + opencv_contrib)
-  - mkdir $HOME/cv && pushd $HOME/cv
-  - wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.1.0.zip
-  - wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.1.0.zip
-  - unzip opencv.zip > /dev/null
-  - unzip opencv_contrib.zip > /dev/null
-  - mkdir build && cd build
-  - cmake -D CMAKE_BUILD_TYPE=RELEASE \
-      -D CMAKE_INSTALL_PREFIX=/usr/local \
-      -D INSTALL_C_EXAMPLES=OFF \
-      -D INSTALL_PYTHON_EXAMPLES=OFF \
-      -D BUILD_EXAMPLES=OFF ..
-      -DCMAKE_INSTALL_PREFIX:PATH=$INSTALL_PREFIX
-      -DOPENCV_EXTRA_MODULES_PATH:PATH=$HOME/cv/opencv_contrib-3.1.0/modules $HOME/cv/opencv-3.1.0
-  - cmake --build .
-  - sudo cmake --build . --target install
-  - make -j2 install
-  - popd
-
-  #
-  - export PATH=$PATH:$INSTALL_PREFIX/bin
-  - export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:$INSTALL_PREFIX/lib/pkgconfig
-  - sudo sh -c 'echo "$INSTALL_PREFIX/lib" > /etc/ld.so.conf.d/opencv.conf'
-  - sudo ldconfig
-
-  # show cv pkg info
-  - pkg-config --modversion opencv
-  - pkg-config --cflags --libs opencv
+before_script:
+  - git clone https://github.com/Itseez/opencv.git
+  - cd opencv
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make -j4
+  - sudo make -j4 install
+  - mvn install:install-file -Dfile=/usr/local/share/OpenCV/java/opencv-300.jar -DgroupId=opencv -DartifactId=opencv -Dversion=3.0.0 -Dpackaging=jar
+  - cd ../..
 
 python:
   - "2.7"
+
 script:
+  # We don't have Matlab on the Travis machines, so we're setting a dummy path
+  # and ignoring the tests tagged for Matlab.
+  - export MATLAB_LIBRARY_ROOT=/tmp
+  - sbt "testOnly * -- -l MatlabTest"
+  
   - python cardiganTest.py
