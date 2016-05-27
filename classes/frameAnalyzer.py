@@ -24,7 +24,7 @@ class analyze_frame:
 			frame = cv2.flip(frame, 1)
 
 		# get GPS data
-		heading = open('./modules/gps/gps.json', 'r').read()
+		heading = open(PARENT_DIR + '/modules/gps/gps.json', 'r').read()
 		# print '-------' + str(heading)
 
 		# calibrate if needed
