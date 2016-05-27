@@ -13,9 +13,6 @@ from config import *
 class TestImages(unittest.TestCase):
 
 
-    def test_open_cv_version(self):
-        self.assertTrue(cv2.__version__ == '3.1.0' or cv2.__version__ == '3.0.0')
-
 
     def test_image_load(self):
         self.assertTrue((cv2.imread(PARENT_DIR + "/training/set6/1.png").any()))
