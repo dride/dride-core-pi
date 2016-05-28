@@ -208,8 +208,7 @@ class laneDepartureWarning:
 
 		return abs(minY - maxY) < distance and abs(minX - maxX) < distance
 
-
-
+	@classmethod
 	def show_frame(self, frame1, frame2, video):
 
 		cv2.imshow('img1', frame1)
@@ -406,7 +405,7 @@ class laneDepartureWarning:
 				else:
 					self.linesInGroups_right[chunk].append(line)
 
-
+	@classmethod
 	def ccw(self, A, B, C):
 		return (C[1] - A[1]) * (B[0] - A[0]) > (B[1] - A[1]) * (C[0] - A[0])
 
@@ -529,6 +528,7 @@ class laneDepartureWarning:
 
 		return (avgY, avgX)
 
+	@classmethod
 	def if_color_in_range(self, baseColor, cmpColor, trashold):
 
 
@@ -541,10 +541,11 @@ class laneDepartureWarning:
 
 		return True
 
+	@classmethod
 	def inInt(self, num):
 		return -5000000 < num < 5000000
 
-
+	@classmethod
 	def get_color_by_angle(self, angle):
 		if 10 < angle <= 15:
 			return 245, 12, 12
@@ -573,7 +574,7 @@ class laneDepartureWarning:
 		# default color
 		return 0, 255, 255
 
-
+	@classmethod
 	def get_group_id_by_angle(self, angle):
 		if 10 < angle <= 15:
 			return 1
