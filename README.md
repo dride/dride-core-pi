@@ -2,7 +2,7 @@
 # Cardigan computer vision driver assistent.
 
 ## Welcome to Cardigan
-Cardigan is the open source framework for building amazing car apps using fetures like lane detection and collision warining out of the box!
+Cardigan is the open source framework for building amazing car apps using fetures such as lane departure warning (LDW) and forward collision warining (FCW) out of the box!
 
 ## Documentation
 Make sure to check out our [wiki](https://github.com/yapQ/cardiganCamVision/wiki)
