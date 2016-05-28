@@ -6,6 +6,7 @@ urls = (
 
 class index:
 
+	@classmethod
 	def GET(self):
 		data = web.input()
 		if data.data != 'NaN':
