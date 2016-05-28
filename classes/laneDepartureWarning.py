@@ -192,7 +192,7 @@ class laneDepartureWarning:
 	def notTooFarAwaPoints(self, finalCenterPoints, distance):
 		maxX = maxY = 0
 		minX = minY = 1000
-		for i in enumerate(finalCenterPoints):
+		for i in range(len(finalCenterPoints)):
 
 			if finalCenterPoints[i] and finalCenterPoints[i][0][0] < minX:
 				minX = finalCenterPoints[i][0][0]
