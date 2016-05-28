@@ -188,10 +188,11 @@ class laneDepartureWarning:
 
 
 	# return if the point are close to each other by -distance (Pixles)
+	@classmethod
 	def notTooFarAwaPoints(self, finalCenterPoints, distance):
 		maxX = maxY = 0
 		minX = minY = 1000
-		for i in range(len(finalCenterPoints)):
+		for i, value in enumerate(finalCenterPoints):
 
 			if finalCenterPoints[i] and finalCenterPoints[i][0][0] < minX:
 				minX = finalCenterPoints[i][0][0]
