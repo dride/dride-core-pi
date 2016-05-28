@@ -5,13 +5,14 @@ import time
 
 class GPS:
 
-
+	@classmethod
 	def getPos(self):
 
 		file = open(PARENT_DIR + "/modules/gps/gps.json", 'r')
 
 		return file.read()
 
+	@classmethod
 	def createNewGPSrecordFile(self, filename):
 
 		file = open(PARENT_DIR + "/modules/video/gps/" + filename + ".json", 'w')
