@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/CardiganCam/Cardigan.svg?branch=master)](https://travis-ci.org/CardiganCam/Cardigan)
+[![Build Status](https://travis-ci.org/CardiganCam/Cardigan.svg?branch=master)](https://travis-ci.org/CardiganCam/Cardigan)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade)  [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage)
 # Cardigan computer vision driver assistent.
 
 ## Welcome to Cardigan
