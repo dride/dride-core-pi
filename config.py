@@ -84,10 +84,11 @@ class Config:
 			for (key, val) in self.config.items(each_section):
 				try:
 					res[key] = int(val)
-				except:
+				except ValueError:
 					res[key] = self.str2bool(val)
 
 		return res
 
+	@classmethod
 	def str2bool(self, v):
 		return v.lower() in ("true")
