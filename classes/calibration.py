@@ -1,8 +1,5 @@
-import cv2
-import numpy as np
 from config import *
 from classes.laneDepartureWarning import laneDepartureWarning
-import time
 
 class calibration:
 
@@ -40,7 +37,7 @@ class calibration:
 
 				ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], True, self.cleanFrame)
 				ldw.lifePeriod = 0
-				laneCenter = ldw.find_lanes(False)
+				# laneCenter = ldw.find_lanes(False)
 
 				if ldw.finalCenterPointsCount >= 3 and ldw.notTooFarAwaPoints(ldw.finalCenterPoints, 10):
 					avgX += x1

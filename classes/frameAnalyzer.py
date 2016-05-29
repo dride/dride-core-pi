@@ -1,7 +1,4 @@
-import numpy as np
 import cv2
-import math
-import os
 from config import *
 from classes.forwardCollisionWarning import forwardCollisionWarning
 from classes.calibration import calibration
