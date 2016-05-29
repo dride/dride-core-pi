@@ -44,20 +44,12 @@ class laneDepartureWarning:
 		self.linesInGroups_right = [[] for i in range(64)]
 
 
-		# if flip:
-		# 	self.frame = self.frame[200:320, 200:500]
-		# 	# self.frame = cv2.flip(self.frame, -1)
-		# 	# self.frame = cv2.flip(self.frame, 1)
-		#
-		# 	self.frameClean = self.frameClean[200:320, 200:500]
-		# 	# self.frameClean = cv2.flip(self.frameClean, -1)
-		# 	# self.frameClean = cv2.flip(self.frameClean, 1)
 
-		# save frames in debug mode
-		if self.config['debug']:
-			millis = int(round(time.time() * 1000))
-			if millis % self.captureInterval == 0:
-				cv2.imwrite(PARENT_DIR + "/training/timed/" + str(millis) + ".jpg", self.frame)
+		# # save frames in debug mode
+		# if self.config['debug']:
+		# 	millis = int(round(time.time() * 1000))
+		# 	if millis % self.captureInterval == 0:
+		# 		cv2.imwrite(PARENT_DIR + "/training/timed/" + str(millis) + ".jpg", self.frame)
 
 		sigma = 0.33
 		v = np.median(self.frame)
@@ -70,8 +62,6 @@ class laneDepartureWarning:
 		upper = int(min(255, (1.0 + sigma) * v))
 		edged = cv2.Canny(gray, lower, upper)
 
-		# super sensitive
-		# lines = cv2.HoughLinesP(edged, 1, math.pi / 360, 6, 30, 6);
 
 		# good for highway streight
 		# lines = cv2.HoughLinesP(edged, 1, math.pi / 180, 50, 10, 10);
