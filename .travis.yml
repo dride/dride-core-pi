@@ -21,7 +21,7 @@ python:
 
 script:
 
-  - python /home/travis/build/CardiganCam/Cardigan/cardiganTest.py
+  - python /home/travis/build/CardiganCam/Cardigan/test/test_lane_detection.py
 
 notifications:
   email:

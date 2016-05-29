@@ -1,10 +1,5 @@
 import cv2
-import numpy as np
-from time import gmtime, strftime
 import time
-import sys
-from time import sleep
-import os
 from config import *
 from classes.gps import GPS
 

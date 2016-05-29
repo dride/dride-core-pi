@@ -1,4 +1,3 @@
-import os
 from config import *
 import json
 import time

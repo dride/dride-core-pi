@@ -1,6 +1,5 @@
 import cv2
 import numpy as np
-import os
 import math
 from classes.linearEquation import linearEquation
 from classes.sound import sound
@@ -219,6 +218,7 @@ class laneDepartureWarning:
 		else:
 			cv2.waitKey(0)
 
+	@classmethod
 	def color_variant(self, hex_color, brightness_offset=1):
 		""" takes a color like #87c95f and produces a lighter or darker variant """
 		if len(hex_color) != 7:
