@@ -1,11 +1,11 @@
 import unittest
 import sys
-
-sys.path.insert(0,'/usr/lib/pyshared/python2.7')
-
-import cv2
 from classes import frameAnalyzer
 from config import *
+
+sys.path.insert(0,'/usr/lib/pyshared/python2.7')
+import cv2
+
 
 
 class TestImages(unittest.TestCase):
