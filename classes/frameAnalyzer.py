@@ -2,8 +2,9 @@ import cv2
 from config import *
 from classes.forwardCollisionWarning import forwardCollisionWarning
 from classes.calibration import calibration
-
+from classes.gps import GPS
 from classes.laneDepartureWarning import laneDepartureWarning
+import json
 
 class analyze_frame:
 
@@ -15,14 +16,18 @@ class analyze_frame:
 
 	def __init__(self, frame, flip, video, raspberry = False):
 
+
 		# if the video should be flipped
 		if self.config['flip'] == True:
 			frame = cv2.flip(frame, -1)
 			frame = cv2.flip(frame, 1)
 
 		# get GPS data
-		heading = open(PARENT_DIR + '/modules/gps/gps.json', 'r').read()
-		# print '-------' + str(heading)
+		position = json.loads(GPS.getPos())
+
+
+		if (position['speed'] < self.config['activation_speed']):
+			return
 
 		# calibrate if needed
 		if self.config['need_to_calibrate'] == True:
@@ -43,9 +48,10 @@ class analyze_frame:
 		laneCenter = ldw.find_lanes(video)
 
 		# draw which lane rect
-		cv2.rectangle(cleanFrame, (0, 0), (100, 60), (255, 255, 255), -1);
 		cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
-		cv2.putText(cleanFrame, str(heading), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+		cv2.putText(cleanFrame, 'Heading: ' + str(position['heading']), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+		cv2.putText(cleanFrame, 'Speed: ' +str(position['speed']), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+		cv2.putText(cleanFrame, 'Point: (' + str(position['latitude']) + ',' + str(position['longitude']) + ')', (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
 		laneCenter += self.config['x1']
 		self.laneAvg = ldw.get_lane_avg_x()
