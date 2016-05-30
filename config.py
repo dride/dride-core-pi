@@ -66,6 +66,9 @@ class Config:
 			self.config.set('calibration', 'square_width', '80')
 			self.config.set('calibration', 'square_height', '50')
 
+			# activation speed
+			self.config.set('calibration', 'activation_speed', '40')
+
 			# Writing our configuration file to 'example.cfg'
 			with open('defaults.cfg', 'wb') as configfile:
 				self.config.write(configfile)

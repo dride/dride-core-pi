@@ -4,6 +4,7 @@ import time
 
 class GPS:
 
+
 	@classmethod
 	def getPos(self):
 

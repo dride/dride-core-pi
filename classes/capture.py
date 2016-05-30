@@ -51,7 +51,7 @@ class capture:
 				self.gps.createNewGPSrecordFile(self.filename)
 
 			# Create new VideoWriter object
-			self.out = cv2.VideoWriter(self.parent + "clip/" + self.filename + ".avi", self.fourcc, 20.0, (self.w, self.h))
+			self.out = cv2.VideoWriter(self.parent + "clip/" + self.filename + ".avi", self.fourcc, 4, (self.w, self.h))
 
 
 		if self.config['gps']==True:
