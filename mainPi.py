@@ -5,14 +5,10 @@ from classes.capture import capture
 from classes.PiVideoStream import PiVideoStream
 
 def run_program():
-	# load the image
-	# image = cv2.imread('/Users/saoron/cardiganCam/training/set6/3.png')
-	# frameAnalyzer.analyze_frame(image, True, False)
-	#
 
 	# initialize the camera and grab a reference to the raw camera capture
 	camera = PiVideoStream().start()
-	# allow the camera to warmup
+	# allow the camera to warm up
 	time.sleep(2.0)
 
 	cap = capture(640, 480)
@@ -26,7 +22,7 @@ def run_program():
 			# start record
 			cap.captureFrame(frame)
 
-			# Start safty proccess
+			# Start ADAS process
 			frameAnalyzer.analyze_frame(frame, True, True, True)
 
 
