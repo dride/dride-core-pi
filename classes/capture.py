@@ -62,7 +62,7 @@ class capture:
 
 		# add waterMark
 		# read images
-		mark = cv2.imread('assets/images/watermark.png')
+		mark = cv2.imread(PARENT_DIR + '/assets/images/watermark.png')
 		m, n = frame.shape[:2]
 		# create overlay image with mark at the upper left corner, use uint16 to hold sum
 		overlay = np.zeros_like(frame, "uint16")
