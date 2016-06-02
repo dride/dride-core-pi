@@ -11,7 +11,7 @@ import time
 
 
 # load video file
-filename = '1464525240'
+filename = '1464525420'
 
 
 gps = GPS()

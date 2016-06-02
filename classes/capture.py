@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 import time
 from config import *
 from classes.gps import GPS
@@ -16,7 +17,8 @@ class capture:
 	parent = PARENT_DIR + '/modules/video/'
 	out = None
 	# Define the codec
-	fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+	# TODO : inject codec by OS
+	fourcc = cv2.VideoWriter_fourcc(*'X264')
 	timestamp = int(round(time.time()))
 	lastRollover = 0
 	gps = GPS()
@@ -51,12 +53,22 @@ class capture:
 				self.gps.createNewGPSrecordFile(self.filename)
 
 			# Create new VideoWriter object
-			self.out = cv2.VideoWriter(self.parent + "clip/" + self.filename + ".mp4", self.fourcc, 4, (self.w, self.h))
+			self.out = cv2.VideoWriter(self.parent + "clip/" + self.filename + ".mp4", self.fourcc, 20, (self.w, self.h))
 
 
 		if self.config['gps']==True:
 			# save GPS data for frame
 			self.gps.AppendGPSPositionToCurrentFile(self.filename)
+
+		# add waterMark
+		# read images
+		mark = cv2.imread('assets/images/watermark.png')
+		m, n = frame.shape[:2]
+		# create overlay image with mark at the upper left corner, use uint16 to hold sum
+		overlay = np.zeros_like(frame, "uint16")
+		overlay[:mark.shape[0], :mark.shape[1]] = mark
+		# add the images and clip (to avoid uint8 wrapping)
+		frame = np.array(np.clip(frame + overlay, 0, 255), "uint8")
 
 		# write the frame to video file
 		self.out.write(frame)
