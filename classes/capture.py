@@ -51,7 +51,7 @@ class capture:
 				self.gps.createNewGPSrecordFile(self.filename)
 
 			# Create new VideoWriter object
-			self.out = cv2.VideoWriter(self.parent + "clip/" + self.filename + ".avi", self.fourcc, 4, (self.w, self.h))
+			self.out = cv2.VideoWriter(self.parent + "clip/" + self.filename + ".mp4", self.fourcc, 4, (self.w, self.h))
 
 
 		if self.config['gps']==True:
@@ -64,3 +64,28 @@ class capture:
 		self.timestamp = int(round(time.time()))
 
 
+	def free_space_up_to(free_bytes_required=10000000000, rootfolder="/clip/", filesize=104857600, basename="filename-"):
+		# Deletes rootfolder/basename*, oldest first, until there are free_bytes_required available on the partition.
+		# Assumes that all files have file_size, and are all named basename{0,1,2,3,...}
+		# Returns number of deleted files.
+		statv = os.statvfs(rootfolder)
+		required_space = free_bytes_required - statv.f_bfree*statv.f_bsize
+		basepath = os.path.join(rootfolder, basename)
+		baselen = len(basepath)
+		if required_space <= 0:
+			return 0
+
+		# "1 +" here for quickly rounding
+		files_to_delete = 1 + required_space/filesize
+
+		# List all matching files. If needed, replace with os.walk for recursively
+		# searching into subdirectories of rootfolder
+		file_list = [os.path.join(rootfolder, f) for f in os.listdir(rootfolder) if f.startswith(basename)]
+
+		# Alternatively, if the filenames can't be trusted, sort based on modification time
+		file_list.sort(key=lambda i: os.stat(i).st_mtime)
+
+		for f in file_list[:files_to_delete]:
+			print 'removed f'
+			os.remove(f)
+		return files_to_delete

@@ -26,8 +26,8 @@ class analyze_frame:
 		position = json.loads(GPS.getPos())
 
 
-		if (position['speed'] < self.config['activation_speed']):
-			return
+		# if position and position['speed'] < self.config['activation_speed']:
+		# 	return
 
 		# calibrate if needed
 		if self.config['need_to_calibrate'] == True:
@@ -48,10 +48,11 @@ class analyze_frame:
 		laneCenter = ldw.find_lanes(video)
 
 		# draw which lane rect
-		cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
-		cv2.putText(cleanFrame, 'Heading: ' + str(position['heading']), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
-		cv2.putText(cleanFrame, 'Speed: ' +str(position['speed']), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
-		cv2.putText(cleanFrame, 'Point: (' + str(position['latitude']) + ',' + str(position['longitude']) + ')', (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+		if position:
+			cv2.putText(cleanFrame, ldw.get_lane(), (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+			cv2.putText(cleanFrame, 'Heading: ' + str(position['heading']), (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+			cv2.putText(cleanFrame, 'Speed: ' +str(position['speed']), (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
+			cv2.putText(cleanFrame, 'Point: (' + str(position['latitude']) + ',' + str(position['longitude']) + ')', (10, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
 		laneCenter += self.config['x1']
 		self.laneAvg = ldw.get_lane_avg_x()

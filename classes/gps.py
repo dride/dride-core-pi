@@ -1,9 +1,9 @@
 from config import *
 import json
 import time
+import math
 
 class GPS:
-
 
 	@classmethod
 	def getPos(self):
@@ -41,4 +41,41 @@ class GPS:
 		with open(PARENT_DIR + "/modules/video/gps/"+fileName+".json", 'w') as f:
 			json.dump(data, f)
 
+	# This method will update the transit file with the GPS object
+	# Can be used for debug and for getting GPS from hardware
+	# Another way to update this file is therw a GET request to : /modules/setGPS/?data=_GPS JSON_
+	def updateSystemPositionData(self, time, filename):
 
+		posObj = self.getPositionObjectByTime(time, filename)
+		if posObj and posObj is not None:
+			with open(PARENT_DIR + "/modules/gps/gps.json", 'w') as f:
+				json.dump(posObj, f)
+
+
+
+	def getPositionObjectByTime(self, time, filename):
+		print 'look for ' + str(int(filename) + int(time)) + ' in ' + filename  +'.json'
+		file = open(PARENT_DIR + "/training/wGPS/gps/"+filename+".json", 'r')
+		frames = json.loads(file.read())
+		try:
+			frames[str(int(filename) + int(time))]
+			return frames[str(int(filename) + int(time))]
+		except KeyError:
+			return None
+
+		# res = None
+		# for (i, element) in enumerate(frames):
+		# 	# print str(int(element) - int(filename) + int(time)) + '   ' + element
+		# 	# print int(element)
+		# 	# print int(filename) + int(time)
+		# 	# print int(element) < int(int(filename) + int(time))
+		# 	# print
+		# 	if int(element) < int(filename) + int(time):
+		# 		res = (frames[element])
+		# 	else:
+		# 		print res
+		# 		return res
+
+		#
+		# print
+		# print
