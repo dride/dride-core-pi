@@ -14,14 +14,14 @@ def getFolderSize(folder):
 
 def oldest_file_in_tree(rootfolder, extension=".mp4"):
 
-    min = None
+    _min = None
     for dirname, dirnames, filenames in os.walk(rootfolder):
         for filename in filenames:
           if filename.endswith(extension):
-            if (filename) < min or min is None:
-				min = filename
+            if (filename) < _min or _min is None:
+				_min = filename
 
-    return rootfolder + str(min)
+    return rootfolder + str(_min)
 
 def main():
     print "Starting..."

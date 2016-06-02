@@ -1,7 +1,6 @@
 from config import *
 import json
 import time
-import math
 
 class GPS:
 
@@ -51,15 +50,14 @@ class GPS:
 			with open(PARENT_DIR + "/modules/gps/gps.json", 'w') as f:
 				json.dump(posObj, f)
 
-
-
+	@classmethod
 	def getPositionObjectByTime(self, time, filename):
 		print 'look for ' + str(int(filename) + int(time)) + ' in ' + filename  +'.json'
-		file = open(PARENT_DIR + "/training/wGPS/gps/"+filename+".json", 'r')
-		frames = json.loads(file.read())
+		_file = open(PARENT_DIR + "/training/wGPS/gps/"+filename+".json", 'r')
+		frames = json.loads(_file.read())
 		try:
-			frames[str(int(filename) + int(time))]
-			return frames[str(int(filename) + int(time))]
+			res = frames[str(int(filename) + int(time))]
+			return res
 		except KeyError:
 			return None
 

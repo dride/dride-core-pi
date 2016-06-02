@@ -71,7 +71,6 @@ class capture:
 		statv = os.statvfs(rootfolder)
 		required_space = free_bytes_required - statv.f_bfree*statv.f_bsize
 		basepath = os.path.join(rootfolder, basename)
-		baselen = len(basepath)
 		if required_space <= 0:
 			return 0
 
