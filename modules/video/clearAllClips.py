@@ -30,10 +30,11 @@ def main():
 	for dirname, dirnames, filenames in os.walk(PARENT_DIR + "/clip/"):
 		for filename in filenames:
 			if filename.endswith(extension):
+
 				filename = os.path.splitext(filename)[0]
 				clipToBeRemoved = (PARENT_DIR + "/clip/" + filename + ".mp4")
-				thumbToBeRemoved = oldest_file_in_tree(PARENT_DIR + "/thumb/"+ filename +  ".jpg")
-				gpsToBeRemoved = oldest_file_in_tree(PARENT_DIR + "/gps/" + filename +  ".json")
+				thumbToBeRemoved = (PARENT_DIR + "/thumb/"+ filename +  ".jpg")
+				gpsToBeRemoved = (PARENT_DIR + "/gps/" + filename +  ".json")
 				print "Deleting " + str(clipToBeRemoved)
 				print ("DELETE " + str(clipToBeRemoved) + "\n")
 
