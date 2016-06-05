@@ -51,7 +51,7 @@ class Config:
 			self.config.set('calibration', 'need_to_calibrate', 'True')
 
 			# FPS
-			self.config.set('calibration', 'fps', '8')
+			self.config.set('calibration', 'fps', FPS)
 
 			# X value of avg center of lane
 			self.config.set('calibration', 'lane_center', '170')
