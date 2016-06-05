@@ -26,8 +26,8 @@ class analyze_frame:
 		position = json.loads(GPS.getPos())
 
 
-		# if position and position['speed'] < self.config['activation_speed']:
-		# 	return
+		if position and position['speed'] < self.config['activation_speed']:
+			return
 
 		# calibrate if needed
 		if self.config['need_to_calibrate'] == True:
