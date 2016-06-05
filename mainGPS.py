@@ -29,5 +29,5 @@ while True:
 
         flag, frame = cap.retrieve()
 
-        frameAnalyzer.analyze_frame(frame, True, True)
+        frameAnalyzer.analyze_frame(frame, True, True, False, True)
 

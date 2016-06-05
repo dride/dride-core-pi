@@ -14,7 +14,7 @@ class analyze_frame:
 	# load calibration object
 	calibration = calibration()
 
-	def __init__(self, frame, flip, video, raspberry = False):
+	def __init__(self, frame, flip, video, raspberry = False, checkSpeed = False):
 
 
 		# if the video should be flipped
@@ -25,8 +25,7 @@ class analyze_frame:
 		# get GPS data
 		position = json.loads(GPS.getPos())
 
-
-		if position and position['speed'] < self.config['activation_speed']:
+		if checkSpeed  and position and position['speed'] < self.config['activation_speed']:
 			return
 
 		# calibrate if needed

@@ -15,7 +15,7 @@ class TestImages(unittest.TestCase):
 
     def test_lane_detection(self):
         image = cv2.imread(PARENT_DIR + "/training/set6/1.png")
-        f = frameAnalyzer.analyze_frame(image, True, False, True)
+        f = frameAnalyzer.analyze_frame(image, True, False, True, False)
 
         self.assertTrue(f.laneAvg == 170)
 
