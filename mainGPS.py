@@ -22,7 +22,7 @@ c = 0
 while True:
     # if c >0:
     #     cv2.waitKey(0)
-    c +=1
+    # c +=1
     # # print c
     if cap.grab():
         gps.updateSystemPositionData(int(time.clock() - start), filename)
