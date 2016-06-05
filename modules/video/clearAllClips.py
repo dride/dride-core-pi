@@ -24,6 +24,6 @@ def main():
 				os.remove(gpsToBeRemoved)
 
 	print "Done..."
-	
+
 if __name__ == '__main__':
 	main()
