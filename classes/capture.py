@@ -22,7 +22,7 @@ class capture:
 	timestamp = int(round(time.time()))
 	lastRollover = 0
 	gps = GPS()
-	filename = '';
+	filename = ''
 
 	def __init__(self, w, h):
 
@@ -78,6 +78,7 @@ class capture:
 	# return time form file or take from device
 	# The biggest problem is that the device don't have internet connection
 	# and because of that the time is incorrect!
+	@classmethod
 	def get_time(self):
 
 		file = open(PARENT_DIR + "/modules/gps/time.json", 'r')
