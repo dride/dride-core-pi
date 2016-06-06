@@ -36,6 +36,7 @@ class Config:
 			self.config.add_section('mode')
 			# debug mode
 			self.config.set('mode', 'debug', 'True')
+			self.config.set('mode', 'in_calibration', 'False')
 
 			self.config.add_section('video')
 			# debug mode

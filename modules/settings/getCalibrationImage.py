@@ -3,13 +3,17 @@
 # Return img with current calibration mode
 #
 ########################################
+import sys
+import os.path
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 import cv2
-from classes import frameAnalyzer
+from main.classes import frameAnalyzer
 import time
-from classes.capture import capture
-from classes.PiVideoStream import PiVideoStream
-from config import *
+from main.classes.capture import capture
+from main.classes.PiVideoStream import PiVideoStream
+from main.config import *
 
 
 
@@ -24,12 +28,14 @@ config = Config().getConfig()
 
 
 if cap.grab():
-        flag, frame = cap.retrieve()
+    flag, frame = cap.retrieve()
 
-        # start record
-        capture.captureFrame(frame)
-roadFrame = frame[config['y1']:config['y1'] + config['road_height'],
-            config['x1']:config['x1'] + config['road_width']]
-cv2.imshow('img322323231', frame)
+    roadFrame = frame[config['y1']:config['y1'] + config['road_height'],
+	            config['x1']:config['x1'] + config['road_width']]
+
+    # save thumbnail
+    cv2.imwrite(PARENT_DIR + "thumb/last.jpg", frame)
+
+
 
 # ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
