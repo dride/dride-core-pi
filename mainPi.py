@@ -3,6 +3,9 @@ from classes import frameAnalyzer
 import time
 from classes.capture import capture
 from classes.PiVideoStream import PiVideoStream
+import json
+from classes.gps import GPS
+from config import *
 
 def run_program():
 
@@ -12,6 +15,8 @@ def run_program():
 	time.sleep(2.0)
 
 	cap = capture(640, 480)
+	# reload config
+	config = Config().getConfig()
 
 	# run cardigan proccesses
 	try:
@@ -22,8 +27,12 @@ def run_program():
 			# start record
 			cap.captureFrame(frame)
 
-			# Start ADAS process
-			frameAnalyzer.analyze_frame(frame, True, True, True)
+
+			# get GPS data
+			position = json.loads(GPS.getPos())
+			if position and position['speed'] < config['activation_speed']:
+				# Start ADAS process
+				frameAnalyzer.analyze_frame(frame, True, True, True)
 
 
 	except KeyboardInterrupt:
