@@ -83,4 +83,5 @@ class capture:
 		file = open(PARENT_DIR + "/modules/gps/time.json", 'r')
 		timeByFile = file.read()
 
-		return timeByFile if timeByFile != '' else int(round(time.time()))
+		return int(round(time.time()))
+		# return timeByFile if timeByFile != '' else int(round(time.time()))
