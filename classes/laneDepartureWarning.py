@@ -43,7 +43,8 @@ class laneDepartureWarning:
 		self.linesInGroups_left = [[] for i in range(64)]
 		self.linesInGroups_right = [[] for i in range(64)]
 
-
+		# update config
+		self.config = Config().getConfig()
 
 		# # save frames in debug mode
 		# if self.config['debug']:
@@ -166,7 +167,7 @@ class laneDepartureWarning:
 		if self.raspberry == False:
 			self.show_frame(edged, self.frame, video)
 
-		if self.config['in_calibration'] == True:
+		if self.config['in_calibration'] == True and int(time.time()) % 4 == 0:
 			# save road
 			cv2.imwrite(PARENT_DIR + "/modules/settings/final.jpg", self.frame)
 
