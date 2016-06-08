@@ -1,6 +1,6 @@
 import json, shlex, subprocess
 
-class PlateReader:
+class PlateReader(object):
 
 
     def __init__(self):

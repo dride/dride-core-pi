@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-class LaneDetection:
+class LaneDetection(object):
 
 	def __init__(self, frame):
 		self.frame = frame

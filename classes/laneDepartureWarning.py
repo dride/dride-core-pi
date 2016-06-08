@@ -6,7 +6,7 @@ from classes.sound import sound
 import time
 from config import *
 
-class laneDepartureWarning:
+class laneDepartureWarning(object):
 
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	height, width = 150,300

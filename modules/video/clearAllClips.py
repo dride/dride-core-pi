@@ -4,7 +4,7 @@ PARENT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 
-def main():
+def main(object):
 	extension = ".mp4"
 	print "Starting..."
 

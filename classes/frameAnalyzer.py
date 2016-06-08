@@ -6,7 +6,7 @@ from classes.gps import GPS
 from classes.laneDepartureWarning import laneDepartureWarning
 import json
 
-class analyze_frame:
+class analyze_frame(object):
 
 	# load config
 	config = Config().getConfig()
