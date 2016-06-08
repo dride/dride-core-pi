@@ -23,7 +23,7 @@ class index:
 		if data.action != 'NaN':
 			try:
 				config.updateConfigNode('mode', 'in_calibration', data.action)
-			except:
+			except IOError:
 
 				e = sys.exc_info()[0]
 				print  "<p>Error: %s</p>" % e

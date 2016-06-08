@@ -30,7 +30,7 @@ class index:
 					config.updateConfigNode('calibration', 'x1', str(innerConfig['x1'] - 10))
 				if data.direction == 'right':
 					config.updateConfigNode('calibration', 'x1', str(innerConfig['x1'] + 10))
-			except:
+			except IOError:
 
 				e = sys.exc_info()[0]
 				print  "<p>Error: %s</p>" % e
