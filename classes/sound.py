@@ -2,7 +2,7 @@ import os
 import time
 from config import *
 
-class sound:
+class sound(object):
 
 	isPlaying = False
 	lastPlayed = int(round(time.time() * 1000))

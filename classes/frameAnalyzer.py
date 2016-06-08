@@ -6,7 +6,7 @@ from classes.gps import GPS
 from classes.laneDepartureWarning import laneDepartureWarning
 import json
 
-class analyze_frame:
+class analyze_frame(object):
 
 	# load config
 	config = Config().getConfig()
@@ -24,9 +24,6 @@ class analyze_frame:
 
 		# get GPS data
 		position = json.loads(GPS.getPos())
-
-		if checkSpeed  and position and position['speed'] < self.config['activation_speed']:
-			return
 
 		# calibrate if needed
 		if self.config['need_to_calibrate'] == True:

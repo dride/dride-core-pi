@@ -2,7 +2,7 @@ from config import *
 import json
 import time
 
-class GPS:
+class GPS(object):
 
 	@classmethod
 	def getPos(self):

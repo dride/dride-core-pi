@@ -1,7 +1,7 @@
 from config import *
 from classes.laneDepartureWarning import laneDepartureWarning
 
-class calibration:
+class calibration(object):
 
 	frame = None
 	cleanFrame = None

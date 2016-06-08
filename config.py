@@ -36,6 +36,8 @@ class Config:
 			self.config.add_section('mode')
 			# debug mode
 			self.config.set('mode', 'debug', 'True')
+			self.config.set('mode', 'in_calibration', 'False')
+			self.config.set('mode', 'dvr', 'False')
 
 			self.config.add_section('video')
 			# debug mode
@@ -70,13 +72,13 @@ class Config:
 			self.config.set('calibration', 'activation_speed', '40')
 
 			# Writing our configuration file to 'example.cfg'
-			with open('defaults.cfg', 'wb') as configfile:
+			with open(PARENT_DIR + '/defaults.cfg', 'wb') as configfile:
 				self.config.write(configfile)
 
 	def updateConfigNode(self, where, what, val):
 		self.config.set(where, what, val)
 		# Writing our configuration file to 'example.cfg'
-		with open('defaults.cfg', 'wb') as configfile:
+		with open(PARENT_DIR + '/defaults.cfg', 'wb') as configfile:
 			self.config.write(configfile)
 
 		self.res = self.prepConfigObj()

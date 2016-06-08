@@ -5,7 +5,7 @@ import math
 import time
 from config import *
 
-class forwardCollisionWarning:
+class forwardCollisionWarning(object):
 
 	sound = sound()
 	font = cv2.FONT_HERSHEY_SIMPLEX

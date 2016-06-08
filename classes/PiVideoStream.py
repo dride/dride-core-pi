@@ -4,7 +4,7 @@ from picamera import PiCamera
 from threading import Thread
 from config import *
 
-class PiVideoStream:
+class PiVideoStream(object):
 	def __init__(self, resolution=(640, 480), framerate=FPS):
 		# initialize the camera and stream
 		self.camera = PiCamera()

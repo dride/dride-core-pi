@@ -1,7 +1,7 @@
 import math
 
 
-class linearEquation:
+class linearEquation(object):
 
 	def __init__(self, pt1, pt2):
 		self.pt1 = pt1

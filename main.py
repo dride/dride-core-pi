@@ -15,6 +15,8 @@ cap = cv2.VideoCapture(PARENT_DIR + "/training/video/1459726324.h264.mp4")
 capture = capture(int(cap.get(3)), int(cap.get(4)))
 c = 0
 while True:
+    # reload config
+    config = Config().getConfig()
     # if c >0:
     #     cv2.waitKey(0)
     # c +=1
@@ -23,7 +25,8 @@ while True:
         flag, frame = cap.retrieve()
 
         # start record
-        capture.captureFrame(frame)
+        if config['dvr']:
+            capture.captureFrame(frame)
 
         frameAnalyzer.analyze_frame(frame, True, True)
 

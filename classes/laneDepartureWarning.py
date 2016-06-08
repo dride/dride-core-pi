@@ -6,7 +6,7 @@ from classes.sound import sound
 import time
 from config import *
 
-class laneDepartureWarning:
+class laneDepartureWarning(object):
 
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	height, width = 150,300
@@ -43,7 +43,8 @@ class laneDepartureWarning:
 		self.linesInGroups_left = [[] for i in range(64)]
 		self.linesInGroups_right = [[] for i in range(64)]
 
-
+		# update config
+		self.config = Config().getConfig()
 
 		# # save frames in debug mode
 		# if self.config['debug']:
@@ -158,7 +159,7 @@ class laneDepartureWarning:
 			cv2.putText(self.frame, 'left swing', (100, 100), self.font, 2, (0, 0, 0), 1, cv2.LINE_AA)
 			if self.config['debug'] == True:
 				millis = int(round(time.time() * 1000))
-				cv2.imwrite(PARENT_DIR + "training/road/" + str(millis) + "_left.jpg", self.frameClean)
+				cv2.imwrite(PARENT_DIR + "/training/road/" + str(millis) + "_left.jpg", self.frameClean)
 
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
@@ -166,7 +167,9 @@ class laneDepartureWarning:
 		if self.raspberry == False:
 			self.show_frame(edged, self.frame, video)
 
-
+		if self.config['in_calibration'] == True and int(time.time()) % 4 == 0:
+			# save road
+			cv2.imwrite(PARENT_DIR + "/modules/settings/road.jpg", self.frame)
 
 		# # save frames in debug mode
 		# if self.config['debug'] and self.finalCenterPointsCount >= 2 and self.notTooFarAwaPoints(self.finalCenterPoints, 10):
