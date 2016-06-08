@@ -9,9 +9,7 @@ urls = (
     '/', 'index'
 )
 
-class index:
-
-
+class index():
 
 	@classmethod
 	def GET(self):

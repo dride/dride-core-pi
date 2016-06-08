@@ -5,7 +5,7 @@ from config import *
 from classes.gps import GPS
 
 
-class capture:
+class capture():
 
 	# load config
 	config = Config().getConfig()
