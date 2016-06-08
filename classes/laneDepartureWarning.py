@@ -169,7 +169,7 @@ class laneDepartureWarning:
 
 		if self.config['in_calibration'] == True and int(time.time()) % 4 == 0:
 			# save road
-			cv2.imwrite(PARENT_DIR + "/modules/settings/final.jpg", self.frame)
+			cv2.imwrite(PARENT_DIR + "/modules/settings/road.jpg", self.frame)
 
 		# # save frames in debug mode
 		# if self.config['debug'] and self.finalCenterPointsCount >= 2 and self.notTooFarAwaPoints(self.finalCenterPoints, 10):
