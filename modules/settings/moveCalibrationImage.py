@@ -19,17 +19,23 @@ class index:
 		data = web.input()
 		# reload config
 		config = Config()
-
+		innerConfig = config.getConfig()
 		if data.direction != 'NaN':
 			try:
 				if data.direction == 'up':
-					config.updateConfigNode('calibration', 'x1', config['x1'] + 10)
+					config.updateConfigNode('calibration', 'y1', str(innerConfig['y1'] - 10))
+				if data.direction == 'down':
+					config.updateConfigNode('calibration', 'y1', str(innerConfig['y1'] + 10))
+				if data.direction == 'left':
+					config.updateConfigNode('calibration', 'x1', str(innerConfig['x1'] - 10))
+				if data.direction == 'right':
+					config.updateConfigNode('calibration', 'x1', str(innerConfig['x1'] + 10))
 			except:
 
 				e = sys.exc_info()[0]
 				print  "<p>Error: %s</p>" % e
 
-		return '{"status": '+str(data.action)+'}'
+		return '{"status": "'+str(data.action)+'"}'
 
 
 if __name__ == "__main__" and __package__ is None:

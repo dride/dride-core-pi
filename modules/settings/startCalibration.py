@@ -28,7 +28,7 @@ class index:
 				e = sys.exc_info()[0]
 				print  "<p>Error: %s</p>" % e
 
-		return '{"status": '+str(data.action)+'}'
+		return '{"status": "'+str(data.action)+'"}'
 
 
 if __name__ == "__main__" and __package__ is None:

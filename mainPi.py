@@ -7,30 +7,34 @@ import json
 from classes.gps import GPS
 from config import *
 
-def run_program():
 
+def run_program():
 	# initialize the camera and grab a reference to the raw camera capture
 	camera = PiVideoStream().start()
 	# allow the camera to warm up
 	time.sleep(2.0)
 
 	cap = capture(640, 480)
-	# reload config
-	config = Config().getConfig()
 
 	# run cardigan proccesses
 	try:
 		while True:
+
+			# reload config
+			config = Config().getConfig()
+
 			# load frame from camera
 			frame = camera.read()
 
 			# start record
-			cap.captureFrame(frame)
+			if config['dvr']:
+				cap.captureFrame(frame)
 
 
 			# get GPS data
 			position = json.loads(GPS.getPos())
-			if position and position['speed'] < config['activation_speed']:
+
+			if config['in_calibration'] or (position and position['speed'] < config['activation_speed']):
 				# Start ADAS process
 				frameAnalyzer.analyze_frame(frame, True, True, True)
 
@@ -40,9 +44,8 @@ def run_program():
 		camera.stop()
 		print "\nBye Bye ;-)"
 
-
-
 	camera.stop();
+
 
 if __name__ == '__main__':
 	run_program()
