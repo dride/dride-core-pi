@@ -20,10 +20,9 @@ class index:
 		# reload config
 		config = Config()
 
-		if data.direction != 'NaN':
+		if data.action != 'NaN':
 			try:
-				if data.direction == 'up':
-					config.updateConfigNode('calibration', 'x1', config['x1'] + 10)
+				config.updateConfigNode('mode', 'in_calibration', data.action)
 			except:
 
 				e = sys.exc_info()[0]
