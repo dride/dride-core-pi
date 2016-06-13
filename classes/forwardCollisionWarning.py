@@ -88,5 +88,8 @@ class forwardCollisionWarning(object):
 			if self.raspberry == False:
 				cv2.imshow('video23', frame2)
 
+			if self.config['in_calibration'] == True and int(time.time()) % 4 == 0:
+				# save road
+				cv2.imwrite(PARENT_DIR + "/modules/settings/cars.jpg", frame2)
 
 		return 0
