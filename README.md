@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/CardiganCam/Cardigan.svg?branch=master)](https://travis-ci.org/CardiganCam/Cardigan)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade)  [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage)
 # Cardigan computer vision driver assistent.
 
+[![Join the chat at https://gitter.im/CardiganCam/Cardigan](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ## Welcome to Cardigan
 Cardigan is the open source framework for building amazing car apps using fetures such as lane departure warning (LDW) and forward collision warining (FCW) out of the box!
 
