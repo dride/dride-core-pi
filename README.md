@@ -2,8 +2,6 @@
 [![Gitter](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 # Cardigan computer vision driver assistent.
 
-[![Join the chat at https://gitter.im/CardiganCam/Cardigan](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 ## Welcome to Cardigan
 Cardigan is the open source framework for building amazing car apps using fetures such as lane departure warning (LDW) and forward collision warining (FCW) out of the box!
 
