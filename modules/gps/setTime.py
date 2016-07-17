@@ -1,4 +1,5 @@
 import web
+import os
 
 urls = (
     '/', 'index'
@@ -12,6 +13,8 @@ class index(object):
 		if data.data != 'NaN':
 			with open('time.json', 'w') as file_:
 				file_.write(data.data)
+				# Update system time
+				os.system("date +%s -s @" + str(data.data))
 
 		return data.data
 
