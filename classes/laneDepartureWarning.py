@@ -66,7 +66,7 @@ class laneDepartureWarning(object):
 
 		# good for highway streight
 		# lines = cv2.HoughLinesP(edged, 1, math.pi / 180, 50, 10, 10);
-
+		# TODO: This settings affect lane departure!
 		lines = cv2.HoughLinesP(edged, 1, math.pi / 360,  6, 30, 6);
 
 		filteredLines = []
@@ -101,6 +101,8 @@ class laneDepartureWarning(object):
 
 				if (angle > 60 and angle <= 90):
 					right += 1
+					print right
+					print
 				if (angle < -60 and angle >= -90):
 					left += 1
 
