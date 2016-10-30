@@ -37,6 +37,11 @@ alt="Cardigan Demo"  border="10" /></a>
 " target="_blank"><img src="http://img.youtube.com/vi/6sp2wUMysc0/0.jpg" 
 alt="Dride Demo"  border="10" /></a>
 
+### Startup scripts
+
+      sudo nano /etc/rc.local
+
+
 ## Contributing to Dride
 Your contribution will be appricated. Please contact us yossi@dride.io
 
