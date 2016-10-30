@@ -6,17 +6,25 @@ from classes.PiVideoStream import PiVideoStream
 import json
 from classes.gps import GPS
 from config import *
-
+from classes.sound import sound
 
 def run_program():
 	# initialize the camera and grab a reference to the raw camera capture
 	camera = PiVideoStream().start()
+	
+	# initialize the sound object
+	soundObj = sound()
+
 	# allow the camera to warm up
 	time.sleep(2.0)
 
+	# welcome message
+	soundObj.raspberry = True
+	soundObj.play_sound('hello', False)
+
 	cap = capture(640, 480)
 
-	# run cardigan proccesses
+	# run cardigan processes
 	try:
 		while True:
 
