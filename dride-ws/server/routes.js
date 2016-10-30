@@ -5,6 +5,7 @@
 'use strict';
 
 var path = require('path');
+var express = require('express');
 var config = require('./config/environment');
 
 var cors = require('cors')
@@ -18,5 +19,8 @@ module.exports = function(app) {
   // Insert routes below
   app.use('/api/getClips', require('./api/getClips'));
   
+
+  app.use("/modules", express.static(path.join(__dirname, '../../', 'modules/')));
+
 
 };
