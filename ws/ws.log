@@ -1,0 +1,2 @@
+{"name":"dride-ws","hostname":"Yossis-Mac-mini.local","pid":52921,"level":30,"msg":"Initialised dride-ws","time":"2016-10-30T12:32:03.726Z","v":0}
+{"name":"dride-ws","hostname":"Yossis-Mac-mini.local","pid":52921,"level":50,"caller":"/Users/saoron/cardiganCam/ws","monitorsPath":"lib/monitors","msg":"monitorsPath was provided but is unresolveable","time":"2016-10-30T12:32:03.453Z","v":0}
