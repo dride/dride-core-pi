@@ -1,7 +1,7 @@
 'use strict';
 
 
-
+var path = require("path");
 var validator = require('validator');
 
 
@@ -12,13 +12,15 @@ var fileNames   = [];
 exports.index = function(req, res) {
 	//const videoClipsFolder = config.videoClipsFolder;
 
-	const videoClipsFolder = '../../modules/video/clip/';
+
+	const videoClipsFolder = path.join(__dirname, '../../../..', 'modules/video/clip/');
 	const fs = require('fs');
+	
+	fileNames   = [];
 
 	var files = fs.readdirSync(videoClipsFolder);
 	for (var i in files) {
 
-	  console.log('Model Loaded: ' + files[i]);
 	  if (files[i] == '.DS_Store' || files[i] == '.gitignore')
 	  	continue;
 
