@@ -1,0 +1,21 @@
+{
+  "name": "ws",
+  "version": "0.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "bunyan": "^1.5.1",
+    "express": "^4.13.3",
+    "express-microservice-starter": "^0.5.9",
+    "request-service-discovery": "0.0.1",
+    "konfig": "^0.2.1"
+  },
+  "devDependencies": {
+    "supertest-as-promised": "^1.0.0",
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "mocha-bamboo-reporter": "*",
+    "supertest": "^0.15.0",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
+  }
+}
