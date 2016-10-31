@@ -75,7 +75,7 @@ class forwardCollisionWarning(object):
 					print "found" + str(len(lines))
 					if self.raspberry == True:
 						millis = int(round(time.time() * 1000))
-						cv2.imwrite(PARENT_DIR + "training/cars/" + str(millis) + ".jpg", self.frameClean)
+						cv2.imwrite(PARENT_DIR + "/training/cars/" + str(millis) + ".jpg", self.frameClean)
 
 					cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
 					cv2.putText(self.frame, "WARNING", (100, 100), self.font, 1, (255, 255, 255), 1,
