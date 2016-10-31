@@ -1,3 +1,6 @@
+> This is our old source code for dride in Python, We are working on a better implementation for this code, Some of you asked us to keep it here until we have something to release.
+
+
 # Cardigan is now Dride!
 ## This repo is now depracated, [Join us on our new page](https://github.com/drideio)
 
