@@ -2,7 +2,7 @@
 
 
 # Cardigan is now Dride!
-## This repo is now depracated, [Join us on our new page](https://github.com/drideio)
+## This repo is now depracated, [Join us on our new page](https://github.com/dride)
 
 
 
