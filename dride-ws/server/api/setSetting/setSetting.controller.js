@@ -17,9 +17,9 @@ exports.index = function(req, res) {
 
 	//TODO: Validate the input type's
 
-	var CategoryName = req.param('CategoryName');
-	var fieldName = req.param('fieldName');
-	var fieldValue = req.param('fieldValue');
+	var CategoryName = capitalizeFirstLetter(req.param('CategoryName'));
+	var fieldName = capitalizeFirstLetter(req.param('fieldName'));
+	var fieldValue = capitalizeFirstLetter(req.param('fieldValue'));
 
 	var defaults = path.join(__dirname, '../../../..', 'defaults.cfg');
 	var config = ini.parse(fs.readFileSync(defaults, 'utf-8'))
@@ -37,3 +37,12 @@ exports.index = function(req, res) {
 };
 
 
+
+function capitalizeFirstLetter(string) {
+
+	//return boolean in Python format
+	if (string == "false" || string == "true")
+    	return string.charAt(0).toUpperCase() + string.slice(1) + '';
+    else
+    	return string
+}
