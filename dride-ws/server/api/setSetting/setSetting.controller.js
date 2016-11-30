@@ -4,21 +4,25 @@
 
 var path = require("path");
 
-var fs = require('fs')
-  , ini = require('ini')
+var iniparser = require('iniparser');
 
 
 var config = require('../../config/environment');
 var fileNames   = [];
 
+var fieldName = req.param('fieldName');
+var fieldValue = req.param('fieldValue');
+
 // Get list of getPOLists
 exports.index = function(req, res) {
 
 	var defaults = path.join(__dirname, '../../../..', 'defaults.cfg');
-	var config = ini.parse(fs.readFileSync(defaults, 'utf-8'))
+	iniparser.parse(defaults, function(err,data){
+		
+	    res.json(data);
+	});
 
-	res.json(config);
-   
+	   
 
 
 };
