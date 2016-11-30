@@ -18,6 +18,7 @@ module.exports = function(app) {
 
   // Insert routes below
   app.use('/api/getClips', require('./api/getClips'));
+  app.use('/api/getSettings', require('./api/getSettings'));
   
 
   app.use("/modules", express.static(path.join(__dirname, '../../', 'modules/')));

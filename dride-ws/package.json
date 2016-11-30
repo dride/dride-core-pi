@@ -13,6 +13,7 @@
     "express-session": "~1.0.2",
     "express-validator": "^2.20.8",
     "firebase": "^3.3.0",
+    "iniparser": "^1.0.5",
     "lodash": "^2.4.2",
     "method-override": "~1.0.0",
     "mixpanel": "^0.4.0",
