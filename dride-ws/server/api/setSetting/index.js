@@ -12,6 +12,7 @@ var config = require('../../config/environment');
 
 router.get('/', function(req, res){
 
+
  	controller.index(req, res)
 
 
