@@ -1,0 +1,3 @@
+[submodule "rock"]
+	path = rock
+	url = https://github.com/dride/dride-ws
