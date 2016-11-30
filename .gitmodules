@@ -1,3 +1,4 @@
 [submodule "dride-ws"]
 	path = dride-ws
 	url = https://github.com/dride/dride-ws
+        ignore = untracked  
