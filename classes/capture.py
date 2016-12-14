@@ -31,6 +31,11 @@ class capture():
 
 	def captureFrame(self, frame):
 
+		# if the video should be flipped
+		if self.config['flip'] == True:
+			frame = cv2.flip(frame, -1)
+			frame = cv2.flip(frame, 1)
+			
 		# if we dont have any video object or we need to replace file due to size limit
 		if self.out is None or (self.timestamp != self.lastRollover and (self.timestamp % self.rollover) == 0):
 
