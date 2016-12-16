@@ -1,15 +1,13 @@
-> This is our old source code for dride in Python, We are working on a better implementation for this code, Some of you asked us to keep it here until we have something to release.
+> This repo is no longer supported or used by dride, Instead we are working on a new version of [dride-core](https://github.com/dride/dride-core)
 
 
-# Cardigan is now Dride!
-## This repo is now depracated, [Join us on our new page](https://github.com/dride)
-
+# Cardigan is now Dride-core!
 
 
 [![Build Status](https://travis-ci.org/CardiganCam/Cardigan.svg?branch=master)](https://travis-ci.org/CardiganCam/Cardigan)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade)  [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage)
 [![Gitter](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# ~~Cardigan~~ Dride computer vision driver assistent.
+# ~~Cardigan~~ Dride - Passenger seat driver.
 
 ## Welcome to Dride
 Dride is the open source framework for building amazing car apps using fetures such as lane departure warning (LDW) and forward collision warining (FCW) out of the box!
@@ -46,7 +44,7 @@ alt="Dride Demo"  border="10" /></a>
 
 
 ## Contributing to Dride
-Your contribution will be appreciated. Please contact us yossi@dride.io
+Your contribution will be appreciated. Please contact us hello@dride.io
 
 ## Licence
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
