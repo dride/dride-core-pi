@@ -29,8 +29,9 @@ class laneDepartureWarning(object):
 	finalCenterPoints = [[] for i in range(32)]
 	finalCenterPointsCount = 0
 
-	def __init__(self, frame, laneCenter, raspberry, frameClean):
+	def __init__(self, frame, laneCenter, raspberry, frameClean, exportFrame):
 		self.frame = frame
+		self.exportFrame = exportFrame
 		self.frameClean = frameClean
 		self.defaultCenter = laneCenter
 		self.raspberry = raspberry
@@ -260,6 +261,9 @@ class laneDepartureWarning(object):
 
 	def get_avg_of_secotors(self):
 
+		padX = 140
+		padY = 350
+
 		for chunk in range(0, self.numberOfChuncks):
 			#setup minimum value for right lane
 			min = self.width
@@ -366,10 +370,10 @@ class laneDepartureWarning(object):
 					# 	estimatedPointR = equation.getX((i) * self.lineJump), (i) * self.lineJump
 					# 	cv2.circle(self.frame, (estimatedPointR), 5, self.get_color_by_angle(45), -1)
 
-					cv2.circle(self.frame, (avgX_R, avgY_R), 5, (255, 255, 255), -1)
-					cv2.circle(self.frame, (avgX_L, avgY_L), 5, (255, 255, 255), -1)
+					cv2.circle(self.exportFrame, (avgX_R + padX, avgY_R + padY), 5, (255, 255, 255), -1)
+					cv2.circle(self.exportFrame, (avgX_L + padX, avgY_L + padY), 5, (255, 255, 255), -1)
 
-					cv2.line(self.frame, (avgX_R, avgY_R), (avgX_L, avgY_L), self.get_color_by_angle(-26), 1)
+					cv2.line(self.exportFrame, (avgX_R + padX, avgY_R + padY), (avgX_L + padX, avgY_L + padY), self.get_color_by_angle(-26), 1)
 
 					cv2.circle(self.frame, (centerChunkX, centerChunkY), 5, self.get_color_by_angle(-15), -1)
 					cv2.putText(self.frame, str((100 * centerChunkX) / self.get_lane_avg_x()), (centerChunkX+10, centerChunkY), self.font, 0.6, (51, 51, 51), 1, cv2.LINE_AA)
@@ -449,9 +453,12 @@ class laneDepartureWarning(object):
 
 
 	def draw_center_avg_line(self):
+		padX = 140
+		padY = 350
+
 		# draw center of lane
 		avg = self.get_avg_center_X()
-		cv2.line(self.frame, (avg, self.height / 2), (avg, self.height), (0, 255, 255), 2)
+		cv2.line(self.exportFrame, (avg + padX , self.height / 2 + padY), (avg + padX, self.height + padY), (0, 255, 255), 2)
 
 
 	def draw_center_polyfit_line(self):

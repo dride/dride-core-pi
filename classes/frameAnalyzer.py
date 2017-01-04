@@ -16,7 +16,7 @@ class analyze_frame(object):
 
 	def __init__(self, frame, flip, video, raspberry = False, checkSpeed = False):
 
-
+		self.exportFrame = frame
 		# if the video should be flipped
 		if self.config['flip'] == True:
 			frame = cv2.flip(frame, -1)
@@ -40,7 +40,7 @@ class analyze_frame(object):
 
 		roadFrame = roadFrame[self.config['y1']:self.config['y1'] + self.config['road_height'], self.config['x1']:self.config['x1'] + self.config['road_width']]
 
-		ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
+		ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame, self.exportFrame)
 		laneCenter = ldw.find_lanes(video)
 
 		# draw which lane rect
@@ -67,10 +67,10 @@ class analyze_frame(object):
 		# y2 = 280
 
 
-		laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
+		laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame, self.exportFrame)
 
 
-
+		cv2.imshow('video231', self.exportFrame)
 
 
 

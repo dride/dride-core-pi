@@ -12,7 +12,8 @@ import time
 # load video file
 
 # cap = cv2.VideoCapture(PARENT_DIR + "/training/video/1459726324.h264.mp4")
-cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw/driveRaw6/1461659414.mp4")
+# cap = cv2.VideoCapture("/Users/saoron/Desktop/driveRaw/driveRaw6/1461660984.mp4")
+cap = cv2.VideoCapture("/Users/saoron/Desktop/dride car anim2.mp4")
 capture = capture(int(cap.get(3)), int(cap.get(4)))
 c = 0
 while True:

@@ -14,8 +14,9 @@ class forwardCollisionWarning(object):
 	# load config
 	config = Config().getConfig()
 
-	def __init__(self, frame, x1, y1, x2, y2, raspberry, cleanFrame):
+	def __init__(self, frame, x1, y1, x2, y2, raspberry, cleanFrame, exportFrame):
 		self.frame = frame
+		self.exportFrame = exportFrame
 		self.x1 = x1
 		self.y1 = y1
 		self.x2 = x2
@@ -31,7 +32,7 @@ class forwardCollisionWarning(object):
 		# self.frame = cv2.flip(self.frame, -1)
 		# self.frame = cv2.flip(self.frame, 1)
 
-		cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (255, 0, 0), 1)
+		# cv2.rectangle(self.exportFrame, (self.x1, self.y1), (self.x2, self.y2), (255, 0, 0), 1)
 
 		frame2 = self.frame
 
@@ -57,13 +58,16 @@ class forwardCollisionWarning(object):
 
 				if (angle != 0):
 					continue
+				padX = 280
 
-				pt1 = (line[0][0], line[0][1])
-				pt2 = (line[0][2], line[0][3])
+				padY = 360
+
+				pt1 = (line[0][0] + padX, line[0][1] + padY)
+				pt2 = (line[0][2] + padX, line[0][3] + padY)
 				if  line[0][1] == 0 or line[0][1] == 1:
 					continue
 
-				cv2.line(self.frame, pt1, pt2, (255, 0, 255), 2)
+				cv2.line(self.exportFrame, pt1, pt2, (255, 0, 255), 2)
 				cv2.putText(self.frame,  str(line[0][1]), (int(line[0][0] / 2), line[0][1]), self.font, 0.5, (51, 51, 51), 1, cv2.LINE_AA)
 
 
@@ -77,7 +81,7 @@ class forwardCollisionWarning(object):
 						millis = int(round(time.time() * 1000))
 						cv2.imwrite(PARENT_DIR + "/training/cars/" + str(millis) + ".jpg", self.frameClean)
 
-					cv2.rectangle(self.frame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
+					cv2.rectangle(self.exportFrame, (self.x1, self.y1), (self.x2, self.y2), (0, 250, 0), 2)
 					cv2.putText(self.frame, "WARNING", (100, 100), self.font, 1, (255, 255, 255), 1,
 					            cv2.LINE_AA)
 					self.sound.play_sound('carAhead', False)
