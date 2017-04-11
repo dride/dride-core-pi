@@ -34,8 +34,8 @@ class GPS(object):
 	@classmethod
 	def getSpeed(self):
 
-		ser = serial.Serial(port, baudrate = 9600, timeout = 1)
-		speed = 0;
+		ser = serial.Serial(port, baudrate = 9600, timeout = 0.5)
+		speed = -1;
 
 		while True:
 		    data = ser.readline()
