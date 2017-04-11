@@ -39,10 +39,10 @@ def run_program():
 				cap.captureFrame(frame)
 
 
-			# get GPS data
-			position = json.loads(GPS.getPos())
+			# get speed from GPS
+			speed = GPS.getSpeed()
 
-			if config['in_calibration'] or (position and position['speed'] < config['activation_speed']):
+			if (config['calibration']['adas'] and speed > config['activation_speed']) or config['in_calibration']:
 				# Start ADAS process
 				frameAnalyzer.analyze_frame(frame, True, True, True)
 
