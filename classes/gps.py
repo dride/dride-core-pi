@@ -8,11 +8,11 @@ port = "/dev/ttyS0"    # Raspberry Pi 3
 class GPS(object):
 
 	@classmethod
-	def getPos(self):
+	def getPos(self, jsonFlag = True):
 
 		position = {}
 
-		ser = serial.Serial(port, baudrate = 9600, timeout = 1)
+		ser = serial.Serial(port, baudrate = 9600, timeout = 2)
 		latLon = [-1, -1];
 		speed = 0;
 
@@ -27,14 +27,14 @@ class GPS(object):
 		# TODO
 		position["heading"] = '-1'
 
-		return json.dumps(position)
+		return json.dumps(position) if jsonFlag else position
 
 
 	#	Fast method to return current speed
 	@classmethod
 	def getSpeed(self):
 
-		ser = serial.Serial(port, baudrate = 9600, timeout = 0.5)
+		ser = serial.Serial(port, baudrate = 9600, timeout = 1)
 		speed = -1;
 
 		while True:
@@ -106,8 +106,8 @@ class GPS(object):
 	        if s[7] == '0':
 	            print "no satellite data available"
 	            return        
-	        lat = self.decode(s[2], s[3])
-	        lon = self.decode(s[4], s[5])
+	        lat = self.decode(s[2], s[3]) if s[2] and s[5] else 0
+	        lon = self.decode(s[4], s[5]) if s[4] and s[5] else 0
 
 	    return [lat, lon]
 
