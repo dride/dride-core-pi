@@ -13,7 +13,7 @@ def run_program():
     position = {}
 
     # get speed from GPS
-    position = GPS.getPos()
+    position = GPS.getPosSerial()
 
     text_file = open("position", "w")
     text_file.write(position)

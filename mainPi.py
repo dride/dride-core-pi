@@ -40,9 +40,10 @@ def run_program():
 
 
 			# get speed from GPS
-			speed = GPS.getSpeed()
+			if config['gps']:
+				position = json.loads(GPS.getPos())
 
-			if (config['adas'] and speed > config['activation_speed']) or config['in_calibration']:
+			if (config['adas'] and (config['gps'] and position['speed'] > config['activation_speed'])) or config['in_calibration']:
 				# Start ADAS process
 				frameAnalyzer.analyze_frame(frame, True, True, True)
 

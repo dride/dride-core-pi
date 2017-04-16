@@ -8,7 +8,15 @@ port = "/dev/ttyS0"    # Raspberry Pi 3
 class GPS(object):
 
 	@classmethod
-	def getPos(self, jsonFlag = True):
+	def getPos(self):
+
+		with open('daemons/gps/position', 'r') as content_file:
+			pos = content_file.read() 
+			return pos if pos else '{"latitude": 0, "speed": "0.0", "heading": "-1", "longitude": 0}' 
+
+
+	@classmethod
+	def getPosSerial(self, jsonFormat = True):
 
 		position = {}
 
@@ -27,7 +35,7 @@ class GPS(object):
 		# TODO
 		position["heading"] = '-1'
 
-		return json.dumps(position) if jsonFlag else position
+		return json.dumps(position) if jsonFormat else position
 
 
 	#	Fast method to return current speed
@@ -105,7 +113,7 @@ class GPS(object):
 	        s = data.split(",")
 	        if s[7] == '0':
 	            print "no satellite data available"
-	            return        
+	            return      
 	        lat = self.decode(s[2], s[3]) if s[2] and s[5] else 0
 	        lon = self.decode(s[4], s[5]) if s[4] and s[5] else 0
 
