@@ -10,7 +10,7 @@ class GPS(object):
 	@classmethod
 	def getPos(self):
 
-		with open('daemons/gps/position', 'r') as content_file:
+		with open(PARENT_DIR + "/daemons/gps/position", 'r') as content_file:
 			pos = content_file.read() 
 			return pos if pos else '{"latitude": 0, "speed": "0.0", "heading": "-1", "longitude": 0}' 
 
@@ -106,6 +106,7 @@ class GPS(object):
 			return None
 
 
+
 	@classmethod
 	def parseGPS(self, data):
 	    lat = lon = -1
@@ -113,8 +114,8 @@ class GPS(object):
 	        s = data.split(",")
 	        if s[7] == '0':
 	            print "no satellite data available"
-	            return      
-	        lat = self.decode(s[2], s[3]) if s[2] and s[5] else 0
+	            return  
+	        lat = self.decode(s[2], s[3]) if s[2] and s[3] else 0
 	        lon = self.decode(s[4], s[5]) if s[4] and s[5] else 0
 
 	    return [lat, lon]
@@ -132,7 +133,7 @@ class GPS(object):
 	@classmethod
 	def dms2dd(self, degrees, minutes, seconds, direction):
 	    dd = float(degrees) + float(minutes)/60 + float(seconds)/(60*60);
-	    if direction == 'E' or direction == 'N':
+	    if direction == 'S' or direction == 'W':
 	        dd *= -1
 	    return dd;
 
@@ -144,5 +145,5 @@ class GPS(object):
 	    tail =  v[1]
 	    deg = head[0:-2]
 	    min = head[-2:]
-	    return self.dms2dd(deg, min, "0." + tail, direction)
+	    return self.dms2dd(deg, min + "." + tail, 0, direction)
 
