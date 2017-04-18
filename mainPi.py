@@ -22,7 +22,7 @@ def run_program():
 	soundObj.raspberry = True
 	soundObj.play_sound('hello', False)
 
-	cap = capture(640, 480)
+	cap = capture(1024, 768)
 
 	# run cardigan processes
 	try:
@@ -33,6 +33,9 @@ def run_program():
 
 			# load frame from camera
 			frame = camera.read()
+
+			# roatet 90 deg
+			frame = capture.rotate_image(frame, 90)
 
 			# start record
 			if config['dvr']:

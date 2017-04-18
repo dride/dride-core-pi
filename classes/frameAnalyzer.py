@@ -40,7 +40,8 @@ class analyze_frame(object):
 
 		roadFrame = roadFrame[self.config['y1']:self.config['y1'] + self.config['road_height'], self.config['x1']:self.config['x1'] + self.config['road_width']]
 
-		ldw = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
+		self.warning = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
+		ldw = self.warning
 		laneCenter = ldw.find_lanes(video)
 
 		# draw which lane rect

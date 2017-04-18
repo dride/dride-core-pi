@@ -35,7 +35,7 @@ class capture():
 		if self.config['flip'] == True:
 			frame = cv2.flip(frame, -1)
 			frame = cv2.flip(frame, 1)
-			
+
 		# if we dont have any video object or we need to replace file due to size limit
 		if self.out is None or (self.timestamp != self.lastRollover and (self.timestamp % self.rollover) == 0):
 
@@ -91,3 +91,16 @@ class capture():
 
 		return int(round(time.time()))
 		# return timeByFile if timeByFile != '' else int(round(time.time()))
+
+	@classmethod
+	def rotate_image(self, image, angle, center=None, scale=1.0):
+		(h, w) = image.shape[:2]
+
+		if center is None:
+			center = (w / 2, h / 2)
+
+		# Perform the rotation
+		M = cv2.getRotationMatrix2D(center, angle, scale)
+		rotated = cv2.warpAffine(image, M, (w, h))
+
+		return rotated
