@@ -41,7 +41,7 @@ def run_program():
 			frame = capture.rotate_image(frame, 90)
 
 			# start record
-			if config['dvr']:
+			if config['dvr'] and not config['in_calibration']:
 				cap.captureFrame(frame)
 
 
