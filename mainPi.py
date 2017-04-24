@@ -46,7 +46,7 @@ def run_program():
 			if config['gps']:
 				position = json.loads(GPS.getPos())
 
-			if (config['adas'] and (config['gps'] and position['speed'] > config['activation_speed'])) or config['in_calibration']:
+			if (config['adas'] and (config['gps'] and float(position['speed']) > float(config['activation_speed']))) or config['in_calibration']:
 				# Start ADAS process
 				frameAnalyzer.analyze_frame(frame, True, True, True)
 
