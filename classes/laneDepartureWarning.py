@@ -18,6 +18,7 @@ class laneDepartureWarning(object):
 	lifePeriod = 60 # determine by speed
 	flag = 0
 	frameClean = None
+	frameNumber = 0
 	raspberry = False
 	# debug picture interval in ms
 	captureInterval = 10
@@ -29,12 +30,13 @@ class laneDepartureWarning(object):
 	finalCenterPoints = [[] for i in range(32)]
 	finalCenterPointsCount = 0
 
-	def __init__(self, frame, laneCenter, raspberry, frameClean):
+	def __init__(self, frame, laneCenter, raspberry, frameClean, frameNumber):
 		self.frame = frame
 		self.frameClean = frameClean
 		self.defaultCenter = laneCenter
 		self.raspberry = raspberry
 		self.sound.raspberry = raspberry
+		self.frameNumber = frameNumber
 
 	# Find lanes using angle
 	def find_lanes(self, video):
@@ -169,7 +171,7 @@ class laneDepartureWarning(object):
 		if self.raspberry == False:
 			self.show_frame(edged, self.frame, video)
 
-		if self.config['in_calibration'] == True and int(time.time()) % 4 == 0:
+		if self.config['in_calibration'] == True and self.frameNumber % 4 == 0:
 			# save road
 			cv2.imwrite(PARENT_DIR + "/modules/settings/road.jpg", self.frame)
 

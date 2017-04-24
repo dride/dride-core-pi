@@ -11,15 +11,17 @@ class forwardCollisionWarning(object):
 	font = cv2.FONT_HERSHEY_SIMPLEX
 	raspberry = False
 	frameClean = None
+	frameNumber = 0
 	# load config
 	config = Config().getConfig()
 
-	def __init__(self, frame, x1, y1, x2, y2, raspberry, cleanFrame):
+	def __init__(self, frame, x1, y1, x2, y2, raspberry, cleanFrame, frameNumber):
 		self.frame = frame
 		self.x1 = x1
 		self.y1 = y1
 		self.x2 = x2
 		self.y2 = y2
+		self.frameNumber = frameNumber
 
 		self.frameClean = cleanFrame
 		self.raspberry = raspberry
@@ -88,7 +90,7 @@ class forwardCollisionWarning(object):
 			if self.raspberry == False:
 				cv2.imshow('video23', frame2)
 
-			if self.config['in_calibration'] == True and int(time.time()) % 4 == 0:
+			if self.config['in_calibration'] == True and self.frameNumber % 4 == 0:
 				# save road
 				cv2.imwrite(PARENT_DIR + "/modules/settings/cars.jpg", frame2)
 

@@ -14,7 +14,7 @@ class analyze_frame(object):
 	# load calibration object
 	calibration = calibration()
 
-	def __init__(self, frame, flip, video, raspberry = False, checkSpeed = False):
+	def __init__(self, frame, flip, video, raspberry, frameNumber):
 
 
 		# if the video should be flipped
@@ -40,7 +40,7 @@ class analyze_frame(object):
 
 		roadFrame = roadFrame[self.config['y1']:self.config['y1'] + self.config['road_height'], self.config['x1']:self.config['x1'] + self.config['road_width']]
 
-		self.warning = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame)
+		self.warning = laneDepartureWarning(roadFrame, self.config['lane_center'], raspberry, cleanFrame, frameNumber)
 		ldw = self.warning
 		laneCenter = ldw.find_lanes(video)
 
@@ -68,7 +68,7 @@ class analyze_frame(object):
 		# y2 = 280
 
 
-		laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame)
+		laneCenter = forwardCollisionWarning(cleanFrame, x1, y1, x2, y2, raspberry, cleanFrame, frameNumber)
 
 
 

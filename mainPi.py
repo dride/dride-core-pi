@@ -24,6 +24,8 @@ def run_program():
 
 	cap = capture(1024, 768)
 
+	frameNumber = 0
+
 	# run cardigan processes
 	try:
 		while True:
@@ -33,8 +35,9 @@ def run_program():
 
 			# load frame from camera
 			frame = camera.read()
-
-			# roatet 90 deg
+			frameNumber +=1
+			
+			# rotate 90 deg
 			frame = capture.rotate_image(frame, 90)
 
 			# start record
@@ -48,7 +51,7 @@ def run_program():
 
 			if (config['adas'] and (config['gps'] and float(position['speed']) > float(config['activation_speed']))) or config['in_calibration']:
 				# Start ADAS process
-				frameAnalyzer.analyze_frame(frame, True, True, True)
+				frameAnalyzer.analyze_frame(frame, True, True, True, frameNumber)
 
 
 	except KeyboardInterrupt:
