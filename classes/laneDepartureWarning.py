@@ -168,6 +168,7 @@ class laneDepartureWarning(object):
 			self.sound.play_sound('laneDeparture', False)
 			self.clear_center_point()
 
+
 		if self.raspberry == False:
 			self.show_frame(edged, self.frame, video)
 

@@ -50,4 +50,8 @@ jspm_packages
 **/bin/Debug/
 **/bin/Release/
 
+training
+modules/video/clip
+modules/video/thumb
+modules/video/gps
 .DS_Store
