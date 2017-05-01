@@ -32,5 +32,5 @@ if __name__ == '__main__':
 	# clear last know fix on startup
 	clear_position()
 
-    while True:
-        run_program()
+	while True:
+		run_program()
