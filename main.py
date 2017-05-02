@@ -29,7 +29,7 @@ while True:
         frameNumber +=1
         
         # rotate 90 deg
-        frame = capture.rotate_image(frame, 90)
+        frame = capture.rotate_image(frame, -90)
 
         # start record
         if config['dvr']:
