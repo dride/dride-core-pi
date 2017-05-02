@@ -25,10 +25,10 @@ class analyze_frame(object):
 		# get GPS data
 		position = json.loads(GPS.getPos())
 
-		# calibrate if needed
-		if self.config['need_to_calibrate'] == True:
-			self.calibration.calibrate(frame)
-			self.config['need_to_calibrate'] = False
+		# # calibrate if needed
+		# if self.config['need_to_calibrate'] == True:
+		# 	self.calibration.calibrate(frame)
+		# 	self.config['need_to_calibrate'] = False
 
 
 		# reload config

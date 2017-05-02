@@ -23,6 +23,7 @@ def run_program():
     # get speed from GPS
     position = GPS.getPosSerial()
 
+
     text_file = open(PARENT_DIR + "/daemons/gps/position", "w")
     text_file.write(position)
     text_file.close()
