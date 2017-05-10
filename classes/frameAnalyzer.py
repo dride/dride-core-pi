@@ -20,7 +20,7 @@ class analyze_frame(object):
 		# if the video should be flipped
 		if self.config['flip'] == True:
 			frame = cv2.flip(frame, -1)
-			frame = cv2.flip(frame, 1)
+
 
 		# get GPS data
 		position = json.loads(GPS.getPos())
