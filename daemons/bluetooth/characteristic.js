@@ -4,46 +4,60 @@ var bleno = require('bleno');
 
 var BlenoCharacteristic = bleno.Characteristic;
 
+var exec = require('child_process').exec;
+
+
 var Gpio = require('onoff').Gpio,
   button = new Gpio(23, 'in', 'both');
 
-var CountCharacteristic = function() {
-  CountCharacteristic.super_.call(this, {
+var buttonStream = function() {
+  buttonStream.super_.call(this, {
     uuid: '5678',
     properties: ['read', 'write', 'notify'],
     value: null
   });
 
-  this._value = new Buffer([17,0,0,0]);
+  this._value = new Buffer(0);
   this._interval = null;
   this._updateValueCallback = null;
 };
 
-util.inherits(CountCharacteristic, BlenoCharacteristic);
+util.inherits(buttonStream, BlenoCharacteristic);
 
-CountCharacteristic.prototype.onReadRequest = function(offset, callback) {
-  console.log('CountCharacteristic - onReadRequest: value = ' + this._value.toString('hex'));
+buttonStream.prototype.onReadRequest = function(offset, callback) {
+
+
+  console.log('buttonStream - onReadRequest: value = ' + this._value.toString('hex'));
+
 
   callback(this.RESULT_SUCCESS, this._value);
 };
 
-CountCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
-  console.log('CountCharacteristic - onSubscribe');
+
+
+
+buttonStream.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
+  console.log('buttonStream - onSubscribe');
   var subObj = this;
   button.watch(function (err, value) {
     if (err) {
       throw err;
     }
+
+
     if (value == 1){
         // push videoId to app
         console.log('hey!')
         
         subObj._updateValueCallback = updateValueCallback;
 
-        subObj.increment();
+        subObj.shareVideoId();
 
 
     } 
+
+
+
 
   });
 
@@ -51,14 +65,14 @@ CountCharacteristic.prototype.onSubscribe = function(maxValueSize, updateValueCa
 
 };
 
-CountCharacteristic.prototype.onUnsubscribe = function() {
-  console.log('CountCharacteristic - onUnsubscribe');
+buttonStream.prototype.onUnsubscribe = function() {
+  console.log('buttonStream - onUnsubscribe');
 
 
   this._updateValueCallback = null;
 };
 
-CountCharacteristic.prototype.increment = function() {
+buttonStream.prototype.shareVideoId = function() {
     var videoId = '15055545036';
     console.log(videoId);
     this._value.write(videoId);
@@ -68,7 +82,7 @@ CountCharacteristic.prototype.increment = function() {
 
 
 
-CountCharacteristic.prototype.stringToBytes = function(string) {
+buttonStream.prototype.stringToBytes = function(string) {
    var array = new Uint8Array(string.length);
    for (var i = 0, l = string.length; i < l; i++) {
        array[i] = string.charCodeAt(i);
@@ -76,6 +90,10 @@ CountCharacteristic.prototype.stringToBytes = function(string) {
     return array.buffer;
 };
 
+buttonStream.prototype.bytesToString = function(buffer) {
+  return String.fromCharCode.apply(null, new Uint8Array(buffer));
+};
 
 
-module.exports = CountCharacteristic;
+
+module.exports = buttonStream;

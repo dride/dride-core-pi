@@ -2,9 +2,12 @@ var bleno = require('bleno');
 
 var BlenoPrimaryService = bleno.PrimaryService;
 
-var CountCharacteristic = require('./characteristic');
-
 console.log('bleno - echo');
+
+var buttonStream = require('./characteristic');
+var updateDate = require('./updateDate');
+
+console.log('start');
 
 bleno.on('stateChange', function(state) {
   console.log('on -> stateChange: ' + state);
@@ -24,9 +27,21 @@ bleno.on('advertisingStart', function(error) {
       new BlenoPrimaryService({
         uuid: '1234',
         characteristics: [
-          new CountCharacteristic()
+          new buttonStream()
+        ]
+      }),
+      new BlenoPrimaryService({
+        uuid: '7787',
+        characteristics: [
+          new updateDate()
         ]
       })
+
     ]);
+
+
+
+
   }
 });
+
