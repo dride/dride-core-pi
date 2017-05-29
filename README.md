@@ -7,8 +7,13 @@
 ## Welcome to Dride-core (Cardigan)
 Dride is the open source framework for building amazing car apps using fetures such as lane departure warning (LDW) and forward collision warining (FCW) out of the box!
 
+## Installation
+Please follow our guide [how to install Dride on a Raspberry Pi and Raspberry Pi Zero](https://dride.io/c/getting_started)
+
+[Read this post after installing Dride](https://dride.io/thread/getting-started-with-dride-early-preview__-Kkjnf-AgdlHutD_em-q)
+
 ## Documentation
-Make sure to check out our [wiki](https://github.com/dride/Cardigan/wiki)
+Make sure to check out [docs](https://dride.io/documentation)
 
 ## Quick start
 To start using Dride you'll need the following dependencies:
@@ -21,6 +26,7 @@ Please follow our [getting started guide](https://dride.io/c/getting_started) to
 
 ## Calibration
 After the initial installation the software must be calibrated, We currently support [manual calibration](https://github.com/CardiganCam/Cardigan/wiki/Calibration) and automated calibration.
+
 
 ## Platform support
 Cardigan currently supports Debian Wheezy & Jessie as well as Ubuntu 14.04
