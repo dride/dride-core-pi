@@ -1,11 +1,16 @@
 language: python
 
+compiler:
+  - gcc
+
 before_install:
  - sudo apt-get update
 
 install:
- - sudo apt-get install python-dev python-numpy
-
+ - sudo apt-get install python-dev python-numpy 
+ - sudo apt-get install -y build-essential
+ - sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
+ 
 before_script:
   - git clone https://github.com/Itseez/opencv.git
   - cd opencv
@@ -25,4 +30,4 @@ script:
 
 notifications:
   email:
-    - saoron@gmail.com
+    - erim32000@gmail.com
