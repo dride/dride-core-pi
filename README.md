@@ -1,10 +1,7 @@
 # Dride-core (Cardigan)!
 
 
-[![Build Status](https://travis-ci.org/dride/Cardigan.svg?branch=master)](https://travis-ci.org/dride/Cardigan)  
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade)  
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage)
-[![Gitter](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/dride/Cardigan.svg?branch=master)](https://travis-ci.org/dride/Cardigan) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage) [![Gitter](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
 
