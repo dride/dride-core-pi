@@ -4,14 +4,14 @@ before_install:
  - sudo apt-get update
 
 install:
- - sudo apt-get install python-dev python-numpy cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+ - sudo apt-get install python-dev python-numpy
 
 before_script:
   - git clone https://github.com/Itseez/opencv.git
   - cd opencv
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
   - make -j4
   - sudo make -j4 install
   - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/CardiganCam/Cardigan
