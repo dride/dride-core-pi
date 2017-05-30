@@ -17,7 +17,7 @@ class TestImages(unittest.TestCase):
         image = cv2.imread(PARENT_DIR + "/training/set6/1.png")
         f = frameAnalyzer.analyze_frame(image, True, False, True, False)
 
-        self.assertTrue(f.laneAvg == 170)
+        self.assertTrue(f.laneAvg == 210)
 
 
 if __name__ == '__main__':
