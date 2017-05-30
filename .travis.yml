@@ -11,17 +11,17 @@ before_script:
   - cd opencv
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DWITH_IPP=OFF ..
   - make -j4
   - sudo make -j4 install
-  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/CardiganCam/Cardigan
+  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/dride/Cardigan
 
 python:
   - "2.7"
 
 script:
 
-  - python /home/travis/build/CardiganCam/Cardigan/test/test_lane_detection.py
+  - python /home/travis/build/dride/Cardigan/test/test_lane_detection.py
 
 notifications:
   email:
