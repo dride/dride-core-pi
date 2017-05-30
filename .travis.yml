@@ -12,7 +12,7 @@ before_script:
   - cd opencv
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DWITH_IPP=OFF .. 
   - make -j4
   - sudo make -j4 install
   - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/dride/Cardigan
