@@ -5,7 +5,6 @@ before_install:
 
 install:
  - sudo apt-get install python-dev python-numpy
- - pip install pyserial
 
 before_script:
   - git clone https://github.com/Itseez/opencv.git
@@ -26,4 +25,4 @@ script:
 
 notifications:
   email:
-    - yossi@dride.io
+    - saoron@gmail.com
