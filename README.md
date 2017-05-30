@@ -1,7 +1,7 @@
 # Dride-core (Cardigan)!
 
-
-[![Travis](https://img.shields.io/travis/dride/Cardigan.svg?style=flat-square)](https://travis-ci.org/dride/Cardigan) [![Codacy grade](https://img.shields.io/codacy/grade/fb2d2112c11840babb0d897db9e2336d.svg?style=flat-square)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade) [![Codacy branch coverage](https://img.shields.io/codacy/coverage/fb2d2112c11840babb0d897db9e2336d/master.svg?style=flat-square)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://travis-ci.org/CardiganCam/Cardigan.svg?branch=master)](https://travis-ci.org/CardiganCam/Cardigan)  [![Codacy Badge](https://api.codacy.com/project/badge/Grade/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Grade)  [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fb2d2112c11840babb0d897db9e2336d)](https://www.codacy.com/app/saoron_3361/Cardigan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CardiganCam/Cardigan&amp;utm_campaign=Badge_Coverage)
+ -[![Gitter](https://badges.gitter.im/CardiganCam/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 
 [![Python](https://img.shields.io/badge/python-2.7-blue.svg?style=flat-square)]() [![OpenCv](https://img.shields.io/badge/OpenCv-3.0.+-green.svg?style=flat-square)]()
