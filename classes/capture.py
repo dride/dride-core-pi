@@ -1,14 +1,12 @@
 import cv2
 import numpy as np
 import time
-from config import *
+
 from classes.gps import GPS
 
 
-class capture():
+class capture(config):
 
-	# load config
-	config = Config().getConfig()
 
 	rolloverMinutes = 1
 	rollover = rolloverMinutes * 60
@@ -24,12 +22,14 @@ class capture():
 	gps = GPS()
 	filename = ''
 
-	def __init__(self, w, h):
+	def __init__(self, w, h, config):
 
 		self.w = w
 		self.h = h
+		# load config
+		self.config = config
 
-	def captureFrame(self, frame):
+	def captureFrame(self, frame, config):
 
 		# if the video should be flipped
 		if self.config['flip'] == True:
