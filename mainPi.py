@@ -8,6 +8,8 @@ from classes.gps import GPS
 from config import *
 from classes.sound import sound
 
+from modules.indicators.states.indicators import Indicators
+
 def run_program():
 	# initialize the camera and grab a reference to the raw camera capture
 	camera = PiVideoStream().start()
@@ -21,8 +23,16 @@ def run_program():
 	# welcome message
 	soundObj.raspberry = True
 	soundObj.play_sound('hello', False)
+	# welcome light
+	indicator = Indicators()
+	indicator.wakeWord()
 
-	cap = capture(1024, 768)
+
+
+	# reload config
+	config = Config().getConfig()
+
+	cap = capture(1024, 768, config)
 
 	frameNumber = 0
 

@@ -4,6 +4,8 @@ from classes.sound import sound
 import math
 import time
 from config import *
+from modules.indicators.states.indicators import Indicators
+
 
 class forwardCollisionWarning(object):
 
@@ -83,7 +85,9 @@ class forwardCollisionWarning(object):
 					cv2.putText(self.frame, "WARNING", (100, 100), self.font, 1, (255, 255, 255), 1,
 					            cv2.LINE_AA)
 					self.sound.play_sound('carAhead', False)
-
+					# turn indicator
+					indicator = Indicators()
+					indicator.carAhead()
 
 					return 1
 

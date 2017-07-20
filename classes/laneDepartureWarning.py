@@ -5,6 +5,8 @@ from classes.linearEquation import linearEquation
 from classes.sound import sound
 import time
 from config import *
+from modules.indicators.states.indicators import Indicators
+
 
 class laneDepartureWarning(object):
 
@@ -156,6 +158,11 @@ class laneDepartureWarning(object):
 				cv2.imwrite(PARENT_DIR + "/training/road/" + str(millis) + "_right.jpg", self.frameClean)
 
 			self.sound.play_sound('laneDeparture', False)
+			# turn indicator
+			indicator = Indicators()
+			indicator.rightLaneDeparture()
+
+
 			self.clear_center_point()
 		if (left > 3):
 			print 'left ' + str(left)
@@ -166,6 +173,10 @@ class laneDepartureWarning(object):
 				cv2.imwrite(PARENT_DIR + "/training/road/" + str(millis) + "_left.jpg", self.frameClean)
 
 			self.sound.play_sound('laneDeparture', False)
+			# turn indicator
+			indicator = Indicators()
+			indicator.leftLaneDeparture()
+
 			self.clear_center_point()
 
 
