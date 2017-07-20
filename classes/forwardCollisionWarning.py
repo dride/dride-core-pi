@@ -4,7 +4,7 @@ from classes.sound import sound
 import math
 import time
 from config import *
-from modules.indicators.states.indicators import Indicators
+from ..modules.indicators.states.indicators import Indicators
 
 
 class forwardCollisionWarning(object):
