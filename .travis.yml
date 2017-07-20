@@ -16,7 +16,7 @@ before_script:
   - make -j4
   - sudo make -j4 install
   - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/dride/Cardigan
-
+  - sudo python /home/travis/build/dride/Cardigan/modules/indicators/setup.py
 python:
   - "2.7"
 
