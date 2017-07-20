@@ -2,3 +2,6 @@
 	path = dride-ws
 	url = https://github.com/dride/dride-ws
         ignore = untracked  
+[submodule "modules/indicators"]
+	path = modules/indicators
+	url = https://github.com/dride/indicators
