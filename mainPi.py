@@ -32,7 +32,7 @@ def run_program():
 	# reload config
 	config = Config().getConfig()
 
-	cap = capture(1024, 768)
+	cap = capture(1024, 768, config)
 
 	frameNumber = 0
 
