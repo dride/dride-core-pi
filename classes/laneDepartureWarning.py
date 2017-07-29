@@ -5,7 +5,7 @@ from classes.linearEquation import linearEquation
 from classes.sound import sound
 import time
 from config import *
-from modules.indicators.states.indicators import Indicators
+from modules.indicators.python.states.indicators import Indicators
 
 
 class laneDepartureWarning(object):

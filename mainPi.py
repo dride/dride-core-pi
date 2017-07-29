@@ -8,7 +8,7 @@ from classes.gps import GPS
 from config import *
 from classes.sound import sound
 
-from modules.indicators.states.indicators import Indicators
+from modules.indicators.python.states.indicators import Indicators
 
 def run_program():
 	# initialize the camera and grab a reference to the raw camera capture
