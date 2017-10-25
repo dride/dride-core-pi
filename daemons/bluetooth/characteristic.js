@@ -7,8 +7,9 @@ var BlenoCharacteristic = bleno.Characteristic;
 var exec = require('child_process').exec;
 
 
-var Gpio = require('onoff').Gpio,
-  button = new Gpio(23, 'in', 'both');
+var gpio = require('rpi-gpio');
+gpio.setup(29, gpio.DIR_IN, gpio.EDGE_BOTH);
+
 
 var buttonStream = function() {
   buttonStream.super_.call(this, {
@@ -39,13 +40,9 @@ buttonStream.prototype.onReadRequest = function(offset, callback) {
 buttonStream.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
   console.log('buttonStream - onSubscribe');
   var subObj = this;
-  button.watch(function (err, value) {
-    if (err) {
-      throw err;
-    }
+  gpio.on('change', function(channel, value) {
 
-
-    if (value == 1){
+    if (value){
         // push videoId to app
         console.log('hey!')
         
