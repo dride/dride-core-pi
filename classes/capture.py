@@ -52,7 +52,8 @@ class capture():
 			self.filename = str(self.timestamp)
 
 			# save thumbnail
-			cv2.imwrite(self.parent + "thumb/" + self.filename + ".jpg", frame)
+			thumb = cv2.resize(frame,(400,400),interpolation=cv2.CV_INTER_AREA)
+			cv2.imwrite(self.parent + "thumb/" + self.filename + ".jpg", thumb)
 
 			# create GPS file
 			if self.config['gps'] == True:

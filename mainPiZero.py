@@ -29,8 +29,9 @@ def run_program():
 			config = Config().getConfig()
 			fileName = get_file_name()
 			## save thumb
+			camera.resolution = (400, 225)
 			camera.capture(parent + "thumb/" + fileName + ".jpg")
-
+			camera.resolution = (1280, 720)
 			# start record
 			if config['dvr'] :
 				camera.start_recording(parent + "clip/" + fileName + ".h264")

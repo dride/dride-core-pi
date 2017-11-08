@@ -10,8 +10,9 @@ var exec = require('child_process').exec;
 var gpio = require('rpi-gpio');
 gpio.setup(29, gpio.DIR_IN, gpio.EDGE_BOTH);
 
+var ex;
 
-var buttonStream = function() {
+var buttonStream = function () {
   buttonStream.super_.call(this, {
     uuid: '5678',
     properties: ['read', 'write', 'notify'],
@@ -25,69 +26,47 @@ var buttonStream = function() {
 
 util.inherits(buttonStream, BlenoCharacteristic);
 
-buttonStream.prototype.onReadRequest = function(offset, callback) {
-
-
-  console.log('buttonStream - onReadRequest: value = ' + this._value.toString('hex'));
-
-
+buttonStream.prototype.onReadRequest = function (offset, callback) {
   callback(this.RESULT_SUCCESS, this._value);
 };
 
 
 
+buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
+  ex = updateValueCallback
+}
 
-buttonStream.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
-  console.log('buttonStream - onSubscribe');
-  var subObj = this;
-  gpio.on('change', function(channel, value) {
+gpio.on('change', function (channel, value) {
 
-    if (value){
-        // push videoId to app
-        console.log('hey!')
-        
-        subObj._updateValueCallback = updateValueCallback;
+  if (value) {
+    // push videoId to app
 
-        subObj.shareVideoId();
+    var currentTimeStamp = parseInt(new Date().getTime() / 1000).toString();
+    var data = new Buffer(Buffer.byteLength(currentTimeStamp, 'utf8') + 2);
 
+    data.writeUInt32LE(currentTimeStamp, 0);
 
-    } 
+    console.log('NotifyOnlyCharacteristic update value: ' + currentTimeStamp);
+    ex(data);
 
+  }
 
+});
 
-
-  });
-
-
-
-};
-
-buttonStream.prototype.onUnsubscribe = function() {
-  console.log('buttonStream - onUnsubscribe');
-
-
+buttonStream.prototype.onUnsubscribe = function () {
   this._updateValueCallback = null;
 };
 
-buttonStream.prototype.shareVideoId = function() {
-    var videoId = '15055545036';
-    console.log(videoId);
-    this._value.write(videoId);
-    // this._isinsane
-    this._updateValueCallback(this._value);
+
+buttonStream.prototype.stringToBytes = function (string) {
+  var array = new Uint8Array(string.length);
+  for (var i = 0, l = string.length; i < l; i++) {
+    array[i] = string.charCodeAt(i);
+  }
+  return array.buffer;
 };
 
-
-
-buttonStream.prototype.stringToBytes = function(string) {
-   var array = new Uint8Array(string.length);
-   for (var i = 0, l = string.length; i < l; i++) {
-       array[i] = string.charCodeAt(i);
-    }
-    return array.buffer;
-};
-
-buttonStream.prototype.bytesToString = function(buffer) {
+buttonStream.prototype.bytesToString = function (buffer) {
   return String.fromCharCode.apply(null, new Uint8Array(buffer));
 };
 
