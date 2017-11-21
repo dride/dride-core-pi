@@ -5,12 +5,14 @@ from classes.gps import GPS
 from config import *
 import datetime  # new
 import sys, os
-
+from modules.indicators.python.states.indicators import Indicators
 
 def run_program():
 	# initialize the camera and grab a reference to the raw camera capture
 	camera = picamera.PiCamera()
 	camera.resolution = (1280, 720)
+
+	indicators = Indicators()
 
 	# allow the camera to warm up
 	time.sleep(2.0)
@@ -19,7 +21,7 @@ def run_program():
 		return str(int(round(time.time())))
 
 	parent = PARENT_DIR + '/modules/video/'
-
+	indicators.talking()
 	# run cardigan processes
 	try:
 
