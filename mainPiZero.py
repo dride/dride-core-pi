@@ -12,8 +12,6 @@ def run_program():
 	camera = picamera.PiCamera()
 	camera.resolution = (1280, 720)
 
-	indicators = Indicators()
-
 	# allow the camera to warm up
 	time.sleep(2.0)
 
@@ -21,7 +19,9 @@ def run_program():
 		return str(int(round(time.time())))
 
 	parent = PARENT_DIR + '/modules/video/'
-	indicators.talking()
+	# welcome light
+	indicator = Indicators()
+	indicator.talking()
 	# run cardigan processes
 	try:
 

@@ -25,7 +25,7 @@ def run_program():
 	soundObj.play_sound('hello', False)
 	# welcome light
 	indicator = Indicators()
-	indicator.wakeWord()
+	indicator.talking()
 
 
 
