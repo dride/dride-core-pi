@@ -1,5 +1,6 @@
 var util = require('util');
 var spawn = require("child_process").spawn;
+var fs = require("fs");
 
 var bleno = require('bleno');
 
@@ -40,24 +41,35 @@ buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback
 gpio.on('change', function (channel, value) {
 
   if (value) {
+  	var currentTimeStamp = parseInt(new Date().getTime() / 1000).toString();
+
+    // save currentTimestamp in the db
+    var savedVideosPath = '/home/Cardigan/modules/video/savedVideos.json'
+    fs.appendFile(savedVideosPath, ',' + currentTimeStamp, function (err) {
+      if (err) throw err;
+      console.log('Saved!');
+     });
+
 	// push videoId to app
-	var process = spawn('python',["/home/Cardigan/modules/indicators/python/states/buttonPress.py"]);
-	
+	if (ex){
+		var process = spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
 
-    var currentTimeStamp = parseInt(new Date().getTime() / 1000).toString();
-    var data = new Buffer(Buffer.byteLength(currentTimeStamp, 'utf8') + 2);
+		var data = new Buffer(Buffer.byteLength(currentTimeStamp, 'utf8') + 2);
 
-    data.writeUInt32LE(currentTimeStamp, 0);
+		data.writeUInt32LE(currentTimeStamp, 0);
 
-    console.log('NotifyOnlyCharacteristic update value: ' + currentTimeStamp);
-    ex(data);
+		console.log('NotifyOnlyCharacteristic update value: ' + currentTimeStamp);
+		ex(data);
+	}else{
+		var process = spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
+	}
 
   }
 
 });
-
 buttonStream.prototype.onUnsubscribe = function () {
   this._updateValueCallback = null;
+  ex = null
 };
 
 
