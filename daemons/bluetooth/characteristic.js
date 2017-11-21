@@ -1,4 +1,5 @@
 var util = require('util');
+var spawn = require("child_process").spawn;
 
 var bleno = require('bleno');
 
@@ -10,7 +11,7 @@ var exec = require('child_process').exec;
 var gpio = require('rpi-gpio');
 gpio.setup(29, gpio.DIR_IN, gpio.EDGE_BOTH);
 
-var ex;
+var ex = null;
 
 var buttonStream = function () {
   buttonStream.super_.call(this, {
@@ -39,7 +40,9 @@ buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback
 gpio.on('change', function (channel, value) {
 
   if (value) {
-    // push videoId to app
+	// push videoId to app
+	var process = spawn('python',["/home/Cardigan/modules/indicators/python/states/buttonPress.py"]);
+	
 
     var currentTimeStamp = parseInt(new Date().getTime() / 1000).toString();
     var data = new Buffer(Buffer.byteLength(currentTimeStamp, 'utf8') + 2);
