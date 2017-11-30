@@ -31,10 +31,20 @@ updateDate.prototype.onWriteRequest = function(data, offset, withoutResponse, ca
     this._value = data;
 
     if (this._value.toString().length == 10){
+
       var cmd = "sudo date -s '@"+this._value.toString()+"'";
       exec(cmd, function(error, stdout, stderr) {
         // command output is in stdout
-        console.log('time updated!')
+		console.log('time updated!')
+		//if date from device differs by a minute from current date > update RTC
+
+		if (Math.abs(data.toString() - (new Date().getTime() / 1000)) > 1000*60){
+			var RTCcmd = "sudo hwclock -w";
+			exec(RTCcmd, function(error, stdout, stderr) {
+				console.log('HW clock updated!')
+			})
+		  }
+
       });
     }
 
