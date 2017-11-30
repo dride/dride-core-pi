@@ -6,11 +6,8 @@ var bleno = require('bleno');
 
 var BlenoCharacteristic = bleno.Characteristic;
 
-var exec = require('child_process').exec;
-
-
 var gpio = require('rpi-gpio');
-gpio.setup(29, gpio.DIR_IN, gpio.EDGE_BOTH);
+gpio.setup(16, gpio.DIR_IN, gpio.EDGE_BOTH);
 
 var ex = null;
 
@@ -36,6 +33,7 @@ buttonStream.prototype.onReadRequest = function (offset, callback) {
 
 buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
   ex = updateValueCallback
+  spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "isPaired"]);
 }
 
 gpio.on('change', function (channel, value) {
@@ -52,7 +50,7 @@ gpio.on('change', function (channel, value) {
 
 	// push videoId to app
 	if (ex){
-		var process = spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
+		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
 
 		var data = new Buffer(Buffer.byteLength(currentTimeStamp, 'utf8') + 2);
 
@@ -61,7 +59,7 @@ gpio.on('change', function (channel, value) {
 		console.log('NotifyOnlyCharacteristic update value: ' + currentTimeStamp);
 		ex(data);
 	}else{
-		var process = spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
+		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
 	}
 
   }
