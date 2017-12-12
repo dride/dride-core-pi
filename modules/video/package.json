@@ -1,0 +1,15 @@
+{
+  "name": "dride-video",
+  "version": "1.0.0",
+  "description": "Node-js Wrapper for PiCamera and drideOS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "diskusage": "^0.2.4",
+    "raspicam": "^0.2.14"
+  }
+}
