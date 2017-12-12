@@ -49,7 +49,7 @@ var recordClip = (timestamp, interval) => {
 var saveThumbNail = (timestamp) => {
   return new Promise((resolve, reject) => {
 		//add watermark
-		exec('avconv -y  -i /home/Cardigan/modules/video/clip/' + timestamp + '.mp4 -f mjpeg -vframes 1 -ss 1 /home/Cardigan/modules/video/thumb/' + timestamp + '.jpg')
+		exec('avconv -y  -i /home/Cardigan/modules/video/clip/' + timestamp + '.mp4 -f mjpeg -vframes 1 -ss 1 -s 640x360 /home/Cardigan/modules/video/thumb/' + timestamp + '.jpg')
   })
 }
 
