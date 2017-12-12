@@ -6,6 +6,7 @@ var interval = 60*1000
 record.recordClip(new Date().getTime(), interval);
 
 setInterval(_=>{
-	console.log('start..')
+	console.log('start..', c)
 	record.recordClip(new Date().getTime(), interval);
-}, interval)
+}, interval + 1500)
+ 
