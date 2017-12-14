@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "bleno": "^0.4.2",
-    "bluetooth-hci-socket": "^0.5.1",
     "onoff": "^1.1.2",
     "rpi-gpio": "^0.9.1"
   }

@@ -13,14 +13,13 @@ var recordClip = (timestamp, interval) => {
     var camera = new RaspiCam({
       mode: "video",
       output: "/home/Cardigan/modules/video/tmp_clip/" + timestamp + ".h264",
-      framerate: 30,
+      framerate: 25,
       timeout: interval,
       width: 1280,
       height: 720,
       log: function (d) {
 		//detect camera error and put steady red LED
 		//mmal: main: Failed to create camera component
-		console.log(d)
 		if (d.indexOf('mmal: main: Failed to create camera component') > 0){
 			setTimeout(() => {
 				spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "error"]);
