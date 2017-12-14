@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bleno": "^0.4.2",
-    "onoff": "^1.1.2",
+    "onoff": "^1.1.8",
     "rpi-gpio": "^0.9.1"
   }
 }
