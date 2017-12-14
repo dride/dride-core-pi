@@ -1,7 +1,11 @@
 
 var record = require('./helpers/record')
+var spawn = require("child_process").spawn;
 
 var interval = 60*1000
+
+spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "welcome"]);
+
 
 record.recordClip(new Date().getTime(), interval);
 
