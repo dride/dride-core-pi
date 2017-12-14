@@ -1,6 +1,7 @@
 var RaspiCam = require("raspicam");
 var exec = require('child_process').exec;
 var fs = require('fs');
+var spawn = require("child_process").spawn;
 
 var recordClip = (timestamp, interval) => {
   return new Promise((resolve, reject) => {
@@ -16,7 +17,18 @@ var recordClip = (timestamp, interval) => {
       timeout: interval,
       width: 1280,
       height: 720,
-      log: function () {}
+      log: function (d) {
+		//detect camera error and put steady red LED
+		//mmal: main: Failed to create camera component
+		console.log(d)
+		if (d.indexOf('mmal: main: Failed to create camera component') > 0){
+			setTimeout(() => {
+				spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "error"]);
+				process.exit(0);
+			}, 3000);
+
+		}
+	}
     })
 
     camera.start();
@@ -25,7 +37,9 @@ var recordClip = (timestamp, interval) => {
       //repack h264 to mp4 container
       exec('MP4Box -add  /home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264 /home/Cardigan/modules/video/clip/' + timestamp + '.mp4', (e, stdout, stderr)=> {
 		//remove tmp file
-		fs.unlink('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264');
+		if(fs.existsSync('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264')) {
+			fs.unlink('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264');
+		}
 		saveThumbNail(timestamp).then(
 			done => resolve(),
 			err => {

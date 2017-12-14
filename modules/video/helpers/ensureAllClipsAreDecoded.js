@@ -22,7 +22,9 @@ fs.readdir(dirTmpClip, function (err, files) {
 	  var timestamp = file.split('.').shift();
 	  execSync('MP4Box -add  '+dir+'tmp_clip/' + timestamp + '.h264 '+dir+'clip/' + timestamp + '.mp4');
 	  //remove tmp file
-	  fs.unlinkSync(dir+'tmp_clip/' + timestamp + '.h264');
+	  if(fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
+	  	fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
+	  }
 	  record.saveThumbNail(timestamp).then(
 		  done => resolve(),
 		  err => {
