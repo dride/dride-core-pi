@@ -2,6 +2,8 @@ var util = require('util');
 var spawn = require("child_process").spawn;
 var fs = require("fs");
 
+var videoReady = require('./videoReady');
+
 var bleno = require('bleno');
 
 var BlenoCharacteristic = bleno.Characteristic;
@@ -14,8 +16,7 @@ var ex = null;
 var buttonStream = function () {
   buttonStream.super_.call(this, {
     uuid: '5678',
-    properties: ['read', 'write', 'notify'],
-    value: null
+    properties: ['read', 'write', 'notify']
   });
 
   this._value = new Buffer(0);
@@ -32,6 +33,7 @@ buttonStream.prototype.onReadRequest = function (offset, callback) {
 
 
 buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
+  console.log('buttonStream: onSubscribe ')
   ex = updateValueCallback
   spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "isPaired"]);
 }
@@ -39,7 +41,7 @@ buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback
 gpio.on('change', function (channel, value) {
 
   if (value) {
-  	var currentTimeStamp = parseInt(new Date().getTime() / 1000).toString();
+  	var currentTimeStamp = (new Date().getTime()).toString();
 
     // save currentTimestamp in the db
     var savedVideosPath = '/home/Cardigan/modules/video/savedVideos.json'
@@ -52,12 +54,14 @@ gpio.on('change', function (channel, value) {
 	if (ex){
 		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
 
-		var data = new Buffer(Buffer.byteLength(currentTimeStamp, 'utf8') + 2);
+		var data = new Buffer.from(currentTimeStamp, 'utf8')
 
-		data.writeUInt32LE(currentTimeStamp, 0);
+		data.write(currentTimeStamp);
 
-		console.log('NotifyOnlyCharacteristic update value: ' + currentTimeStamp);
 		ex(data);
+
+		videoReady.startListner()
+
 	}else{
 		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
 	}

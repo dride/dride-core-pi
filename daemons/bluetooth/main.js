@@ -5,6 +5,7 @@ var BlenoPrimaryService = bleno.PrimaryService;
 console.log('bleno - echo');
 
 var buttonStream = require('./characteristic');
+var videoReady = require('./videoReady');
 var updateDate = require('./updateDate');
 
 console.log('start');
@@ -27,9 +28,10 @@ bleno.on('advertisingStart', function(error) {
       new BlenoPrimaryService({
         uuid: '1234',
         characteristics: [
-          new buttonStream()
+		  new buttonStream(),
+		  new videoReady()
         ]
-      }),
+	  }),
       new BlenoPrimaryService({
         uuid: '7787',
         characteristics: [
