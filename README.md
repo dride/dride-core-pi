@@ -18,8 +18,8 @@ To start using Dride you'll need the following dependencies:
 
 1. Raspberry Pi & Raspberry Pi Zero W
 2. Pi Camera
-3. Dride HAT
-3. Dride Case
+3. Dride HAT | [Buy](https://dride.io/store)
+3. Dride Case | [Buy](https://dride.io/store)
 
 Please follow our [getting started guide](https://dride.io/c/getting_started) to install Dride today.
 
