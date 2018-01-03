@@ -49,7 +49,7 @@ videoReady.startListner = () => {
 
 			videoReady.prototype.ex(data);
 			console.log('videoReady: videoId sent!')
-		}, 1000 * 5);
+		}, 1000 * 10);
 
 		w.close();
 		return;
