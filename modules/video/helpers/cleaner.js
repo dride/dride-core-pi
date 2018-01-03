@@ -29,7 +29,7 @@ disk.check('/', function (err, info) {
         });
 
         files.forEach(function (file, index) {
-          if (index > 2) return;
+          if (index < 2) return;
           fileName = file.split('.').shift()
           try {
             fs.unlinkSync(dirVideo + fileName + '.mp4');
