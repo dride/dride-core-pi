@@ -55,3 +55,9 @@ modules/video/clip
 modules/video/thumb
 modules/video/gps
 .DS_Store
+
+.idea
+.env
+.envrc
+docs/build
+.direnv
