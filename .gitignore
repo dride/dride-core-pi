@@ -60,3 +60,4 @@ modules/video/gps
 .env
 .envrc
 docs/build
+.direnv
