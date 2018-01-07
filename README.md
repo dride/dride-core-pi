@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/dride/Cardigan.svg?branch=master)](https://travis-ci.org/dride/Cardigan) [![Gitter](https://badges.gitter.im/dride/Cardigan.svg)](https://gitter.im/CardiganCam/Cardigan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Welcome to Dride
-Dride is the open source dashcam for the Raspberry Pi & Raspberry Pi Zero W.
+Dride is an open source connected dashcam for the Raspberry Pi & Raspberry Pi Zero W.
 
 ## Installation
 Please follow our guide [how to install Dride on a Raspberry Pi and Raspberry Pi Zero](https://dride.io/c/getting_started)
