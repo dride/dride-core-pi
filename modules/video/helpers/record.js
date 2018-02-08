@@ -16,7 +16,8 @@ var recordClip = (timestamp, interval) => {
       framerate: 25,
       timeout: interval,
       width: 1280,
-      height: 720,
+	  height: 720,
+	  rotation: 0,
       log: function (d) {
 		//detect camera error and put steady red LED
 		//mmal: main: Failed to create camera component
@@ -61,8 +62,8 @@ var recordClip = (timestamp, interval) => {
 
 var saveThumbNail = (timestamp) => {
   return new Promise((resolve, reject) => {
-		//add watermark
-		exec('avconv -y  -i /home/Cardigan/modules/video/clip/' + timestamp + '.mp4 -f mjpeg -vframes 1 -ss 1 -s 640x360 /home/Cardigan/modules/video/thumb/' + timestamp + '.jpg')
+		//save thumb
+		exec('avconv -y -i /home/Cardigan/modules/video/clip/' + timestamp + '.mp4 -f mjpeg -vframes 1 -ss 1 -s 640x360 /home/Cardigan/modules/video/thumb/' + timestamp + '.jpg')
   })
 }
 

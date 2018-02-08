@@ -18,6 +18,11 @@ disk.check('/', function (err, info) {
     //if we got less than 10% let's cleanup
     if (freeSpace < 10) {
 
+	  //load EMR clips
+	  var EMRvideos  = fs.readFileSync(dir + 'savedVideos.json', 'utf8').split(',')
+	  EMRvideos.shift()
+  
+
       fs.readdir(dirVideo, function (err, files) {
         if (err) {
           console.error("Could not list the directory.", err);
@@ -32,7 +37,9 @@ disk.check('/', function (err, info) {
           if (index < 2) return;
           fileName = file.split('.').shift()
           try {
-            fs.unlinkSync(dirVideo + fileName + '.mp4');
+			//dont remove EMR videos
+			if (EMRvideos.indexOf(fileName) === -1)
+            	fs.unlinkSync(dirVideo + fileName + '.mp4');
           } catch (err) {
 			console.warn(err)
           }
