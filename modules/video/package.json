@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "diskusage": "^0.2.4",
+    "ini": "^1.3.5",
     "raspicam": "^0.2.14"
   }
 }

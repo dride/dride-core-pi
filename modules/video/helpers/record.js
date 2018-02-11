@@ -2,9 +2,13 @@ var RaspiCam = require("raspicam");
 var exec = require('child_process').exec;
 var fs = require('fs');
 var spawn = require("child_process").spawn;
+ini = require('ini');
 
 var recordClip = (timestamp, interval) => {
   return new Promise((resolve, reject) => {
+
+	var settings = ini.parse(fs.readFileSync('/home/Cardigan/defaults.cfg', 'utf-8'))
+
 
     if (!/^\d+$/.test(timestamp)) {
       reject('Err: input issues, Who are you?');
@@ -17,7 +21,7 @@ var recordClip = (timestamp, interval) => {
       timeout: interval,
       width: 1280,
 	  height: 720,
-	  rotation: 0,
+	  rotation: settings.video.flip ? 180 : 0,
       log: function (d) {
 		//detect camera error and put steady red LED
 		//mmal: main: Failed to create camera component
