@@ -43,10 +43,10 @@ gpio.on('change', function (channel, value) {
   if (value) {
     var currentTimeStamp = (new Date().getTime()).toString();
     videoReady.startListner(currentTimeStamp)
+    spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "welcome"]);
 
-    // push videoId to app
+
     if (ex) {
-      spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
 
       var data = new Buffer.from(currentTimeStamp, 'utf8')
 
@@ -55,8 +55,6 @@ gpio.on('change', function (channel, value) {
       ex(data);
 
 
-    } else {
-      spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
     }
 
   }

@@ -39,43 +39,48 @@ videoReady.startListner = (clickTimeStamp) => {
 
   console.log('videoReady: wating for video.. ')
   var w = fs.watch('/home/Cardigan/modules/video/thumb/', (listner, filename) => {
-		filename = filename.replace('.jpg', '')
+    filename = filename.replace('.jpg', '')
 
-		// save currentTimestamp in the db
-		var emrVideos = JSON.parse(
-			fs.readFileSync('/home/Cardigan/modules/video/savedVideos.json', 'utf8')
-		)
-		if (!emrVideos){
-			emrVideos = [];
-		}
+    // save currentTimestamp in the db
+    var emrVideos = JSON.parse(
+      fs.readFileSync('/home/Cardigan/modules/video/savedVideos.json', 'utf8')
+    )
+    if (!emrVideos) {
+      emrVideos = [];
+    }
 
-		//make sure this was not published before
-		found = false;
-		for (var i = 0; i < emrVideos.length; i++){
-			if (emrVideos[i].key == filename){
-				found = true;
-				break;
-			}
-		}
-		if (!found){
-			emrVideos.push({'key': filename, 'cue': clickTimeStamp})
-		}
-		
-		fs.writeFileSync('/home/Cardigan/modules/video/savedVideos.json', JSON.stringify(emrVideos))
+    //make sure this was not published before
+    found = false;
+    for (var i = 0; i < emrVideos.length; i++) {
+      if (emrVideos[i].key == filename) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      emrVideos.push({
+        'key': filename,
+        'cue': clickTimeStamp
+      })
+    }
 
-		setTimeout(() => {
-			spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "done"]);
+    fs.writeFileSync('/home/Cardigan/modules/video/savedVideos.json', JSON.stringify(emrVideos))
 
-			var data = new Buffer.from(filename, 'utf8');
-			data.write(filename);
+    setTimeout(() => {
+      spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "done"]);
 
-			videoReady.prototype.ex(data);
-			console.log('videoReady: videoId sent!')
-		}, 1000 * 10);
+      var data = new Buffer.from(filename, 'utf8');
+      data.write(filename);
 
-		w.close();
-		return;
-	
+      if (videoReady.prototype.ex) {
+        videoReady.prototype.ex(data);
+      }
+      console.log('videoReady: videoId sent!')
+    }, 1000 * 10);
+
+    w.close();
+    return;
+
   });
 
 }
