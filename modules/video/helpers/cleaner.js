@@ -14,14 +14,17 @@ disk.check('/', function (err, info) {
     process.exit(0);
   } else {
     var freeSpace = info.free * 100 / info.total;
+    console.log('freeSpace: ', freeSpace)
 
-    //if we got less than 10% let's cleanup
-    if (freeSpace < 10) {
 
-	  //load EMR clips
-	  var EMRvideos  = fs.readFileSync(dir + 'savedVideos.json', 'utf8').split(',')
-	  EMRvideos.shift()
-  
+    //if we got less than 15% let's cleanup
+    if (freeSpace < 15) {
+
+      //load EMR clips
+      var savedVideos = fs.readFileSync(dir + 'savedVideos.json', 'utf8')
+      var EMRvideos = JSON.parse(
+        savedVideos ? savedVideos : []
+      )
 
       fs.readdir(dirVideo, function (err, files) {
         if (err) {
@@ -32,22 +35,30 @@ disk.check('/', function (err, info) {
         files.sort(function (filea, fileb) {
           return filea.time < fileb.time;
         });
-
+		var count = 0;
         files.forEach(function (file, index) {
-          if (index < 2) return;
+
           fileName = file.split('.').shift()
-          try {
-			//dont remove EMR videos
-			if (EMRvideos.indexOf(fileName) === -1)
-            	fs.unlinkSync(dirVideo + fileName + '.mp4');
-          } catch (err) {
-			console.warn(err)
+
+
+          if (!isEMR(EMRvideos, fileName) && fileName) {
+            try {
+              fs.unlinkSync(dirVideo + fileName + '.mp4');
+            } catch (e) {
+              console.log(e)
+            }
+            try {
+              fs.unlinkSync(dir + 'thumb/' + fileName + '.jpg');
+            } catch (e) {
+              console.log(e)
+            }
+            count++;
           }
-          try {
-            fs.unlinkSync(dir + 'thumb/' + fileName + '.jpg');
-          } catch (err) {
-			console.warn(err)
+          console.log(count)
+          if (count > 5) {
+            process.exit();
           }
+
         })
 
       })
@@ -55,3 +66,13 @@ disk.check('/', function (err, info) {
     }
   }
 });
+
+
+function isEMR(EMRvideos, fileName) {
+	for (var i = 0; i < EMRvideos.length; i++) {
+		if (EMRvideos[i].key === fileName) {
+			return true;
+		} 
+	  }
+	return false;
+}

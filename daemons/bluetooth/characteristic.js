@@ -43,13 +43,6 @@ gpio.on('change', function (channel, value) {
   if (value) {
   	var currentTimeStamp = (new Date().getTime()).toString();
 
-    // save currentTimestamp in the db
-    var savedVideosPath = '/home/Cardigan/modules/video/savedVideos.json'
-    fs.appendFile(savedVideosPath, ',' + currentTimeStamp, function (err) {
-      if (err) throw err;
-      console.log('Saved!');
-     });
-
 	// push videoId to app
 	if (ex){
 		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
@@ -60,7 +53,7 @@ gpio.on('change', function (channel, value) {
 
 		ex(data);
 
-		videoReady.startListner()
+		videoReady.startListner(currentTimeStamp)
 
 	}else{
 		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);

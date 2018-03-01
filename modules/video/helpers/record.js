@@ -2,12 +2,31 @@ var RaspiCam = require("raspicam");
 var exec = require('child_process').exec;
 var fs = require('fs');
 var spawn = require("child_process").spawn;
-ini = require('ini');
 
 var recordClip = (timestamp, interval) => {
   return new Promise((resolve, reject) => {
 
-	var settings = ini.parse(fs.readFileSync('/home/Cardigan/defaults.cfg', 'utf-8'))
+    var settings = JSON.parse(fs.readFileSync('/home/Cardigan/config.json', 'utf-8'))
+
+    switch (settings.videoQuality) {
+      case '1080':
+        var videoQuality = {
+          width: 1920,
+          height: 1080
+        }
+        break;
+      case '720':
+        var videoQuality = {
+          width: 1280,
+          height: 720
+        }
+        break;
+      default:
+        var videoQuality = {
+          width: 1280,
+          height: 720
+        }
+    }
 
 
     if (!/^\d+$/.test(timestamp)) {
@@ -19,39 +38,39 @@ var recordClip = (timestamp, interval) => {
       output: "/home/Cardigan/modules/video/tmp_clip/" + timestamp + ".h264",
       framerate: 25,
       timeout: interval,
-      width: 1280,
-	  height: 720,
-	  rotation: settings.video.flip ? 180 : 0,
+      width: videoQuality.width,
+      height: videoQuality.height,
+      rotation: settings.flipVideo ? 180 : 0,
       log: function (d) {
-		//detect camera error and put steady red LED
-		//mmal: main: Failed to create camera component
-		if (d.indexOf('mmal: main: Failed to create camera component') > 0){
-			setTimeout(() => {
-				spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "error"]);
-				process.exit(0);
-			}, 3000);
+        //detect camera error and put steady red LED
+        //mmal: main: Failed to create camera component
+        if (d.indexOf('mmal: main: Failed to create camera component') > 0) {
+          setTimeout(() => {
+            spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "error"]);
+            process.exit(0);
+          }, 3000);
 
-		}
-	}
+        }
+      }
     })
 
     camera.start();
 
     camera.on("exit", (ts) => {
       //repack h264 to mp4 container
-      exec('MP4Box -add  /home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264 /home/Cardigan/modules/video/clip/' + timestamp + '.mp4', (e, stdout, stderr)=> {
-		//remove tmp file
-		if(fs.existsSync('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264')) {
-			fs.unlink('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264');
-		}
-		saveThumbNail(timestamp).then(
-			done => resolve(),
-			err => {
-			console.log(err)
-			reject(err)
-			}
-		)
-	  });
+      exec('MP4Box -add  /home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264 /home/Cardigan/modules/video/clip/' + timestamp + '.mp4', (e, stdout, stderr) => {
+        //remove tmp file
+        if (fs.existsSync('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264')) {
+          fs.unlink('/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264');
+        }
+        saveThumbNail(timestamp).then(
+          done => resolve(),
+          err => {
+            console.log(err)
+            reject(err)
+          }
+        )
+      });
 
 
     });
@@ -66,12 +85,12 @@ var recordClip = (timestamp, interval) => {
 
 var saveThumbNail = (timestamp) => {
   return new Promise((resolve, reject) => {
-		//save thumb
-		exec('avconv -y -i /home/Cardigan/modules/video/clip/' + timestamp + '.mp4 -f mjpeg -vframes 1 -ss 1 -s 640x360 /home/Cardigan/modules/video/thumb/' + timestamp + '.jpg')
+    //save thumb
+    exec('avconv -y -i /home/Cardigan/modules/video/clip/' + timestamp + '.mp4 -f mjpeg -vframes 1 -ss 1 -s 640x360 /home/Cardigan/modules/video/thumb/' + timestamp + '.jpg')
   })
 }
 
 module.exports = {
-	recordClip: recordClip,
-	saveThumbNail: saveThumbNail
+  recordClip: recordClip,
+  saveThumbNail: saveThumbNail
 }

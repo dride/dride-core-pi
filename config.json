@@ -1,0 +1,20 @@
+{
+  "name": "drideOS",
+  "version": "0.8.1",
+  "settings": {
+    "debug": false,
+    "videoRecord": true,
+    "flipVideo": false,
+    "gps": false,
+    "speaker": false,
+    "mic": false,
+    "indicator": true,
+    "videoQuality": "1080",
+    "clipLength": "1min",
+    "gSensorSensitivity": "medium",
+    "netwrok": {
+      "ssid": "dride",
+      "password": "ilovedride"
+    }
+  }
+}

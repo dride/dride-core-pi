@@ -33,17 +33,39 @@ videoReady.prototype.onSubscribe = function (maxValueSize, updateValueCallback) 
   videoReady.prototype.ex = updateValueCallback
 }
 
-videoReady.startListner = () => {
+videoReady.startListner = (clickTimeStamp) => {
 
   spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "isDownloading"]);
 
   console.log('videoReady: wating for video.. ')
   var w = fs.watch('/home/Cardigan/modules/video/thumb/', (listner, filename) => {
-	  console.log(listner, filename)
+		filename = filename.replace('.jpg', '')
+
+		// save currentTimestamp in the db
+		var emrVideos = JSON.parse(
+			fs.readFileSync('/home/Cardigan/modules/video/savedVideos.json', 'utf8')
+		)
+		if (!emrVideos){
+			emrVideos = [];
+		}
+
+		//make sure this was not published before
+		found = false;
+		for (var i = 0; i < emrVideos.length; i++){
+			if (emrVideos[i].key == filename){
+				found = true;
+				break;
+			}
+		}
+		if (!found){
+			emrVideos.push({'key': filename, 'cue': clickTimeStamp})
+		}
+		
+		fs.writeFileSync('/home/Cardigan/modules/video/savedVideos.json', JSON.stringify(emrVideos))
+
 		setTimeout(() => {
 			spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "done"]);
 
-			filename = filename.replace('.jpg', '')
 			var data = new Buffer.from(filename, 'utf8');
 			data.write(filename);
 
