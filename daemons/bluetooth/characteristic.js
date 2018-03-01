@@ -35,29 +35,29 @@ buttonStream.prototype.onReadRequest = function (offset, callback) {
 buttonStream.prototype.onSubscribe = function (maxValueSize, updateValueCallback) {
   console.log('buttonStream: onSubscribe ')
   ex = updateValueCallback
-  spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "isPaired"]);
+  spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "isPaired"]);
 }
 
 gpio.on('change', function (channel, value) {
 
   if (value) {
-  	var currentTimeStamp = (new Date().getTime()).toString();
+    var currentTimeStamp = (new Date().getTime()).toString();
+    videoReady.startListner(currentTimeStamp)
 
-	// push videoId to app
-	if (ex){
-		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
+    // push videoId to app
+    if (ex) {
+      spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPress"]);
 
-		var data = new Buffer.from(currentTimeStamp, 'utf8')
+      var data = new Buffer.from(currentTimeStamp, 'utf8')
 
-		data.write(currentTimeStamp);
+      data.write(currentTimeStamp);
 
-		ex(data);
+      ex(data);
 
-		videoReady.startListner(currentTimeStamp)
 
-	}else{
-		spawn('python',["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
-	}
+    } else {
+      spawn('python', ["/home/Cardigan/modules/indicators/python/states/standalone.py", "buttonPressOffline"]);
+    }
 
   }
 
