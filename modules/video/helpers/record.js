@@ -6,27 +6,40 @@ var spawn = require('child_process').spawn;
 
 var recordClip = (timestamp, interval) => {
 	return new Promise((resolve, reject) => {
-		var settings = JSON.parse(fs.readFileSync('/home/Cardigan/config.json', 'utf-8')).settings;
+		var config = fs.readFileSync('/home/Cardigan/config.json', 'utf-8');
+		//recover from lost or currpoted config file
+		if (!config) {
+			var backupConfig = fs.readFileSync('/home/Cardigan/config.json', 'utf-8');
+			fs.writeFileSync('/home/Cardigan/config.json', backupConfig);
+			config = backupConfig;
+		}
+
+		var settings = JSON.parse(config).settings;
 
 		switch (settings.resolution) {
 			case '1080':
 				var videoQuality = {
 					width: 1920,
-					height: 1080
+					height: 1080,
+					fps: 30
 				};
 				break;
 			case '720':
 				var videoQuality = {
 					width: 1280,
-					height: 720
+					height: 720,
+					fps: 30
 				};
 				break;
 			default:
 				var videoQuality = {
 					width: 1280,
-					height: 720
+					height: 720,
+					fps: 30
 				};
 		}
+
+		console.log('sett', videoQuality);
 
 		if (!/^\d+$/.test(timestamp)) {
 			reject('Err: input issues, Who are you?');
@@ -35,7 +48,7 @@ var recordClip = (timestamp, interval) => {
 		var camera = new RaspiCam({
 			mode: 'video',
 			output: '/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264',
-			framerate: 25,
+			framerate: videoQuality.fps,
 			timeout: interval,
 			width: videoQuality.width,
 			height: videoQuality.height,
