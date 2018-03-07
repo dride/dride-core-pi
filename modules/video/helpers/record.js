@@ -59,24 +59,25 @@ var recordClip = (timestamp, interval) => {
 			var isAppConnected = isAppOnline();
 			if (isAppConnected && !isAppConnectedObj.connected) {
 				//repack h264 to mp4 container
-				execSync(
+				exec(
 					'avconv -framerate 24 -i /home/Cardigan/modules/video/tmp_clip/' +
 						timestamp +
 						'.h264 -c copy /home/Cardigan/modules/video/clip/' +
 						timestamp +
-						'.mp4'
-				);
+						'.mp4',
+					() => {
+						//remove tmp file
+						if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
+							fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
+						}
 
-				//remove tmp file
-				if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
-					fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
-				}
-
-				saveThumbNail(timestamp).then(
-					done => resolve(),
-					err => {
-						console.log(err);
-						reject(err);
+						saveThumbNail(timestamp).then(
+							done => console.log('saveThumbNail: done'),
+							err => {
+								console.log(err);
+								reject(err);
+							}
+						);
 					}
 				);
 			}
