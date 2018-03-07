@@ -34,8 +34,8 @@ if (isAppConnected && !isAppConnectedObj.connected) {
 						'.mp4'
 				);
 				//remove tmp file
-				if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {
-					fs.unlinkSync(dir + 'tmp_clip/' + fileName + '.h264');
+				if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
+					fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
 				}
 				record.saveThumbNail(fileName).then(
 					done => resolve(),

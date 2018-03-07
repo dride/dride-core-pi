@@ -67,6 +67,11 @@ var recordClip = (timestamp, interval) => {
 						'.mp4'
 				);
 
+				//remove tmp file
+				if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
+					fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
+				}
+
 				saveThumbNail(timestamp).then(
 					done => resolve(),
 					err => {
