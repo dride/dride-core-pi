@@ -8,7 +8,7 @@ var recordClip = (timestamp, interval) => {
 	return new Promise((resolve, reject) => {
 		var settings = JSON.parse(fs.readFileSync('/home/Cardigan/config.json', 'utf-8')).settings;
 
-		switch (settings.videoQuality) {
+		switch (settings.resolution) {
 			case '1080':
 				var videoQuality = {
 					width: 1920,
