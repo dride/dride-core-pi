@@ -64,7 +64,7 @@ var recordClip = (timestamp, interval) => {
 						timestamp +
 						'.h264 -c copy /home/Cardigan/modules/video/clip/' +
 						timestamp +
-						'.mp4',
+						'.mp4 -y',
 					() => {
 						//remove tmp file
 						if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
