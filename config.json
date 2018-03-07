@@ -9,7 +9,7 @@
 		"speaker": false,
 		"mic": false,
 		"indicator": true,
-		"resolution": "1080p",
+		"resolution": "1080",
 		"clipLength": 1,
 		"gSensorSensitivity": "medium",
 		"netwrok": {

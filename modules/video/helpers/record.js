@@ -6,7 +6,7 @@ var spawn = require('child_process').spawn;
 
 var recordClip = (timestamp, interval) => {
 	return new Promise((resolve, reject) => {
-		var settings = JSON.parse(fs.readFileSync('/home/Cardigan/config.json', 'utf-8'));
+		var settings = JSON.parse(fs.readFileSync('/home/Cardigan/config.json', 'utf-8')).settings;
 
 		switch (settings.videoQuality) {
 			case '1080':
@@ -55,29 +55,34 @@ var recordClip = (timestamp, interval) => {
 		camera.start();
 
 		camera.on('exit', ts => {
+			var dir = '/home/Cardigan/modules/video/';
 			//repack h264 to mp4 container
 			var isAppConnected = isAppOnline();
 			if (isAppConnected && !isAppConnectedObj.connected) {
 				//repack h264 to mp4 container
-				exec(
-					'avconv -framerate 24 -i /home/Cardigan/modules/video/tmp_clip/' +
+				execSync(
+					'avconv -framerate 24 -i ' +
+						dir +
+						'tmp_clip/' +
 						timestamp +
-						'.h264 -c copy /home/Cardigan/modules/video/clip/' +
+						'.h264 -c copy ' +
+						dir +
+						'clip/' +
 						timestamp +
-						'.mp4 -y',
-					() => {
-						//remove tmp file
-						if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
-							fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
-						}
+						'.mp4'
+				);
 
-						saveThumbNail(timestamp).then(
-							done => console.log('saveThumbNail: done'),
-							err => {
-								console.log(err);
-								reject(err);
-							}
-						);
+				//remove tmp file
+
+				if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
+					fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
+				}
+
+				saveThumbNail(timestamp).then(
+					done => resolve(),
+					err => {
+						console.log(err);
+						reject(err);
 					}
 				);
 			}
