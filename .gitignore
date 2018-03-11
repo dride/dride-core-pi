@@ -61,3 +61,4 @@ modules/video/gps
 .envrc
 docs/build
 .direnv
+.zip
