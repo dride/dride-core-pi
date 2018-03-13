@@ -1,4 +1,5 @@
 var RaspiCam = require('raspicam');
+var settingsHelper = require('../../settings/settings');
 var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 var fs = require('fs');
@@ -6,15 +7,7 @@ var spawn = require('child_process').spawn;
 
 var recordClip = (timestamp, interval) => {
 	return new Promise((resolve, reject) => {
-		var config = fs.readFileSync('/home/Cardigan/config.json', 'utf-8');
-		//recover from lost or currpoted config file
-		if (!config) {
-			var backupConfig = fs.readFileSync('/home/Cardigan/config.json', 'utf-8');
-			fs.writeFileSync('/home/Cardigan/config.json', backupConfig);
-			config = backupConfig;
-		}
-
-		var settings = JSON.parse(config).settings;
+		var settings = settingsHelper.getSettings();
 
 		switch (settings.resolution) {
 			case '1080':
@@ -47,9 +40,10 @@ var recordClip = (timestamp, interval) => {
 		}
 		var camera = new RaspiCam({
 			mode: 'video',
-			output: '/home/Cardigan/modules/video/tmp_clip/' + timestamp + '.h264',
+			output: '/home/Cardigan/modules/video/tmp_clip/%d.h264',
 			framerate: videoQuality.fps,
-			timeout: interval,
+			timeout: 0,
+			segment: 10000,
 			width: videoQuality.width,
 			height: videoQuality.height,
 			rotation: settings.flipVideo ? 180 : 0,
@@ -66,55 +60,18 @@ var recordClip = (timestamp, interval) => {
 		});
 
 		camera.start();
-
-		camera.on('exit', ts => {
-			var dir = '/home/Cardigan/modules/video/';
-			//repack h264 to mp4 container
-			var isAppConnected = isAppOnline();
-			if (isAppConnected && !isAppConnectedObj.connected) {
-				//repack h264 to mp4 container
-				execSync(
-					'avconv -framerate 24 -i ' +
-						dir +
-						'tmp_clip/' +
-						timestamp +
-						'.h264 -c copy ' +
-						dir +
-						'clip/' +
-						timestamp +
-						'.mp4'
-				);
-
-				//remove tmp file
-
-				if (fs.existsSync(dir + 'tmp_clip/' + timestamp + '.h264')) {
-					fs.unlinkSync(dir + 'tmp_clip/' + timestamp + '.h264');
-				}
-
-				saveThumbNail(timestamp).then(
-					done => resolve(),
-					err => {
-						console.log(err);
-						reject(err);
-					}
-				);
-			}
-		});
 	});
 };
 
 var saveThumbNail = fielName => {
-	return new Promise((resolve, reject) => {
-		//save thumb
-		execSync(
-			'avconv -ss 00:00:00 -i /home/Cardigan/modules/video/clip/' +
-				fielName +
-				'.mp4 -vframes 1 -q:v 2 /home/Cardigan/modules/video/thumb/' +
-				fielName +
-				'.jpg'
-		);
-		resolve();
-	});
+	//save thumb
+	execSync(
+		'avconv -ss 00:00:00 -i /home/Cardigan/modules/video/clip/' +
+			fielName +
+			'.mp4 -vframes 1 -q:v 2 -s 640x480 /home/Cardigan/modules/video/thumb/' +
+			fielName +
+			'.jpg'
+	);
 };
 
 var isAppOnline = () => {
