@@ -40,10 +40,10 @@ var recordClip = (timestamp, interval) => {
 		}
 		var camera = new RaspiCam({
 			mode: 'video',
-			output: '/home/Cardigan/modules/video/tmp_clip/%d.h264',
+			output: '/home/Cardigan/modules/video/tmp_clip/' + timestamp + '_%d.h264',
 			framerate: videoQuality.fps,
 			timeout: 0,
-			segment: 10000,
+			segment: interval,
 			width: videoQuality.width,
 			height: videoQuality.height,
 			rotation: settings.flipVideo ? 180 : 0,
@@ -68,9 +68,9 @@ var saveThumbNail = fielName => {
 	execSync(
 		'avconv -ss 00:00:00 -i /home/Cardigan/modules/video/clip/' +
 			fielName +
-			'.mp4 -vframes 1 -q:v 2 -s 640x480 /home/Cardigan/modules/video/thumb/' +
+			'.mp4 -vframes 1 -q:v 15 -s 640x480 /home/Cardigan/modules/video/thumb/' +
 			fielName +
-			'.jpg'
+			'.jpg -y'
 	);
 };
 

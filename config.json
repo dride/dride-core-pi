@@ -10,6 +10,7 @@
 		"mic": false,
 		"indicator": true,
 		"resolution": "720",
+		"fps": 30,
 		"clipLength": 1,
 		"gSensorSensitivity": "medium",
 		"netwrok": {
