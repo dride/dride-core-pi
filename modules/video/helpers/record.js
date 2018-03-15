@@ -5,6 +5,9 @@ var execSync = require('child_process').execSync;
 var fs = require('fs');
 var spawn = require('child_process').spawn;
 
+var dir = '/dride/';
+var dirTmpClip = dir + 'tmp_clip/';
+
 var recordClip = (timestamp, interval) => {
 	return new Promise((resolve, reject) => {
 		var settings = settingsHelper.getSettings();
@@ -32,33 +35,48 @@ var recordClip = (timestamp, interval) => {
 				};
 		}
 
-		console.log('sett', videoQuality);
-
 		if (!/^\d+$/.test(timestamp)) {
 			reject('Err: input issues, Who are you?');
 			return;
 		}
 		var camera = new RaspiCam({
 			mode: 'video',
-			output: '/home/Cardigan/modules/video/tmp_clip/' + timestamp + '_%d.h264',
+			output: '/dride/tmp_clip/' + timestamp + '_%d.h264',
 			framerate: videoQuality.fps,
 			timeout: 0,
 			segment: interval,
 			width: videoQuality.width,
 			height: videoQuality.height,
 			rotation: settings.flipVideo ? 180 : 0,
-			log: function(d) {
+			log: d => {
 				//detect camera error and put steady red LED
 				//mmal: main: Failed to create camera component
 				if (d.indexOf('mmal: main: Failed to create camera component') > 0) {
 					setTimeout(() => {
-						spawn('python', ['/home/Cardigan/modules/indicators/python/states/standalone.py', 'error']);
+						spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'error']);
 						process.exit(0);
 					}, 3000);
 				}
 			}
 		});
-
+		//listen for the "read" event triggered when each new video is saved
+		camera.on('read', (err, timestamp, filename) => {
+			//do stuff
+			const serialNumber = parseInt(filename.match(/[0-9]+/g)[1], 10);
+			if (serialNumber > 1) {
+				if (
+					fs.existsSync(
+						dirTmpClip + filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString() + '.h264'
+					)
+				) {
+					//repack h264 to mp4 container
+					encodeAndAddThumb(
+						filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString(),
+						settings.resolution
+					);
+				}
+			}
+		});
 		camera.start();
 	});
 };
@@ -66,16 +84,16 @@ var recordClip = (timestamp, interval) => {
 var saveThumbNail = fielName => {
 	//save thumb
 	execSync(
-		'avconv -ss 00:00:00 -i /home/Cardigan/modules/video/clip/' +
+		'avconv -ss 00:00:00 -i /dride/clip/' +
 			fielName +
-			'.mp4 -vframes 1 -q:v 15 -s 640x480 /home/Cardigan/modules/video/thumb/' +
+			'.mp4 -vframes 1 -q:v 15 -s 640x480 /dride/thumb/' +
 			fielName +
 			'.jpg -y'
 	);
 };
 
 var isAppOnline = () => {
-	var state = '/home/Cardigan/state/app.json';
+	var state = '/home/core/state/app.json';
 
 	//if app is connected skip the decoding
 	var isAppConnected = fs.readFileSync(state, 'utf8');
@@ -107,8 +125,35 @@ var isAppOnline = () => {
 	return isAppConnectedObj;
 };
 
+var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
+	//repack h264 to mp4 container
+
+	fileDetails = fs.statSync(dirTmpClip + fileName + '.h264');
+
+	execSync(
+		'avconv -framerate ' +
+			(resolution == '1080' ? 30 : 30) +
+			' -i /dride/tmp_clip/' +
+			fileName +
+			'.h264 -c copy /dride/clip/' +
+			fileDetails.birthtimeMs +
+			'.mp4 -y'
+	);
+	//remove tmp file
+	if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {
+		try {
+			fs.unlinkSync(dir + 'tmp_clip/' + fileName + '.h264');
+		} catch (err) {
+			//throw err
+			console.error(error);
+		}
+	}
+	saveThumbNail(fileDetails.birthtimeMs);
+};
+
 module.exports = {
 	recordClip: recordClip,
 	saveThumbNail: saveThumbNail,
-	isAppOnline: isAppOnline
+	isAppOnline: isAppOnline,
+	encodeAndAddThumb: encodeAndAddThumb
 };

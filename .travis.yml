@@ -15,16 +15,16 @@ before_script:
   - cmake -DWITH_IPP=OFF .. 
   - make -j4
   - sudo make -j4 install
-  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/dride/Cardigan
-  - cd /home/travis/build/dride/Cardigan/modules/indicators/bin
+  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/dride/core
+  - cd /home/travis/build/dride/core/modules/indicators/bin
   - scons
-  - sudo python /home/travis/build/dride/Cardigan/modules/indicators/setup.py build
+  - sudo python /home/travis/build/dride/core/modules/indicators/setup.py build
 python:
   - "2.7"
 
 script:
 
-  - python /home/travis/build/dride/Cardigan/test/test_lane_detection.py
+  - python /home/travis/build/dride/core/test/test_lane_detection.py
 
 notifications:
   email:

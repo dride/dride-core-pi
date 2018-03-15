@@ -6,11 +6,10 @@ var fs = require('fs');
 
 var settings = settingsHelper.getSettings();
 var interval = settings.clipLength * 60 * 1000;
-console.log(interval);
 if (settings.videoRecord) {
 	//make sure we have the camera connected, If not notify with an error LED,
 	if (!verifyCamera.verifyCamera()) {
-		spawn('python', ['/home/Cardigan/modules/indicators/python/states/standalone.py', 'error']);
+		spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'error']);
 	} else {
 		record.recordClip(new Date().getTime(), interval);
 	}

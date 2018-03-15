@@ -1,11 +1,11 @@
 var fs = require('fs');
 
 var getSettings = () => {
-	var config = fs.readFileSync('/home/Cardigan/config.json', 'utf-8');
+	var config = fs.readFileSync('/home/core/config.json', 'utf-8');
 	//recover from lost or currpoted config file
 	if (!config) {
-		var backupConfig = fs.readFileSync('/home/Cardigan/config.json', 'utf-8');
-		fs.writeFileSync('/home/Cardigan/config.json', backupConfig);
+		var backupConfig = fs.readFileSync('/home/core/config.json', 'utf-8');
+		fs.writeFileSync('/home/core/config.json', backupConfig);
 		config = backupConfig;
 	}
 

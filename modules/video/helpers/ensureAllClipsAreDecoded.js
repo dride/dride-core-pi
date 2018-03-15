@@ -7,8 +7,8 @@ var record = require('./record');
 var execSync = require('child_process').execSync;
 var settingsHelper = require('../../settings/settings');
 
-var state = '/home/Cardigan/state/app.json';
-var dir = '/home/Cardigan/modules/video/';
+var state = '/home/core/state/app.json';
+var dir = '/dride/';
 var dirTmpClip = dir + 'tmp_clip';
 
 //if app is connected skip the decoding
@@ -29,14 +29,14 @@ if (isAppConnected && !isAppConnectedObj.connected) {
 			var fileName = file.split('.').shift();
 
 			//if the file is from the last minute ignore it
-			if (Math.abs(new Date().getTime() - fileDetails.birthtimeMs) > 1000 * 65) {
+			if (Math.abs(new Date().getTime() - fileDetails.birthtimeMs) > 1000 * 120) {
 				//repack h264 to mp4 container
 				execSync(
 					'avconv -framerate ' +
 						(settings.resolution == '1080' ? 30 : 30) +
-						' -i /home/Cardigan/modules/video/tmp_clip/' +
+						' -i /dride/tmp_clip/' +
 						fileName +
-						'.h264 -c copy /home/Cardigan/modules/video/clip/' +
+						'.h264 -c copy /dride/clip/' +
 						fileDetails.birthtimeMs +
 						'.mp4 -y'
 				);
