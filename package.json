@@ -1,0 +1,24 @@
+{
+	"name": "dride-core",
+	"version": "0.10.0",
+	"description": "Open source dashcam for RaspberryPi ",
+	"scripts": {
+		"build": "node scripts/build.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/dride/dride-core.git"
+	},
+	"keywords": [
+		"dride"
+	],
+	"author": "Dride, Inc.",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/dride/dride-core/issues"
+	},
+	"homepage": "https://github.com/dride/dride-core#readme",
+	"dependencies": {
+		"fs": "0.0.1-security"
+	}
+}

@@ -7,32 +7,33 @@ var disk = require('diskusage');
 
 var dir = '/dride/';
 var dirVideo = dir + 'clip/';
+var videoModuleDir = '/home/core/modules/video/';
 
-disk.check('/', function(err, info) {
+disk.check('/', (err, info) => {
 	if (err) {
 		console.log(err);
 		process.exit(0);
 	} else {
 		var freeSpace = info.free * 100 / info.total;
-		console.log('freeSpace: ', freeSpace);
+		//console.log('freeSpace: ', freeSpace);
 
 		//if we got less than 15% let's cleanup
 		if (freeSpace < 15) {
 			//load EMR clips
-			var savedVideos = fs.readFileSync(dir + 'savedVideos.json', 'utf8');
+			var savedVideos = fs.readFileSync(videoModuleDir + 'savedVideos.json', 'utf8');
 			var EMRvideos = JSON.parse(savedVideos ? savedVideos : []);
 
-			fs.readdir(dirVideo, function(err, files) {
+			fs.readdir(dirVideo, (err, files) => {
 				if (err) {
 					console.error('Could not list the directory.', err);
 					process.exit(0);
 				}
 
-				files.sort(function(filea, fileb) {
+				files.sort((filea, fileb) => {
 					return filea.time < fileb.time;
 				});
 				var count = 0;
-				files.forEach(function(file, index) {
+				files.forEach((file, index) => {
 					fileName = file.split('.').shift();
 
 					if (!isEMR(EMRvideos, fileName) && fileName) {
