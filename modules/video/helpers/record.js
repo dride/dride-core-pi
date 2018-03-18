@@ -3,6 +3,7 @@ var settingsHelper = require('../../settings/settings');
 var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 var fs = require('fs');
+var path = require('path');
 var spawn = require('child_process').spawn;
 
 var dir = '/dride/';
@@ -70,7 +71,7 @@ var recordClip = (timestamp, interval) => {
 					)
 				) {
 					//if app is connected skip the decoding
-					var isAppConnected = record.isAppOnline();
+					var isAppConnected = isAppOnline();
 
 					//repack h264 to mp4 container
 					//if app connected dont run encode, It will be later picked up by the ensureAllClipsAreDecoded service.
@@ -99,7 +100,7 @@ var saveThumbNail = fielName => {
 };
 
 var isAppOnline = () => {
-	var state = '/home/core/state/app.json';
+	var state = path.join(__dirname, '../../../state/app.json');
 
 	//if app is connected skip the decoding
 	var isAppConnected = fs.readFileSync(state, 'utf8');
