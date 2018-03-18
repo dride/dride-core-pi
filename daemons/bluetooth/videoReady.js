@@ -44,7 +44,7 @@ videoReady.startListner = clickTimeStamp => {
 		//make sure this was not published before
 		found = false;
 		for (var i = 0; i < emrVideos.length; i++) {
-			if (emrVideos[i].key == filename) {
+			if (emrVideos[i].key == filename || Math.abs(parseInt(emrVideos[i].key) - parseInt(filename)) < 5000) {
 				found = true;
 				break;
 			}

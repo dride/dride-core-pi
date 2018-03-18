@@ -69,11 +69,17 @@ var recordClip = (timestamp, interval) => {
 						dirTmpClip + filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString() + '.h264'
 					)
 				) {
+					//if app is connected skip the decoding
+					var isAppConnected = record.isAppOnline();
+
 					//repack h264 to mp4 container
-					encodeAndAddThumb(
-						filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString(),
-						settings.resolution
-					);
+					//if app connected dont run encode, It will be later picked up by the ensureAllClipsAreDecoded service.
+					if (!isAppConnectedObj.connected) {
+						encodeAndAddThumb(
+							filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString(),
+							settings.resolution
+						);
+					}
 				}
 			}
 		});
