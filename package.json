@@ -4,15 +4,14 @@
 	"description": "Open source dashcam for RaspberryPi ",
 	"scripts": {
 		"build": "node scripts/build.js",
-		"test": "mocha modules/**/**.spec.js && node scripts/after_test.js"
+		"test": "mocha modules/**/**.spec.js && node scripts/after_test.js",
+		"release": "npm run test && node scripts/build.js"
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/dride/dride-core.git"
 	},
-	"keywords": [
-		"dride"
-	],
+	"keywords": ["dride"],
 	"author": "Dride, Inc.",
 	"license": "MIT",
 	"bugs": {
