@@ -47,6 +47,10 @@ describe('Video', () => {
 
 				expect(record.isAppOnline().connected).to.be.false;
 			});
+
+			it('should return false after app was idle for too long', () => {
+				expect(record.isAppOnline().connected).to.be.false;
+			});
 		});
 	});
 });

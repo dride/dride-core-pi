@@ -9,3 +9,6 @@ fs.writeFileSync(
 		connected: false
 	})
 );
+
+//set backup config to state dir
+fs.createReadStream('./config.json').pipe(fs.createWriteStream('./state/config.backup.json'));
