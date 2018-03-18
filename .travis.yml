@@ -2,11 +2,11 @@ language: node_js
 node_js:
  - "node"
 
-before_script:
+install:
   - npm install
 
 script:
-  - npm run test
+  - cd modules/video && npm install && cd ../../ && npm test
 
 notifications:
   email:
