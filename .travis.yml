@@ -4,7 +4,7 @@ node_js:
 
 install:
   - npm install
-
+  - cd modules/video && npm install
 script:
   - npm run test
 
