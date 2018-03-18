@@ -1,30 +1,12 @@
-language: python
-
-before_install:
- - sudo apt-get update
-
-install:
- - sudo apt-get install python-dev python-numpy scons
- - pip install pyserial
+language: node_js
+node_js:
+ - "node"
 
 before_script:
-  - git clone https://github.com/Itseez/opencv.git
-  - cd opencv
-  - mkdir build
-  - cd build
-  - cmake -DWITH_IPP=OFF .. 
-  - make -j4
-  - sudo make -j4 install
-  - export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages:/home/travis/build/dride/core
-  - cd /home/travis/build/dride/core/modules/indicators/bin
-  - scons
-  - sudo python /home/travis/build/dride/core/modules/indicators/setup.py build
-python:
-  - "2.7"
+  - npm install
 
 script:
-
-  - python /home/travis/build/dride/core/test/test_lane_detection.py
+  - npm run test
 
 notifications:
   email:
