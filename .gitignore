@@ -62,3 +62,5 @@ modules/video/gps
 docs/build
 .direnv
 .zip
+scripts/build
+keys
