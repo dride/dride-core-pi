@@ -6,7 +6,9 @@ install:
   - npm install
 
 script:
-  - cd modules/video && npm install && cd ../../ && npm test
+  - cd modules/video && npm install && cd ../../
+  - cd dride-ws && npm install && cd ../../
+  - npm test
 notifications:
   email:
     - yossi@dride.io
