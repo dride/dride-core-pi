@@ -6,8 +6,8 @@ install:
   - npm install
 
 script:
-  - cd modules/video && npm install && cd ../../
-  - cd dride-ws && npm install && cd ../../
+  - cd modules/video && npm install
+  - cd dride-ws && npm install
   - npm run test
 notifications:
   email:
