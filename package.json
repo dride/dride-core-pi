@@ -13,7 +13,9 @@
 		"type": "git",
 		"url": "https://github.com/dride/dride-core.git"
 	},
-	"keywords": ["dride"],
+	"keywords": [
+		"dride"
+	],
 	"author": "Dride, Inc.",
 	"license": "MIT",
 	"bugs": {
@@ -24,6 +26,9 @@
 		"fs": "0.0.1-security"
 	},
 	"devDependencies": {
+		"@semantic-release/changelog": "^2.0.1",
+		"@semantic-release/git": "^4.0.1",
+		"@semantic-release/github": "^4.2.8",
 		"archiver": "^2.1.1",
 		"aws-sdk": "^2.211.0",
 		"chai": "^4.1.2",
@@ -37,20 +42,33 @@
 		"generateNotes": {
 			"preset": "angular",
 			"parserOpts": {
-				"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+				"noteKeywords": [
+					"BREAKING CHANGE",
+					"BREAKING CHANGES",
+					"BREAKING"
+				]
 			},
 			"writerOpts": {
-				"commitsSort": ["subject", "scope"]
+				"commitsSort": [
+					"subject",
+					"scope"
+				]
 			}
 		},
 		"prepare": [
 			"@semantic-release/npm",
 			{
 				"path": "@semantic-release/git",
-				"assets": ["package.json", "dist/**/*.{js|css}", "docs"],
+				"assets": [
+					"package.json",
+					"dist/**/*.{js|css}",
+					"docs"
+				],
 				"message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
 			}
 		],
-		"publish": ["@semantic-release/github"]
+		"publish": [
+			"@semantic-release/github"
+		]
 	}
 }
