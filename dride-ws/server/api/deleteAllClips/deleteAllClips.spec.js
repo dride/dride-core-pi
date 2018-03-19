@@ -13,11 +13,11 @@ describe('deleteAllClips', () => {
 	beforeEach(done => {
 		fs.copyFileSync(
 			path.join(__dirname, '../../../..', 'tests/data/1521390239070.jpg'),
-			'/dride/thumb/1521390239070.jpg'
+			path.join(__dirname, '../../../..', 'dride/thumb/1521390239070.jpg')
 		);
 		fs.copyFileSync(
 			path.join(__dirname, '../../../..', 'tests/data/1521390239070.mp4'),
-			'/dride/clip/1521390239070.mp4'
+			path.join(__dirname, '../../../..', 'dride/clip/1521390239070.mp4')
 		);
 		done();
 	});

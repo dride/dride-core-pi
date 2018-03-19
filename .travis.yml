@@ -10,9 +10,6 @@ install:
 script:
   - cd modules/video && npm install && cd ../../
   - cd dride-ws && npm install && cd ../
-  - sudo mkdir /dride
-  - mkdir /dride/thumb
-  - mkdir /dride/clip
   - npm run test
 notifications:
   email:
