@@ -11,9 +11,9 @@ script:
   - cd modules/video && npm install && cd ../../
   - cd dride-ws && npm install && cd ../
   - sudo mkdir /dride
-  - sudo mkdir /dride/thumb
-  - sudo mkdir /dride/clip
-  - sudo npm run test
+  - mkdir /dride/thumb
+  - mkdir /dride/clip
+  - npm run test
 notifications:
   email:
     - yossi@dride.io
