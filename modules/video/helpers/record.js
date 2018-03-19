@@ -75,7 +75,7 @@ var recordClip = (timestamp, interval) => {
 
 					//repack h264 to mp4 container
 					//if app connected dont run encode, It will be later picked up by the ensureAllClipsAreDecoded service.
-					if (!isAppConnectedObj.connected) {
+					if (!isAppConnectedObj.connected || isAppConnectedObj.clicked) {
 						encodeAndAddThumb(
 							filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString(),
 							settings.resolution
@@ -104,23 +104,16 @@ var isAppOnline = () => {
 
 	//if app is connected skip the decoding
 	var isAppConnected = fs.readFileSync(state, 'utf8');
-	if (!isAppConnected) {
+
+	try {
+		isAppConnectedObj = JSON.parse(fs.readFileSync(state, 'utf8'));
+	} catch (error) {
 		isAppConnected = {
 			connected: false
 		};
-	} else {
-		try {
-			isAppConnectedObj = JSON.parse(fs.readFileSync(state, 'utf8'));
-		} catch (error) {
-			if (error) throw error;
-		}
 	}
 
-	if (
-		isAppConnectedObj &&
-		isAppConnectedObj.dte &&
-		Math.abs(new Date().getTime() - isAppConnectedObj.dte) > 1000 * 60
-	) {
+	if (isAppConnectedObj.dte && Math.abs(new Date().getTime() - isAppConnectedObj.dte) > 1000 * 60) {
 		fs.writeFile(
 			state,
 			JSON.stringify({

@@ -30,7 +30,8 @@ fs.copy('../dride-core/', '/tmp/' + fileName, { filter: filterFunc }, err => {
 	if (err) return console.error(err);
 
 	//TODO: read version form config.json
-	var currentVersion = '0.10.1';
+	packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+	var currentVersion = packageJson.version;
 
 	var output = fs.createWriteStream('scripts/build/latest.zip');
 	var archive = archiver('zip');

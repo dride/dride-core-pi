@@ -58,6 +58,17 @@ videoReady.startListner = clickTimeStamp => {
 
 		fs.writeFileSync('/home/core/modules/video/savedVideos.json', JSON.stringify(emrVideos));
 
+		var state = '/home/core/state/app.json';
+		fs.writeFile(
+			state,
+			JSON.stringify({
+				connected: false
+			}),
+			err => {
+				if (err) throw err;
+			}
+		);
+
 		setTimeout(() => {
 			spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'done']);
 
