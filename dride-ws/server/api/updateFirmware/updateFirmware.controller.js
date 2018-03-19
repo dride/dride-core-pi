@@ -4,7 +4,6 @@ var path = require('path'),
 	fs = require('fs'),
 	mv = require('mv'),
 	https = require('https'),
-	request = require('request'),
 	AdmZip = require('adm-zip'),
 	rmdir = require('rmdir'),
 	fileUpload = require('express-fileupload');

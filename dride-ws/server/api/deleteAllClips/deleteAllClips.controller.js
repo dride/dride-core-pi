@@ -2,7 +2,6 @@
 
 var path = require('path'),
 	fs = require('fs'),
-	ini = require('ini'),
 	rimraf = require('rimraf');
 
 var fileNames = [];
