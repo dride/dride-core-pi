@@ -1,3 +1,5 @@
+dist: trusty
+sudo: required
 language: node_js
 cache:
   directories:
@@ -7,8 +9,11 @@ install:
 
 script:
   - cd modules/video && npm install && cd ../../
-  - cd dride-ws && npm install && cd ../../
-  - npm test
+  - cd dride-ws && npm install && cd ../
+  - mkdir dride
+  - mkdir dride/thumb
+  - mkdir dride/clip
+  - npm run test
 notifications:
   email:
     - yossi@dride.io
