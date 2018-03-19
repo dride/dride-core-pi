@@ -6,13 +6,7 @@ analyzeCommits:
 verifyRelease: []
 generateNotes:
   - "@semantic-release/release-notes-generator"
-prepare: [
-	  {
-        "path": "@semantic-release/changelog",
-        "changelogFile": "docs/changelog.md",
-      },
-      "@semantic-release/git"
-	  ]
+
 publish:
   - "@semantic-release/github"
 success:
