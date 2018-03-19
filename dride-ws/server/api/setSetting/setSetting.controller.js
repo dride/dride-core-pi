@@ -10,11 +10,11 @@ exports.index = function(req, res) {
 	var defaults = path.join(__dirname, '../../../..', 'config.json');
 	var config = JSON.parse(fs.readFileSync(defaults, 'utf-8'));
 
+	fieldValue = fieldValue.toString().toLowerCase();
+
 	//cast to boolean if needed
 	if (fieldValue == 'true') fieldValue = true;
 	if (fieldValue == 'false') fieldValue = false;
-
-	fieldValue = fieldValue.toString().toLowerCase();
 
 	config['settings'][fieldName] = fieldValue;
 
