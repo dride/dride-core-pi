@@ -39,23 +39,23 @@ buttonStream.prototype.onSubscribe = function(maxValueSize, updateValueCallback)
 gpio.on('change', function(channel, value) {
 	if (value) {
 		var currentTimeStamp = new Date().getTime().toString();
-		//update state that we need to encode video no matter what
-		var state = '/home/core/state/app.json';
-		fs.writeFile(
-			state,
-			JSON.stringify({
-				connected: false,
-				clicked: true
-			}),
-			err => {
-				if (err) throw err;
-			}
-		);
-
 		videoReady.startListner(currentTimeStamp);
 		spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'welcome']);
 
 		if (ex) {
+			//update state that we need to encode video no matter what
+			var state = '/home/core/state/app.json';
+			fs.writeFile(
+				state,
+				JSON.stringify({
+					connected: false,
+					clicked: true
+				}),
+				err => {
+					if (err) throw err;
+				}
+			);
+
 			var data = new Buffer.from(currentTimeStamp, 'utf8');
 
 			data.write(currentTimeStamp);

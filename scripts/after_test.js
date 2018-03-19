@@ -20,3 +20,6 @@ fs.writeFileSync('./config.json', JSON.stringify(config));
 
 //set backup config to state dir
 fs.createReadStream('./config.json').pipe(fs.createWriteStream('./state/config.backup.json'));
+
+//update state app.json
+fs.writeFileSync('./state/app.json', JSON.stringify({ connected: false }));

@@ -4,7 +4,7 @@
 	"description": "Open source dashcam for RaspberryPi ",
 	"scripts": {
 		"build": "node scripts/build.js",
-		"test": "mocha modules/**/**.spec.js && node scripts/after_test.js",
+		"test": "mocha modules/**/**.spec.js && mocha dride-ws/server/**/**.spec.js --exit && node scripts/after_test.js",
 		"release": "npm run test && node scripts/build.js",
 		"semantic-release": "semantic-release",
 		"travis-deploy-once": "travis-deploy-once"
