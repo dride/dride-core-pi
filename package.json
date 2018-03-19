@@ -1,15 +1,17 @@
 {
 	"name": "dride-core",
-	"version": "0.10.0",
+	"version": "0.10.0-development",
 	"description": "Open source dashcam for RaspberryPi ",
 	"scripts": {
 		"build": "node scripts/build.js",
 		"test": "mocha modules/**/**.spec.js && node scripts/after_test.js",
-		"release": "npm run test && node scripts/build.js"
+		"release": "npm run test && node scripts/build.js",
+		"semantic-release": "semantic-release",
+		"travis-deploy-once": "travis-deploy-once"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/dride/dride-core.git"
+		"url": "https://github.com/dride/dride-core.git"
 	},
 	"keywords": ["dride"],
 	"author": "Dride, Inc.",
@@ -27,6 +29,8 @@
 		"chai": "^4.1.2",
 		"fs-extra": "^5.0.0",
 		"mocha": "^5.0.4",
-		"node-fs-extra": "^0.8.2"
+		"node-fs-extra": "^0.8.2",
+		"semantic-release": "^15.1.2",
+		"travis-deploy-once": "^4.4.1"
 	}
 }
