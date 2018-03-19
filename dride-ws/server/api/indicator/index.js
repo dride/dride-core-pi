@@ -5,18 +5,8 @@ var controller = require('./indicator.controller');
 
 var router = express.Router();
 
-
-;
-
-
-
-router.get('/:action', function(req, res){
-
-
- 	controller.index(req, res)
-
-
- 	
+router.get('/:action', function(req, res) {
+	controller.index(req, res);
 });
 
 module.exports = router;

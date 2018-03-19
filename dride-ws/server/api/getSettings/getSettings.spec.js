@@ -17,7 +17,9 @@ describe('GET /api/getSettings', function() {
 			.expect(200)
 			.expect('Content-Type', /json/)
 			.end(function(err, res) {
-				if (err) return done(err);
+				if (err) {
+					return done(err);
+				}
 
 				var configFromFile = JSON.parse(fs.readFileSync('./config.json', 'utf-8'));
 

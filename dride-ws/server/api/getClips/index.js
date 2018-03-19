@@ -5,17 +5,8 @@ var controller = require('./getClips.controller');
 
 var router = express.Router();
 
-
-;
-
-
-
-router.get('/', function(req, res){
-
- 	controller.index(req, res)
-
-
- 	
+router.get('/', function(req, res) {
+	controller.index(req, res);
 });
 
 module.exports = router;
