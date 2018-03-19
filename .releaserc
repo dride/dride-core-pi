@@ -1,0 +1,15 @@
+branch: "master"
+verifyConditions:
+  - "@semantic-release/github"
+analyzeCommits:
+  - "@semantic-release/commit-analyzer"
+verifyRelease: []
+generateNotes:
+  - "@semantic-release/release-notes-generator"
+prepare: []
+publish:
+  - "@semantic-release/github"
+success:
+  - "@semantic-release/github"
+fail:
+  - "@semantic-release/github"
