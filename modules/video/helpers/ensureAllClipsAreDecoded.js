@@ -14,6 +14,11 @@ var dirTmpClip = dir + 'tmp_clip';
 //if app is connected skip the decoding
 var isAppConnected = record.isAppOnline();
 
+/**
+ * TODO:!!
+ * Make sure we're dcoding the rihght clip!
+ */
+
 var settings = settingsHelper.getSettings();
 
 if (isAppConnected && !isAppConnectedObj.connected) {

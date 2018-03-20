@@ -49,6 +49,7 @@ videoReady.startListner = clickTimeStamp => {
 				break;
 			}
 		}
+
 		if (!found) {
 			emrVideos.push({
 				key: filename,

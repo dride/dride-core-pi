@@ -48,7 +48,8 @@ gpio.on('change', function(channel, value) {
 			fs.writeFile(
 				state,
 				JSON.stringify({
-					connected: false,
+					connected: true,
+					dte: new Date().getTime() + 120 * 1000,
 					clicked: true
 				}),
 				err => {

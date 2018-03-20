@@ -109,11 +109,12 @@ var isAppOnline = () => {
 		isAppConnectedObj = JSON.parse(fs.readFileSync(state, 'utf8'));
 	} catch (error) {
 		isAppConnected = {
-			connected: false
+			connected: false,
+			wasEmpty: true
 		};
 	}
 
-	if (isAppConnectedObj.dte && Math.abs(new Date().getTime() - isAppConnectedObj.dte) > 1000 * 60) {
+	if (isAppConnectedObj.dte && new Date().getTime() - isAppConnectedObj.dte > 1000 * 60) {
 		fs.writeFile(
 			state,
 			JSON.stringify({
