@@ -71,8 +71,7 @@ videoReady.startListner = clickTimeStamp => {
 		);
 
 		setTimeout(() => {
-			spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'done']);
-
+			//TODO: clear all indicator light
 			var data = new Buffer.from(filename, 'utf8');
 			data.write(filename);
 

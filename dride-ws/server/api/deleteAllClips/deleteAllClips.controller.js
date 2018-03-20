@@ -29,6 +29,16 @@ exports.index = function(req, res) {
 			reject(err);
 		}
 	});
+	var p3 = new Promise((resolve, reject) => {
+		try {
+			rimraf('/dride/tmp_clip/', () => {
+				fs.mkdirSync('/dride/tmp_clip');
+				resolve();
+			});
+		} catch (err) {
+			reject(err);
+		}
+	});
 	//   var p3 = new Promise((resolve, reject) => {
 	//     try {
 	//       rimraf("/dride/gps/", () => {
