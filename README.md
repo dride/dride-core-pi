@@ -8,18 +8,23 @@ Please follow our guide [how to install Dride on a Raspberry Pi and Raspberry Pi
 
 [Read this post after installing Dride](https://dride.io/thread/getting-started-with-dride-early-preview__-Kkjnf-AgdlHutD_em-q)
 
+## Dride HAT
+Dride uses the following sensors to operate, You can buy them [here](https://dride.io/product/dride-hat)
+
+ - Extremely Accurate I²C-Integrated RTC | DS3231
+ - 3-axis accelerometer with high resolution (13-bit) | ADXL345BCCZ-RL
+ - Tactile Button switch (12mm)
+ - 5050 RGB LED with Integrated Driver Chip
+ - CR1220 coin battery
+
+## Dride Case
+You can [3D print your Dride Zero](https://github.com/dride/dride-case), or [buy a kit](https://dride.io/product/dride-kit)
+
+
 ## Documentation
 Make sure to check out [docs](https://dride.io/documentation)
 
-## Quick start
-To start using Dride you'll need the following dependencies:
 
-1. Raspberry Pi & Raspberry Pi Zero W
-2. Pi Camera
-3. Dride HAT | [Buy](https://dride.io/store)
-3. Dride Case | [Buy](https://dride.io/store)
-
-Please follow our [getting started guide](https://dride.io/c/getting_started) to install Dride today.
 
 ## Support
 [Dride Forum](https://dride.io/forum)
