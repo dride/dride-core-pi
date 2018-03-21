@@ -18,7 +18,7 @@ Dride uses the following sensors to operate, You can buy them [here](https://dri
  - CR1220 coin battery
 
 ## Dride Case
-You can [3D print your Dride Zero](https://github.com/dride/dride-case), or [buy a kit](https://dride.io/product/dride-kit)
+You can [3D print Dride Zero](https://github.com/dride/dride-case), or [buy a kit](https://dride.io/product/dride-kit)
 
 
 ## Documentation
