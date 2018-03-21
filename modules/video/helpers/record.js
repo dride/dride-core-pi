@@ -108,20 +108,31 @@ var isAppOnline = () => {
 	try {
 		isAppConnectedObj = JSON.parse(fs.readFileSync(state, 'utf8'));
 	} catch (error) {
-		isAppConnected = {
+		isAppConnectedObj = {
 			connected: false,
 			wasEmpty: true
 		};
 	}
-
-	if (isAppConnectedObj.dte && new Date().getTime() - isAppConnectedObj.dte > 1000 * 60) {
-		fs.writeFile(
+	console.log(new Date().getTime() - isAppConnectedObj.dte);
+	if (
+		isAppConnectedObj.dte &&
+		(new Date().getTime() - isAppConnectedObj.dte > 1000 * 60 || new Date().getTime() - isAppConnectedObj.dte < 0)
+	) {
+		fs.writeFileSync(
 			state,
 			JSON.stringify({
 				connected: false
 			})
 		);
+		console.log('weitter@!');
 		isAppConnectedObj.connected = false;
+	} else if (isAppConnectedObj.wasEmpty) {
+		fs.writeFileSync(
+			state,
+			JSON.stringify({
+				connected: false
+			})
+		);
 	}
 	return isAppConnectedObj;
 };

@@ -20,7 +20,6 @@ var isAppConnected = record.isAppOnline();
  */
 
 var settings = settingsHelper.getSettings();
-
 if (isAppConnected && !isAppConnectedObj.connected) {
 	fs.readdir(dirTmpClip, (err, files) => {
 		if (err) {
@@ -28,7 +27,9 @@ if (isAppConnected && !isAppConnectedObj.connected) {
 			process.exit(0);
 		}
 		let fielDetails = null;
-		files.forEach((file, index) => {
+		//files.forEach((file, index) => {
+		for (var index = 0; index < files.length; index++) {
+			file = files[index];
 			fileDetails = fs.statSync(dirTmpClip + '/' + file);
 
 			var fileName = file.split('.').shift();
@@ -45,6 +46,7 @@ if (isAppConnected && !isAppConnectedObj.connected) {
 						fileDetails.birthtimeMs +
 						'.mp4 -y'
 				);
+
 				//remove tmp file
 				if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {
 					try {
@@ -55,7 +57,8 @@ if (isAppConnected && !isAppConnectedObj.connected) {
 					}
 				}
 				record.saveThumbNail(fileDetails.birthtimeMs);
+				break;
 			}
-		});
+		}
 	});
 }
