@@ -1,3 +1,11 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/dride/dride-core/compare/v1.0.0...v1.0.1) (2018-03-21)
+
+
+### Bug Fixes
+
+* **record:** fix encoding block and encoding loop ([8a48455](https://github.com/dride/dride-core/commit/8a48455))
+
 <a name="1.0.0"></a>
 # 1.0.0 (2018-03-21)
 
