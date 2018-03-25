@@ -33,6 +33,13 @@ videoReady.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
 videoReady.startListner = clickTimeStamp => {
 	console.log('videoReady: wating for video.. ');
 	var w = fs.watch('/dride/thumb/', (listner, filename) => {
+		/**
+		 * We might get unwated encoded video clips during the watch period, So we filter them so we will get the clip we need.
+		 */
+		if (filename < clickTimeStamp || filename - clickTimeStamp > 60) {
+			return;
+		}
+
 		filename = filename.replace('.jpg', '');
 
 		// save currentTimestamp in the db

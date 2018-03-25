@@ -56,6 +56,7 @@ if (isAppConnected && !isAppConnectedObj.connected) {
 						console.error(error);
 					}
 				}
+				// Manual encoding will add .m to the file name, this will allow us to avoid conflict with button press events
 				record.saveThumbNail(fileDetails.birthtimeMs);
 				break;
 			}

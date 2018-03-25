@@ -13,6 +13,10 @@ const filterFunc = (src, dest) => {
 	if (src.indexOf('test') > -1) {
 		return false;
 	}
+	//dont copy keys
+	if (src.indexOf('keys') > -1) {
+		return false;
+	}
 	//dont copy filename starting with a .
 	if (
 		!src

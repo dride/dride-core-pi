@@ -113,18 +113,13 @@ var isAppOnline = () => {
 			wasEmpty: true
 		};
 	}
-	console.log(new Date().getTime() - isAppConnectedObj.dte);
-	if (
-		isAppConnectedObj.dte &&
-		(new Date().getTime() - isAppConnectedObj.dte > 1000 * 60 || new Date().getTime() - isAppConnectedObj.dte < 0)
-	) {
+	if (isAppConnectedObj.dte && new Date().getTime() - isAppConnectedObj.dte > 1000 * 60) {
 		fs.writeFileSync(
 			state,
 			JSON.stringify({
 				connected: false
 			})
 		);
-		console.log('weitter@!');
 		isAppConnectedObj.connected = false;
 	} else if (isAppConnectedObj.wasEmpty) {
 		fs.writeFileSync(
