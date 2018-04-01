@@ -1,3 +1,11 @@
+<a name="0.10.1"></a>
+## [0.10.1](https://github.com/dride/dride-core/compare/v0.10.0...v0.10.1) (2018-04-01)
+
+
+### Bug Fixes
+
+* **video:** fix filename fix in ensureAllClipsAreDecoded ([250ae10](https://github.com/dride/dride-core/commit/250ae10))
+
 <a name="0.10.0"></a>
 # 0.10.0 (2018-03-25)
 
