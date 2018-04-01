@@ -21,45 +21,49 @@ var isAppConnected = record.isAppOnline();
 
 var settings = settingsHelper.getSettings();
 if (isAppConnected && !isAppConnectedObj.connected) {
-	fs.readdir(dirTmpClip, (err, files) => {
-		if (err) {
-			console.error('Could not list the directory.', err);
-			process.exit(0);
-		}
-		let fielDetails = null;
-		//files.forEach((file, index) => {
-		for (var index = 0; index < files.length; index++) {
-			file = files[index];
-			fileDetails = fs.statSync(dirTmpClip + '/' + file);
+  fs.readdir(dirTmpClip, (err, files) => {
+    if (err) {
+      console.error('Could not list the directory.', err);
+      process.exit(0);
+    }
+    let fielDetails = null;
+    //files.forEach((file, index) => {
+    for (var index = 0; index < files.length; index++) {
+      file = files[index];
+      fileDetails = fs.statSync(dirTmpClip + '/' + file);
 
-			var fileName = file.split('.').shift();
+      //skip empty files
+      if (!fileDetails.size) {
+        continue;
+      }
+      var fileName = file.split('.').shift();
 
-			//if the file is from the last minute ignore it
-			if (Math.abs(new Date().getTime() - fileDetails.birthtimeMs) > 1000 * 120) {
-				//repack h264 to mp4 container
-				execSync(
-					'avconv -framerate ' +
-						(settings.resolution == '1080' ? 30 : 30) +
-						' -i /dride/tmp_clip/' +
-						fileName +
-						'.h264 -c copy /dride/clip/' +
-						fileDetails.birthtimeMs +
-						'.mp4 -y'
-				);
+      //if the file is from the last minute ignore it
+      if (Math.abs(new Date().getTime() - Math.floor(fileDetails.birthtimeMs)) > 1000 * 120) {
+        //repack h264 to mp4 container
+        execSync(
+          'avconv -framerate ' +
+          (settings.resolution == '1080' ? 30 : 30) +
+          ' -i /dride/tmp_clip/' +
+          fileName +
+          '.h264 -c copy /dride/clip/' +
+          Math.floor(fileDetails.birthtimeMs) +
+          '.mp4 -y'
+        );
 
-				//remove tmp file
-				if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {
-					try {
-						fs.unlinkSync(dir + 'tmp_clip/' + fileName + '.h264');
-					} catch (err) {
-						//throw err
-						console.error(error);
-					}
-				}
-				// Manual encoding will add .m to the file name, this will allow us to avoid conflict with button press events
-				record.saveThumbNail(fileDetails.birthtimeMs);
-				break;
-			}
-		}
-	});
+        //remove tmp file
+        if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {
+          try {
+            fs.unlinkSync(dir + 'tmp_clip/' + fileName + '.h264');
+          } catch (err) {
+            //throw err
+            console.error(error);
+          }
+        }
+        // Manual encoding will add .m to the file name, this will allow us to avoid conflict with button press events
+        record.saveThumbNail(Math.floor(fileDetails.birthtimeMs));
+        break;
+      }
+    }
+  });
 }

@@ -143,7 +143,7 @@ var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
 			' -i /dride/tmp_clip/' +
 			fileName +
 			'.h264 -c copy /dride/clip/' +
-			fileDetails.birthtimeMs +
+			Math.floor(fileDetails.birthtimeMs) +
 			'.mp4 -y'
 	);
 	//remove tmp file
@@ -155,7 +155,7 @@ var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
 			console.error(error);
 		}
 	}
-	saveThumbNail(fileDetails.birthtimeMs);
+	saveThumbNail(Math.floor(fileDetails.birthtimeMs));
 };
 
 module.exports = {
