@@ -1,7 +1,8 @@
 'use strict';
 
-var path = require('path'),
-	fs = require('fs');
+var path = require('path');
+var fs = require('fs');
+var exec = require('child_process');
 
 exports.index = function(req, res) {
 	var fieldName = req.param('fieldName');
@@ -20,6 +21,12 @@ exports.index = function(req, res) {
 
 	try {
 		fs.writeFileSync(defaults, JSON.stringify(config));
+
+		//if fieldName is DVR enable/disbale record.service
+		if (fieldName == 'dvr') {
+			exec('sudo systemctl ' + (fieldValue ? 'start' : 'stop') + ' record');
+		}
+
 		res.json({
 			status: '1',
 			reason: 'setting was saved successfully!'

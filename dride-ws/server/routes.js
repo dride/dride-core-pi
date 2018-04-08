@@ -25,6 +25,7 @@ module.exports = function(app) {
 	app.use('/api/getSerialNumber', require('./api/getSerialNumber'));
 	app.use('/api/getCalibrationClips', require('./api/getCalibrationClips'));
 	app.use('/api/indicator', require('./api/indicator'));
+	app.use('/api/setLiveMode', require('./api/setLiveMode'));
 
 	app.use('/modules', express.static(path.join(__dirname, '../../', 'modules/')));
 	app.use('/', express.static('/dride/'));

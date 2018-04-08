@@ -18,21 +18,21 @@ var recordClip = (timestamp, interval) => {
 				var videoQuality = {
 					width: 1920,
 					height: 1080,
-					fps: 30
+					fps: 25
 				};
 				break;
 			case '720':
 				var videoQuality = {
 					width: 1280,
 					height: 720,
-					fps: 30
+					fps: 25
 				};
 				break;
 			default:
 				var videoQuality = {
 					width: 1280,
 					height: 720,
-					fps: 30
+					fps: 25
 				};
 		}
 
