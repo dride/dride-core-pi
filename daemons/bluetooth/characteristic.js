@@ -65,6 +65,7 @@ gpio.on('change', function(channel, value) {
 		}
 	}
 });
+
 buttonStream.prototype.onUnsubscribe = function() {
 	this._updateValueCallback = null;
 	ex = null;
