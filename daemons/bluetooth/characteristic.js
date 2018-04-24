@@ -3,6 +3,7 @@ var spawn = require('child_process').spawn;
 var fs = require('fs');
 
 var videoReady = require('./videoReady');
+var led = require('../../modules/led/index');
 
 var bleno = require('bleno');
 
@@ -33,14 +34,14 @@ buttonStream.prototype.onReadRequest = function(offset, callback) {
 buttonStream.prototype.onSubscribe = function(maxValueSize, updateValueCallback) {
 	console.log('buttonStream: onSubscribe ');
 	ex = updateValueCallback;
-	spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'isPaired']);
+	led.isPaired();
 };
 
 gpio.on('change', function(channel, value) {
 	if (value) {
 		var currentTimeStamp = new Date().getTime().toString();
 		videoReady.startListner(currentTimeStamp);
-		spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'welcome']);
+		led.welcome();
 
 		if (ex) {
 			//update state that we need to encode video no matter what

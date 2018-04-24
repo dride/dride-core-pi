@@ -1,6 +1,6 @@
 {
 	"name": "dride-core",
-	"version": "0.11.1",
+	"version": "0.12.0",
 	"description": "Open source dashcam for RaspberryPi ",
 	"scripts": {
 		"build": "node scripts/build.js",
