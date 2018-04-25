@@ -1,13 +1,24 @@
-var exec = require('child_process').exec;
+var execSync = require('child_process').execSync;
 
 module.exports = {
 	welcome: function() {
-		exec('sudo ./bin/test');
+		execSync('sudo  ' + __dirname + '/bin/main welcome', {
+			stdio: 'inherit'
+		});
 	},
 	error: function() {
-		exec('sudo ./bin/test');
+		execSync('sudo  ' + __dirname + '/bin/main error', {
+			stdio: 'inherit'
+		});
 	},
 	isPaired: function() {
-		exec('sudo ./bin/test');
+		execSync('sudo  ' + __dirname + '/bin/main isPaired', {
+			stdio: 'inherit'
+		});
+	},
+	pending: function() {
+		execSync('sudo  ' + __dirname + '/bin/main pending', {
+			stdio: 'inherit'
+		});
 	}
 };

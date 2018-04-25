@@ -5,6 +5,7 @@ var execSync = require('child_process').execSync;
 var fs = require('fs');
 var path = require('path');
 var spawn = require('child_process').spawn;
+var led = require('../../led/index');
 
 var dir = '/dride/';
 var dirTmpClip = dir + 'tmp_clip/';
@@ -54,7 +55,7 @@ var recordClip = (timestamp, interval) => {
 				//mmal: main: Failed to create camera component
 				if (d.indexOf('mmal: main: Failed to create camera component') > 0) {
 					setTimeout(() => {
-						spawn('python', ['/home/core/modules/indicators/python/states/standalone.py', 'error']);
+						led.error();
 						process.exit(0);
 					}, 3000);
 				}
