@@ -20,7 +20,7 @@ exports.index = function(req, res) {
 			key: files[i],
 			clip: '/clip/' + files[i] + '.mp4',
 			thumb: '/thumb/' + files[i] + '.jpg',
-			timestamp: files[i]
+			timestamp: files[i] * 1000
 		});
 	}
 

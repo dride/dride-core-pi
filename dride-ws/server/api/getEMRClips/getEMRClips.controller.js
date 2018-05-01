@@ -21,6 +21,7 @@ exports.index = function(req, res) {
 			EMRvideos[i].timestamp = EMRvideos[i].key;
 			EMRvideos[i].clip = '/clip/' + EMRvideos[i].key + '.mp4';
 			EMRvideos[i].thumb = '/thumb/' + EMRvideos[i].key + '.jpg';
+			EMRvideos[i].timestamp = EMRvideos[i].timestamp * 1000;
 		}
 
 		res.json({

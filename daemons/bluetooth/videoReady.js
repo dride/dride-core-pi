@@ -36,11 +36,12 @@ videoReady.startListner = clickTimeStamp => {
 		/**
 		 * We might get unwated encoded video clips during the watch period, So we filter them so we will get the clip we need.
 		 */
-		if (filename < clickTimeStamp || filename - clickTimeStamp > 60) {
-			return;
-		}
 
 		filename = filename.replace('.jpg', '');
+
+		if (clickTimeStamp - filename * 1000 < 0 || clickTimeStamp - filename * 1000 > 60000) {
+			return;
+		}
 
 		// save currentTimestamp in the db
 		var emrVideos = JSON.parse(fs.readFileSync('/home/core/modules/video/savedVideos.json', 'utf8'));
@@ -50,8 +51,9 @@ videoReady.startListner = clickTimeStamp => {
 
 		//make sure this was not published before
 		found = false;
+
 		for (var i = 0; i < emrVideos.length; i++) {
-			if (emrVideos[i].key == filename || Math.abs(parseInt(emrVideos[i].key) - parseInt(filename)) < 5000) {
+			if (emrVideos[i].key == filename) {
 				found = true;
 				break;
 			}
