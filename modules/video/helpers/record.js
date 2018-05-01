@@ -9,8 +9,9 @@ var led = require('../../led/index');
 
 var dir = '/dride/';
 var dirTmpClip = dir + 'tmp_clip/';
-
-var recordClip = (timestamp, interval) => {
+var firstFired = false;
+var recordClip = interval => {
+	console.log('recordClip');
 	return new Promise((resolve, reject) => {
 		var settings = settingsHelper.getSettings();
 
@@ -37,13 +38,9 @@ var recordClip = (timestamp, interval) => {
 				};
 		}
 
-		if (!/^\d+$/.test(timestamp)) {
-			reject('Err: input issues, Who are you?');
-			return;
-		}
 		var camera = new RaspiCam({
 			mode: 'video',
-			output: '/dride/tmp_clip/' + timestamp + '_%d.h264',
+			output: '/dride/tmp_clip/%d.h264',
 			framerate: videoQuality.fps,
 			timeout: 0,
 			segment: interval,
@@ -62,27 +59,24 @@ var recordClip = (timestamp, interval) => {
 			}
 		});
 		//listen for the "read" event triggered when each new video is saved
-		camera.on('read', (err, timestamp, filename) => {
+		camera.on('read', (err, timestamp, fileName) => {
 			//do stuff
-			const serialNumber = parseInt(filename.match(/[0-9]+/g)[1], 10);
-			if (serialNumber > 1) {
-				if (
-					fs.existsSync(
-						dirTmpClip + filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString() + '.h264'
-					)
-				) {
+			fileName = fileName.split('.').shift();
+
+			if (firstFired) {
+				prevFileName = findPrevClipFileName(fileName);
+				if (prevFileName && fs.existsSync(dirTmpClip + prevFileName + '.h264')) {
 					//if app is connected skip the decoding
 					var isAppConnected = isAppOnline();
 
 					//repack h264 to mp4 container
 					//if app connected dont run encode, It will be later picked up by the ensureAllClipsAreDecoded service.
 					if (!isAppConnectedObj.connected || isAppConnectedObj.clicked) {
-						encodeAndAddThumb(
-							filename.match(/[0-9]+/g)[0].toString() + '_' + (serialNumber - 1).toString(),
-							settings.resolution
-						);
+						encodeAndAddThumb(prevFileName, settings.resolution);
 					}
 				}
+			} else {
+				firstFired = true;
 			}
 		});
 		camera.start();
@@ -98,6 +92,22 @@ var saveThumbNail = fielName => {
 			fielName +
 			'.jpg -y'
 	);
+};
+
+var findPrevClipFileName = currentFileName => {
+	var prevFileName = null;
+	var file = null;
+
+	files = fs.readdirSync(dirTmpClip);
+	for (var i in files.sort()) {
+		file = files[i];
+		if (file.split('.').shift() === currentFileName) {
+			return prevFileName ? prevFileName.split('.').shift() : null;
+		}
+		prevFileName = file;
+	}
+
+	return null;
 };
 
 var isAppOnline = () => {
@@ -135,7 +145,7 @@ var isAppOnline = () => {
 
 var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
 	//repack h264 to mp4 container
-
+	fileName = fileName.split('.').shift();
 	fileDetails = fs.statSync(dirTmpClip + fileName + '.h264');
 
 	execSync(
@@ -144,7 +154,7 @@ var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
 			' -i /dride/tmp_clip/' +
 			fileName +
 			'.h264 -c copy /dride/clip/' +
-			Math.floor(fileDetails.birthtimeMs) +
+			fileName +
 			'.mp4 -y'
 	);
 	//remove tmp file
@@ -156,7 +166,7 @@ var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
 			console.error(error);
 		}
 	}
-	saveThumbNail(Math.floor(fileDetails.birthtimeMs));
+	saveThumbNail(fileName);
 };
 
 module.exports = {

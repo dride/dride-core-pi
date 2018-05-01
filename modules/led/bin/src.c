@@ -53,7 +53,7 @@ uint32_t color(uint8_t r, uint8_t g, uint8_t b, uint8_t w)
 		   ((((uint32_t)b * brightness) >> 8));
 }
 
-void fade(int r1, int g1, int b1, int w1, int r2, int g2, int b2, int w2, int steps, int interval)
+void fade(int r1, int g1, int b1, int w1, int r2, int g2, int b2, int w2, int steps, double interval)
 {
 	int r = 0;
 	int g = 0;
