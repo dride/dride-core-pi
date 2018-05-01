@@ -1,3 +1,11 @@
+<a name="0.12.1"></a>
+## [0.12.1](https://github.com/dride/dride-core/compare/v0.12.0...v0.12.1) (2018-05-01)
+
+
+### Bug Fixes
+
+* **impulseButton:** fix support for new raspivid file ([5837af4](https://github.com/dride/dride-core/commit/5837af4))
+
 <a name="0.12.0"></a>
 # [0.12.0](https://github.com/dride/dride-core/compare/v0.11.0...v0.12.0) (2018-04-24)
 
