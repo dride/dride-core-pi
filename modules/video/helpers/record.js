@@ -72,7 +72,7 @@ var recordClip = interval => {
 					//repack h264 to mp4 container
 					//if app connected dont run encode, It will be later picked up by the ensureAllClipsAreDecoded service.
 					if (!isAppConnectedObj.connected || isAppConnectedObj.clicked) {
-						encodeAndAddThumb(prevFileName, settings.resolution);
+						encodeAndAddThumb(prevFileName, videoQuality.fps);
 					}
 				}
 			} else {
@@ -143,19 +143,13 @@ var isAppOnline = () => {
 	return isAppConnectedObj;
 };
 
-var encodeAndAddThumb = (fileName, resolution, birthtimeMs) => {
+var encodeAndAddThumb = (fileName, fps, birthtimeMs) => {
 	//repack h264 to mp4 container
 	fileName = fileName.split('.').shift();
 	fileDetails = fs.statSync(dirTmpClip + fileName + '.h264');
 
 	execSync(
-		'avconv -framerate ' +
-			(resolution == '1080' ? 30 : 30) +
-			' -i /dride/tmp_clip/' +
-			fileName +
-			'.h264 -c copy /dride/clip/' +
-			fileName +
-			'.mp4 -y'
+		'avconv -framerate ' + fps + ' -i /dride/tmp_clip/' + fileName + '.h264 -c copy /dride/clip/' + fileName + '.mp4 -y'
 	);
 	//remove tmp file
 	if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {

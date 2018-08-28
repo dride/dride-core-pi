@@ -21,7 +21,7 @@ server.listen(config.port, config.ip, function() {
 	console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
-app.use('/', express.static(__dirname));
+app.set('/', __dirname);
 
 // Expose app
 exports = module.exports = app;
