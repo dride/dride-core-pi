@@ -7,7 +7,6 @@ var record = require('./record');
 var execSync = require('child_process').execSync;
 var settingsHelper = require('../../settings/settings');
 
-var state = '/home/core/state/app.json';
 var dir = '/dride/';
 var dirTmpClip = dir + 'tmp_clip';
 

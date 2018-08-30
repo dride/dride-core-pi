@@ -68,17 +68,6 @@ videoReady.startListner = clickTimeStamp => {
 
 		fs.writeFileSync('/home/core/modules/video/savedVideos.json', JSON.stringify(emrVideos));
 
-		var state = '/home/core/state/app.json';
-		fs.writeFile(
-			state,
-			JSON.stringify({
-				connected: false
-			}),
-			err => {
-				if (err) throw err;
-			}
-		);
-
 		setTimeout(() => {
 			//TODO: clear all indicator light
 			var data = new Buffer.from(filename, 'utf8');

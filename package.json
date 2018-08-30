@@ -1,6 +1,6 @@
 {
 	"name": "dride-core",
-	"version": "0.12.3",
+	"version": "0.12.4",
 	"description": "Open source dashcam for RaspberryPi ",
 	"scripts": {
 		"build": "node scripts/build.js",
@@ -13,7 +13,9 @@
 		"type": "git",
 		"url": "https://github.com/dride/dride-core.git"
 	},
-	"keywords": ["dride"],
+	"keywords": [
+		"dride"
+	],
 	"author": "Dride, Inc.",
 	"license": "MIT",
 	"bugs": {
@@ -41,10 +43,17 @@
 		"generateNotes": {
 			"preset": "angular",
 			"parserOpts": {
-				"noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES", "BREAKING"]
+				"noteKeywords": [
+					"BREAKING CHANGE",
+					"BREAKING CHANGES",
+					"BREAKING"
+				]
 			},
 			"writerOpts": {
-				"commitsSort": ["subject", "scope"]
+				"commitsSort": [
+					"subject",
+					"scope"
+				]
 			}
 		},
 		"prepare": [
@@ -54,6 +63,8 @@
 			},
 			"@semantic-release/git"
 		],
-		"publish": ["@semantic-release/github"]
+		"publish": [
+			"@semantic-release/github"
+		]
 	}
 }

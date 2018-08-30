@@ -66,14 +66,8 @@ var recordClip = interval => {
 			if (firstFired) {
 				prevFileName = findPrevClipFileName(fileName);
 				if (prevFileName && fs.existsSync(dirTmpClip + prevFileName + '.h264')) {
-					//if app is connected skip the decoding
-					var isAppConnected = isAppOnline();
-
 					//repack h264 to mp4 container
-					//if app connected dont run encode, It will be later picked up by the ensureAllClipsAreDecoded service.
-					if (!isAppConnectedObj.connected || isAppConnectedObj.clicked) {
-						encodeAndAddThumb(prevFileName, videoQuality.fps);
-					}
+					encodeAndAddThumb(prevFileName, videoQuality.fps);
 				}
 			} else {
 				firstFired = true;
@@ -110,39 +104,6 @@ var findPrevClipFileName = currentFileName => {
 	return null;
 };
 
-var isAppOnline = () => {
-	var state = path.join(__dirname, '../../../state/app.json');
-
-	//if app is connected skip the decoding
-	var isAppConnected = fs.readFileSync(state, 'utf8');
-
-	try {
-		isAppConnectedObj = JSON.parse(fs.readFileSync(state, 'utf8'));
-	} catch (error) {
-		isAppConnectedObj = {
-			connected: false,
-			wasEmpty: true
-		};
-	}
-	if (isAppConnectedObj.dte && new Date().getTime() - isAppConnectedObj.dte > 1000 * 60) {
-		fs.writeFileSync(
-			state,
-			JSON.stringify({
-				connected: false
-			})
-		);
-		isAppConnectedObj.connected = false;
-	} else if (isAppConnectedObj.wasEmpty) {
-		fs.writeFileSync(
-			state,
-			JSON.stringify({
-				connected: false
-			})
-		);
-	}
-	return isAppConnectedObj;
-};
-
 var encodeAndAddThumb = (fileName, fps, birthtimeMs) => {
 	//repack h264 to mp4 container
 	fileName = fileName.split('.').shift();
@@ -166,6 +127,5 @@ var encodeAndAddThumb = (fileName, fps, birthtimeMs) => {
 module.exports = {
 	recordClip: recordClip,
 	saveThumbNail: saveThumbNail,
-	isAppOnline: isAppOnline,
 	encodeAndAddThumb: encodeAndAddThumb
 };

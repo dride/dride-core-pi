@@ -44,24 +44,6 @@ gpio.on('change', function(channel, value) {
 		led.welcome();
 
 		if (ex) {
-			//update state that we need to encode video no matter what
-			var state = '/home/core/state/app.json';
-			fs.writeFile(
-				state,
-				JSON.stringify({
-					connected: true,
-					dte: new Date().getTime() + 120 * 1000,
-					clicked: true
-				}),
-				err => {
-					if (err) throw err;
-				}
-			);
-
-			var data = new Buffer.from(currentTimeStamp, 'utf8');
-
-			data.write(currentTimeStamp);
-
 			ex(data);
 		}
 	}
