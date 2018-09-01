@@ -1,15 +1,12 @@
 var RaspiCam = require('raspicam');
 var settingsHelper = require('../../settings/settings');
-var exec = require('child_process').exec;
 var execSync = require('child_process').execSync;
 var fs = require('fs');
-var path = require('path');
-var spawn = require('child_process').spawn;
 var led = require('../../led/index');
 
 var dir = '/dride/';
 var dirTmpClip = dir + 'tmp_clip/';
-var firstFired = false;
+var firstVideoWrite = true;
 var recordClip = interval => {
 	console.log('recordClip');
 	return new Promise((resolve, reject) => {
@@ -40,7 +37,7 @@ var recordClip = interval => {
 
 		var camera = new RaspiCam({
 			mode: 'video',
-			output: '/dride/tmp_clip/%d.h264',
+			output: '/dride/tmp_clip/%s.h264',
 			framerate: videoQuality.fps,
 			timeout: 0,
 			segment: interval,
@@ -60,32 +57,18 @@ var recordClip = interval => {
 		});
 		//listen for the "read" event triggered when each new video is saved
 		camera.on('read', (err, timestamp, fileName) => {
-			//do stuff
-			fileName = fileName.split('.').shift();
-
-			if (firstFired) {
-				prevFileName = findPrevClipFileName(fileName);
-				if (prevFileName && fs.existsSync(dirTmpClip + prevFileName + '.h264')) {
-					//repack h264 to mp4 container
-					encodeAndAddThumb(prevFileName, videoQuality.fps);
-				}
-			} else {
-				firstFired = true;
+			if (firstVideoWrite) {
+				firstVideoWrite = false;
+				return;
+			}
+			prevFileName = findPrevClipFileName(fileName);
+			if (prevFileName && fs.existsSync(dirTmpClip + prevFileName + '.h264')) {
+				//repack h264 to mp4 container
+				encodeAndAddThumb(prevFileName, videoQuality.fps);
 			}
 		});
 		camera.start();
 	});
-};
-
-var saveThumbNail = fielName => {
-	//save thumb
-	execSync(
-		'avconv -ss 00:00:00 -i /dride/clip/' +
-			fielName +
-			'.mp4 -vframes 1 -q:v 15 -s 640x480 /dride/thumb/' +
-			fielName +
-			'.jpg -y'
-	);
 };
 
 var findPrevClipFileName = currentFileName => {
@@ -95,7 +78,7 @@ var findPrevClipFileName = currentFileName => {
 	files = fs.readdirSync(dirTmpClip);
 	for (var i in files.sort()) {
 		file = files[i];
-		if (file.split('.').shift() === currentFileName) {
+		if (file.split('.').shift() === currentFileName.split('.').shift()) {
 			return prevFileName ? prevFileName.split('.').shift() : null;
 		}
 		prevFileName = file;
@@ -104,13 +87,31 @@ var findPrevClipFileName = currentFileName => {
 	return null;
 };
 
-var encodeAndAddThumb = (fileName, fps, birthtimeMs) => {
+var saveThumbNail = fileName => {
+	//save thumb
+	execSync(
+		'avconv -ss 00:00:00 -i "/dride/clip/' +
+			fileName +
+			'.mp4" -vframes 1 -q:v 15 -s 640x480 /dride/thumb/' +
+			fileName +
+			'.jpg -y'
+	);
+};
+
+var encodeAndAddThumb = (fileName, fps) => {
 	//repack h264 to mp4 container
 	fileName = fileName.split('.').shift();
 	fileDetails = fs.statSync(dirTmpClip + fileName + '.h264');
 
 	execSync(
-		'avconv -framerate ' + fps + ' -i /dride/tmp_clip/' + fileName + '.h264 -c copy /dride/clip/' + fileName + '.mp4 -y'
+		'avconv -framerate ' +
+			fps +
+			' -i "/dride/tmp_clip/' +
+			fileName +
+			'"' +
+			'.h264 -c copy /dride/clip/' +
+			fileName +
+			'.mp4 -y'
 	);
 	//remove tmp file
 	if (fs.existsSync(dir + 'tmp_clip/' + fileName + '.h264')) {

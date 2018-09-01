@@ -2,7 +2,6 @@ var record = require('./helpers/record');
 var settingsHelper = require('../settings/settings');
 var verifyCamera = require('./helpers/verifyCamera');
 var led = require('../led/index');
-var fs = require('fs');
 
 var settings = settingsHelper.getSettings();
 var interval = settings.clipLength * 60 * 1000;
