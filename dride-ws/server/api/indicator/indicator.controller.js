@@ -1,7 +1,6 @@
 'use strict';
 
-var in_array = require('in_array'),
-
+var in_array = require('in_array');
 var led = require('../../../../modules/led/index');
 
 // control indicators
