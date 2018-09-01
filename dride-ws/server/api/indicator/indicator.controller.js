@@ -1,12 +1,8 @@
 'use strict';
 
-var path = require('path'),
-	fs = require('fs'),
-	in_array = require('in_array'),
-	spawn = require('child_process').spawn;
-var led = require('../../../../modules/led/index');
+var in_array = require('in_array'),
 
-var fileNames = [];
+var led = require('../../../../modules/led/index');
 
 // control indicators
 exports.index = function(req, res) {

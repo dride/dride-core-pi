@@ -37,7 +37,7 @@ fs.readdir(dirTmpClip, (err, files) => {
 			//repack h264 to mp4 container
 			execSync(
 				'avconv -framerate ' +
-					(settings.resolution == '1080' ? 30 : 30) +
+					(settings.resolution == '1080' ? 25 : 25) +
 					' -i /dride/tmp_clip/' +
 					fileName +
 					'.h264 -c copy /dride/clip/' +
