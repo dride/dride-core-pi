@@ -26,16 +26,16 @@
 		"fs": "0.0.1-security"
 	},
 	"devDependencies": {
-		"@semantic-release/changelog": "^2.0.1",
-		"@semantic-release/git": "^4.0.1",
-		"@semantic-release/github": "^4.2.8",
+		"@semantic-release/changelog": "^3.0.0",
+		"@semantic-release/git": "^7.0.3",
+		"@semantic-release/github": "^5.0.4",
 		"archiver": "^2.1.1",
 		"aws-sdk": "^2.211.0",
 		"chai": "^4.1.2",
 		"fs-extra": "^5.0.0",
 		"mocha": "^5.0.4",
 		"node-fs-extra": "^0.8.2",
-		"semantic-release": "^15.1.2",
+		"semantic-release": "^15.9.12",
 		"should": "^13.2.1",
 		"travis-deploy-once": "^4.4.1"
 	},
