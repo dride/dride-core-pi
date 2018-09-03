@@ -1,3 +1,11 @@
+## [0.12.2](https://github.com/dride/dride-core/compare/v0.12.1...v0.12.2) (2018-09-03)
+
+
+### Bug Fixes
+
+* **ble:** fix button notification ([687c893](https://github.com/dride/dride-core/commit/687c893))
+* **record:** remove empty files on decode ([dc87116](https://github.com/dride/dride-core/commit/dc87116))
+
 <a name="0.12.1"></a>
 ## [0.12.1](https://github.com/dride/dride-core/compare/v0.12.0...v0.12.1) (2018-05-01)
 
