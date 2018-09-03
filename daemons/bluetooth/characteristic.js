@@ -44,7 +44,7 @@ gpio.on('change', function(channel, value) {
 		led.welcome();
 
 		if (ex) {
-			ex(data);
+			ex(currentTimeStamp);
 		}
 	}
 });
