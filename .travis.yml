@@ -19,8 +19,6 @@ script:
 notifications:
   email:
     - yossi@dride.io
-node_js:
-  - '8'
 
 deploy:
   provider: script
