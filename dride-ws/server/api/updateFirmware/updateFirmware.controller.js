@@ -1,12 +1,6 @@
 'use strict';
 
-var path = require('path'),
-	fs = require('fs'),
-	mv = require('mv'),
-	https = require('https'),
-	AdmZip = require('adm-zip'),
-	rmdir = require('rmdir'),
-	fileUpload = require('express-fileupload');
+var AdmZip = require('adm-zip');
 
 var fileNames = [];
 
