@@ -1,18 +1,1 @@
-{
-	"name": "drideOS",
-	"version": "1.0.0-beta.0",
-	"settings": {
-		"debug": false,
-		"videoRecord": true,
-		"flipVideo": false,
-		"gps": false,
-		"speaker": false,
-		"mic": false,
-		"indicator": true,
-		"resolution": "720",
-		"fps": 25,
-		"clipLength": 1,
-		"gSensorSensitivity": "medium",
-		"netwrok": { "ssid": "dride", "password": "ilovedride" }
-	}
-}
+{"name":"drideOS","version":"1.0.0","settings":{"debug":false,"videoRecord":true,"flipVideo":false,"gps":false,"speaker":false,"mic":false,"indicator":true,"resolution":"720","fps":25,"clipLength":1,"gSensorSensitivity":"medium","netwrok":{"ssid":"dride","password":"ilovedride"}}}
